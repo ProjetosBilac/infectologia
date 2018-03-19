@@ -1,4 +1,5 @@
-$layout-module-size: 30px;
+$spacing-size: 4px;
+$spacing-scale-size: 20;
 $directions: top, right, bottom, left;
 
 // font-weight
@@ -38,18 +39,18 @@ $directions: top, right, bottom, left;
 // margin
 %u-no-margin { margin: 0 }
 
-@each $direction in $directions {
-  // padding direction
-  %u-no-padding-#{ $direction } { padding-#{ $direction }: 0 }
-  %u-half-padding-#{ $direction } { padding-#{ $direction }: $layout-module-size / 2 }
-  %u-default-padding-#{ $direction } { padding-#{ $direction }: $layout-module-size }
-  %u-double-padding-#{ $direction } { padding-#{ $direction }: $layout-module-size * 2 }
+@for $index from 0 through $spacing-scale-size {
+  %u-padding-#{ $index } { padding: ( $spacing-size * $index ) }
+  %-margin-#{ $index } { margin: ( $spacing-size * $index ) }
 
-  // margin direction
-  %u-no-margin-#{ $direction } { margin-#{ $direction }: 0 }
-  %u-half-margin-#{ $direction } { margin-#{ $direction }: $layout-module-size / 2 }
-  %u-default-margin-#{ $direction } { margin-#{ $direction }: $layout-module-size }
-  %u-double-margin-#{ $direction } { margin-#{ $direction }: $layout-module-size * 2 }
+  @each $direction in $directions {
+    %u-padding-#{ $direction }-#{ $index } {
+      padding-#{ $direction }: ( $spacing-size * $index )
+    }
+    %u-margin-#{ $direction }-#{ $index } {
+      margin-#{ $direction }: ( $spacing-size * $index )
+    }
+  }
 }
 
 // display
