@@ -5,13 +5,17 @@ Auth::routes();
 //Route::get('/home', 'HomeController@index')->name('home');
 
 
-
-
 // --------- G E R A L ---
     //Modelo de Rota -> 
     //Caso a VIEW encontra-se dentro de pasta, utilize o . (ponto) em vez de / (barra).
     Route::get('/', function () {
-        return view('home');
+        $menu = [
+            [
+                'name'=> 'Home',
+                'url' => route('home'),
+            ],
+        ];
+        return view('home',['menu' => json_encode($menu)]);
     })->name('home');
 // --------- M A G O ---
     Route::group(['prefix' => 'mago'],function (){
