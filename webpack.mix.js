@@ -6,4 +6,9 @@ mix.js('resources/assets/js/app.js', 'public/js')
 if(mix.inProduction())
   mix.version();
 else
-  mix.browserSync('localhost:8000');
+  mix.browserSync('localhost:8000')
+     .webpackConfig({
+        devtool: 'source-map'
+     })
+     .sourceMaps();
+
