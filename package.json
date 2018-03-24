@@ -8,7 +8,7 @@
         "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
         "prod": "npm run production",
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "jslint": "standard",
+        "jslint": "standard --verbose | snazzy",
         "mdlint": "standard --plugin markdown '**/*.md'"
     },
     "standard": {
@@ -25,12 +25,13 @@
         "browser-sync": "^2.23.6",
         "browser-sync-webpack-plugin": "2.0.1",
         "cross-env": "^5.1",
+        "eslint-plugin-markdown": "^1.0.0-beta.6",
         "jquery": "^3.2",
         "laravel-mix": "^2.0",
         "lodash": "^4.17.4",
         "popper.js": "^1.12",
+        "snazzy": "^7.1.1",
         "standard": "^11.0.1",
-        "vue": "^2.5.7",
-        "eslint-plugin-markdown": "^1.0.0-beta.6"
+        "vue": "^2.5.7"
     }
 }
