@@ -10,7 +10,8 @@
         "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
         "jslint": "standard --verbose | snazzy",
         "mdlint": "standard --plugin markdown '**/*.md'",
-        "stylelint": "sass-lint 'resources/**/*.scss' -f table -v -q --max-warnings 0"
+        "stylelint": "sass-lint 'resources/**/*.scss' -f table -v -q --max-warnings 0",
+        "lint": "npm run jslint && npm run mdlint && npm run stylelint"
     },
     "standard": {
         "ignore": [
