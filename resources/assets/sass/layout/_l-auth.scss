@@ -1,0 +1,33 @@
+.l-auth {
+  @extend
+  %u-height-minmax-100vh,
+  %u-display-flex,
+  %u-flex-column-between-centered;
+
+  &::before {
+    @extend
+    %u-content-empty,
+    %u-display-block,
+    %u-with-100;
+    background: linear-gradient(180deg, $color-white 0, $color-gray-200 100%), $color-white;
+    flex: 1 1 55vh;
+  }
+
+  &::after {
+    @extend
+    %u-content-empty,
+    %u-display-block, %u-with-100;
+    background-color: $primary-color;
+    flex: 1 1 45vh;
+  }
+
+  &__box {
+    @extend
+    %u-display-block,
+    %u-position-absolute;
+    max-width: 600px;
+    padding: 30px;
+    top: 20%;
+    width: 100%;
+  }
+}
