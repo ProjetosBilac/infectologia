@@ -10,7 +10,7 @@ Baixe o projeto para a sua maquina
 git clone git@github.com:ProjetosBilac/infectologia.git
 ```
 
-Acesse a pasta co projeto
+Acesse a pasta do projeto
 
 ```console
 cd infectologia
@@ -41,3 +41,20 @@ Levante um servidor local na porta 8000
 ```php
 php artisan serve
 ```
+
+## Tasks
+
+Para executar as tasks da aplicação:
+
+```npm
+npm run nome-da-task
+```
+
+### Principais tasks
+
+| task  	| descrição                                                            	|
+|-------	|----------------------------------------------------------------------	|
+| prod  	| constrói o front-end da aplicação para produção                     	|
+| dev   	| constrói todo o front-end da aplicação para o desenvolvimento       	|
+| watch 	| executa a task `dev` com `live-reload` ativado                       	|
+| lint  	| roda todos os lints da aplicação. (`javascript`, `markdown`, `sass`) 	|
