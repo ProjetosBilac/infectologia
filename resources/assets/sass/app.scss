@@ -1,10 +1,8 @@
-// Variables
-@import 'variables';
-
-// Bootstrap
+// base
 @import '~bootstrap/scss/bootstrap';
+@import './base/colors';
+@import './base/utilities';
+@import './base/elements';
 
-.navbar-laravel {
-  background-color: $white;
-  box-shadow: 0 2px 4px $shadow-color;
-}
+// layout
+@import './layout/l-auth';
