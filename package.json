@@ -1,43 +1,45 @@
 {
-    "private": true,
-    "scripts": {
-        "precommit": "npm run lint",
-        "prepush": "npm run lint",
-        "dev": "npm run development",
-        "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "watch-poll": "npm run watch -- --watch-poll",
-        "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "prod": "npm run production",
-        "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
-        "jslint": "standard --verbose | snazzy",
-        "mdlint": "standard --plugin markdown '**/*.md'",
-        "stylelint": "sass-lint 'resources/**/*.scss' -f table -v -q --max-warnings 0",
-        "lint": "npm run jslint && npm run mdlint && npm run stylelint"
-    },
-    "standard": {
-        "ignore": [
-            "./public/",
-            "./node_modules"
-        ],
-        "parser": "babel-eslint"
-    },
-    "devDependencies": {
-        "axios": "^0.18",
-        "babel-eslint": "^8.2.2",
-        "bootstrap": "^4.0.0",
-        "browser-sync": "^2.23.6",
-        "browser-sync-webpack-plugin": "2.0.1",
-        "cross-env": "^5.1",
-        "eslint-plugin-markdown": "^1.0.0-beta.6",
-        "husky": "^0.14.3",
-        "jquery": "^3.2",
-        "laravel-mix": "^2.0",
-        "lodash": "^4.17.4",
-        "popper.js": "^1.12",
-        "sass-lint": "^1.12.1",
-        "snazzy": "^7.1.1",
-        "standard": "^11.0.1",
-        "vue": "^2.5.7"
-    }
+  "private": true,
+  "scripts": {
+    "precommit": "npm run lint",
+    "prepush": "npm run lint",
+    "dev": "npm run development",
+    "development": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch": "cross-env NODE_ENV=development node_modules/webpack/bin/webpack.js --watch --progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "watch-poll": "npm run watch -- --watch-poll",
+    "hot": "cross-env NODE_ENV=development node_modules/webpack-dev-server/bin/webpack-dev-server.js --inline --hot --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "prod": "npm run production",
+    "production": "cross-env NODE_ENV=production node_modules/webpack/bin/webpack.js --no-progress --hide-modules --config=node_modules/laravel-mix/setup/webpack.config.js",
+    "jslint": "standard --verbose | snazzy",
+    "mdlint": "standard --plugin markdown '**/*.md'",
+    "stylelint": "sass-lint 'resources/**/*.scss' -f table -v -q --max-warnings 0",
+    "lint": "npm run jslint && npm run mdlint && npm run stylelint"
+  },
+  "standard": {
+    "ignore": [
+      "./public/",
+      "./node_modules"
+    ],
+    "parser": "babel-eslint"
+  },
+  "devDependencies": {
+    "axios": "^0.18",
+    "babel-eslint": "^8.2.2",
+    "browser-sync": "^2.23.6",
+    "browser-sync-webpack-plugin": "2.0.1",
+    "cross-env": "^5.1",
+    "eslint-plugin-markdown": "^1.0.0-beta.6",
+    "husky": "^0.14.3",
+    "lodash": "^4.17.4",
+    "popper.js": "^1.12",
+    "sass-lint": "^1.12.1",
+    "snazzy": "^7.1.1",
+    "standard": "^11.0.1"
+  },
+  "dependencies": {
+    "bootstrap": "^4.0.0",
+    "jquery": "^3.2",
+    "laravel-mix": "^2.0",
+    "vue": "^2.5.7"
+  }
 }
