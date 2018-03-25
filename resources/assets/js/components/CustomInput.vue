@@ -1,8 +1,8 @@
 <template>
   <div>
+    <font-awesome-icon v-if="icon" :icon="icon"></font-awesome-icon>
     <label :for="identifier">{{ label }}</label>
     <div>
-      <i class="icon" v-if="icon"></i>
       <input
         :class="{ 'is-invalid': warning }"
         :id="identifier"
@@ -16,14 +16,19 @@
 </template>
 
 <script>
+  import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+
   export default {
     name: 'custom-input',
     props: [
-      'label',
       'icon',
+      'label',
       'identifier',
       'warning',
       'old-value'
-    ]
+    ],
+    components: {
+      FontAwesomeIcon
+    }
   }
 </script>

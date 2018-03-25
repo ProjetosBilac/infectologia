@@ -6,6 +6,7 @@
     @csrf
 
     <custom-input
+      icon="user"
       label="{{ __('Name') }}"
       identifier="name"
       warning="{{ $errors->first('name') }}"
@@ -13,6 +14,7 @@
     </custom-input>
 
     <custom-input
+      icon="at"
       label="{{ __('E-Mail Address') }}"
       identifier="email"
       warning="{{ $errors->first('email') }}"
@@ -20,6 +22,7 @@
     </custom-input>
 
     <custom-input
+      icon="lock"
       label="{{ __('Password') }}"
       identifier="password"
       warning="{{ $errors->first('password') }}"
@@ -27,6 +30,7 @@
     </custom-input>
 
     <custom-input
+      icon="lock"
       label="{{ __('Confirm Password') }}"
       identifier="password-confirm">
     </custom-input>
