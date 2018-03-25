@@ -3,6 +3,7 @@ import ExampleComponent from './components/ExampleComponent'
 import CustomInput from './components/CustomInput'
 
 require('./bootstrap')
+require('./fontawesome-config')
 
 Vue.config.productionTip = false
 
