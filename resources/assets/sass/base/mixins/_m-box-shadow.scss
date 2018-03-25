@@ -1,0 +1,10 @@
+@function f-calc-shadow($depth, $color) {
+  $primary-offset: nth(1 3 5 7 9, $depth) * 1px;
+  $blur: nth(2 6 8 11 14, $depth) * 1px;
+  $color: rgba($color, nth(.2 .25 .3 .35 .4, $depth));
+  @return 0 $primary-offset $blur $color;
+}
+
+@mixin m-box-shadow($depth, $color: $color-black) {
+  box-shadow: f-calc-shadow($depth, $color);
+}
