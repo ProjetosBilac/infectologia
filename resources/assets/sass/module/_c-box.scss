@@ -1,0 +1,22 @@
+.c-box {
+  @include m-box-shadow(1);
+  background-color: $color-white;
+  border-radius: 3px;
+
+  &::before {
+    @extend
+    %u-content-empty,
+    %u-display-block;
+    background-color: $primary-color;
+    height: $spacing;
+    width: 100%;
+  }
+
+  &__body {
+    @extend
+    %u-padding-vertical-6,
+    %u-padding-horizontal-10,
+    %u-display-flex,
+    %u-flex-direction-column;
+  }
+}
