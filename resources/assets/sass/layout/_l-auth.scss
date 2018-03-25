@@ -16,7 +16,8 @@
   &::after {
     @extend
     %u-content-empty,
-    %u-display-block, %u-with-100;
+    %u-display-block,
+    %u-with-100;
     background-color: $primary-color;
     flex: 1 1 45vh;
   }
@@ -26,8 +27,7 @@
     %u-display-block,
     %u-position-absolute;
     max-width: 600px;
-    padding: 30px;
-    top: 20%;
+    top: 10%;
     width: 100%;
   }
 }
