@@ -1,9 +1,12 @@
 <template>
-  <div>
-    <font-awesome-icon v-if="icon" :icon="icon"></font-awesome-icon>
-    <label :for="identifier">{{ label }}</label>
-    <div>
+  <div class="c-custom-input">
+    <label class="c-custom-input__label" :for="identifier">{{ label }}</label>
+    <div class="c-custom-input__group">
+      <i class="c-custom-input__icon" v-if="icon">
+        <font-awesome-icon :icon="icon"></font-awesome-icon>
+      </i>
       <input
+        class="c-custom-input__field"
         :class="{ 'is-invalid': warning }"
         :id="identifier"
         :name="identifier"
@@ -11,7 +14,12 @@
         :value="oldValue"
         type="text">
     </div>
-    <span v-if="warning">{{ warning }}</span>
+    <span class="c-custom-input__alert" v-if="warning">
+      <i>
+        <font-awesome-icon icon="exclamation-circle"></font-awesome-icon>
+      </i>
+      {{ warning }}
+    </span>
   </div>
 </template>
 

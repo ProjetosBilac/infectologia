@@ -1,0 +1,51 @@
+.c-custom-input {
+  margin: $spacing 0;
+
+  &__label {
+    @extend
+    %u-display-none;
+  }
+
+  &__group {
+    @extend
+    %u-display-flex,
+    %u-flex-align-items-center;
+    border: 1px solid $color-gray-400;
+    height: $spacing * 4;
+  }
+
+  &__icon {
+    @extend
+    %u-height-100,
+    %u-display-flex,
+    %u-flex-align-items-center,
+    %u-padding-vertical-0,
+    %u-padding-horizontal-1;
+    background-color: $secondary-color;
+    border-right: 1px solid $color-gray-400;
+    color: $primary-color;
+  }
+
+  &__field {
+    @extend
+    %u-width-100,
+    %u-height-100,
+    %u-font-size-normal,
+    %u-padding-left-1,
+    %u-display-block,
+    %u-no-border,
+    %u-outline-none;
+    color: $color-gray-700;
+  }
+
+  &__alert {
+    @extend
+    %u-font-size-normal,
+    %u-padding-vertical-1,
+    %u-padding-horizontal-2,
+    %u-display-block,
+    %u-margin-top-1;
+    background-color: $secondary-color;
+    border-radius: 5px;
+  }
+}

@@ -1,13 +1,16 @@
 .c-box {
   background-color: $color-white;
   border-radius: 3px;
+  overflow: hidden;
 
   &::before {
     @extend
     %u-content-empty,
     %u-display-block;
     background-color: $primary-color;
-    height: $spacing;
+    border-top-left-radius: 3px;
+    border-top-right-radius: 3px;
+    height: $spacing / 2;
     width: 100%;
   }
 

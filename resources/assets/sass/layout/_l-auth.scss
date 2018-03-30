@@ -8,8 +8,9 @@
     @extend
     %u-content-empty,
     %u-display-block,
-    %u-with-100;
-    background: linear-gradient(180deg, $color-white 0, $color-gray-200 100%), $color-white;
+    %u-width-100,
+    %u-depth-1;
+    background-color: $color-gray-50;
     flex: 1 1 55vh;
   }
 
@@ -17,7 +18,7 @@
     @extend
     %u-content-empty,
     %u-display-block,
-    %u-with-100;
+    %u-width-100;
     background-color: $primary-color;
     flex: 1 1 45vh;
   }
@@ -25,8 +26,9 @@
   &__box {
     @extend
     %u-display-block,
-    %u-position-absolute;
-    max-width: 600px;
+    %u-position-absolute,
+    %u-depth-2;
+    max-width: 450px;
     top: 10%;
     width: 100%;
   }
