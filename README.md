@@ -38,6 +38,21 @@ Crie uma chave para o seu projeto local
 php artisan key:generate
 ```
 
+- Crie um banco de dados local.
+- Atualize o arquivo .env com as informações do seu banco 
+
+```.env
+DB_DATABASE=infectologia
+DB_USERNAME=root
+DB_PASSWORD=secret
+```
+
+Crie as tabelas do banco
+
+```php
+php artisan migrate
+```
+
 Levante um servidor local na porta 8000
 
 ```php
