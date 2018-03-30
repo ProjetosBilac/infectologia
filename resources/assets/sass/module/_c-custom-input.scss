@@ -1,6 +1,4 @@
 .c-custom-input {
-  margin: $spacing 0;
-
   &__label {
     @extend
     %u-display-none;
@@ -9,6 +7,7 @@
   &__group {
     @extend
     %u-display-flex,
+    %u-width-100,
     %u-flex-align-items-center;
     border: 1px solid $color-gray-400;
     height: $spacing * 4;

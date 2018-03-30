@@ -28,7 +28,7 @@
     %u-display-block,
     %u-position-absolute,
     %u-depth-2;
-    max-width: 450px;
+    max-width: $spacing * 55;
     top: 10%;
     width: 100%;
   }

@@ -16,9 +16,25 @@
 
   &__body {
     @extend
-    %u-padding-vertical-6,
-    %u-padding-horizontal-10,
+    %u-padding-vertical-4,
+    %u-padding-horizontal-6,
     %u-display-flex,
     %u-flex-direction-column;
+  }
+
+  &__item {
+    @extend
+    %u-display-flex,
+    %u-flex-align-items-center,
+    %u-flex-justify-content-center,
+    %u-margin-vertical-1;
+  }
+
+  &__group {
+    @extend
+    %u-display-flex,
+    %u-flex-align-items-center,
+    %u-flex-justify-content-space-between,
+    %u-margin-vertical-1;
   }
 }

@@ -6,6 +6,7 @@
     @csrf
 
     <custom-input
+      class="c-box__item"
       icon="user"
       label="{{ __('Name') }}"
       identifier="name"
@@ -14,6 +15,7 @@
     </custom-input>
 
     <custom-input
+      class="c-box__item"
       icon="at"
       label="{{ __('E-Mail Address') }}"
       identifier="email"
@@ -22,6 +24,7 @@
     </custom-input>
 
     <custom-input
+      class="c-box__item"
       icon="lock"
       label="{{ __('Password') }}"
       identifier="password"
@@ -30,14 +33,25 @@
     </custom-input>
 
     <custom-input
+      class="c-box__item"
       icon="lock"
       label="{{ __('Confirm Password') }}"
       identifier="password-confirm">
     </custom-input>
 
-    <button class="btn primary" type="submit">
+    <div class="c-box__item">
+      <input type="checkbox">
+      <p>Declaro que li e concordo com os termos de uso.</p>
+    </div>
+
+    <button class="btn is-primary c-box__item" type="submit">
       {{ __('Register') }}
     </button>
+
+    <div class="c-box__group">
+      <p>Ja possui conta?</p>
+      <button class="btn is-secondary">Efetuar Login</button>
+    </div>
 
   </form>
 </div>
