@@ -50,7 +50,7 @@
 
     <div class="c-box__group">
       <p>Ja possui conta?</p>
-      <button class="btn is-secondary">Efetuar Login</button>
+      <button class="btn is-secondary" type="button">Efetuar Login</button>
     </div>
 
   </form>

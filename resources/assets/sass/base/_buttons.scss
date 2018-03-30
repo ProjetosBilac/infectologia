@@ -1,11 +1,20 @@
 .btn {
   @extend
-  %u-padding-1,
-  %u-no-border,
-  %u-outline-none,
+  %u-padding-vertical-1,
+  %u-padding-horizontal-2,
   %u-depth-1,
+  %u-no-border,
   %u-cursor-pointer;
-  transition: transform 150ms ease, background-color 150ms ease, box-shadow 150ms ease;
+  transition-duration: 150ms;
+  transition-property: box-shadow, background-color, transform;
+  transition-timing-function: ease;
+
+  &:focus,
+  &:active {
+    @extend
+    %u-depth-0;
+    transform: translatey(2px);
+  }
 
   &.is-primary {
     background-color: $primary-color;
@@ -17,8 +26,11 @@
     }
   }
 
-  &:active {
-    @extend %u-depth-0;
-    transform: translatey(2px);
+  &.is-secondary {
+    @extend
+    %u-no-border-radius;
+    background-color: $color-gray-100;
+    border: 1px solid $primary-color;
+    color: $primary-color;
   }
 }
