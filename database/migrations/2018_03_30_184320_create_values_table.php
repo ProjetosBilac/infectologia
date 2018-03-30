@@ -15,6 +15,21 @@ class CreateValuesTable extends Migration
     {
         Schema::create('values', function (Blueprint $table) {
             $table->increments('id');
+            //Exam
+            $table->integer('exam_id')->unsigned();
+            $table->foreign('exam_id')->
+                references('id')->
+                on('exams');
+            //User
+            $table->integer('user_id')->unsigned();
+            $table->foreign('user_id')->
+                references('id')->
+                on('users');
+            //Option
+            $table->integer('option_id')->unsigned();
+            $table->foreign('option_id')->
+                references('id')->
+                on('options');
             $table->timestamps();
         });
     }
