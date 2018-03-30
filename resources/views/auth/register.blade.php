@@ -35,7 +35,7 @@
       identifier="password-confirm">
     </custom-input>
 
-    <button type="submit">
+    <button class="btn primary" type="submit">
       {{ __('Register') }}
     </button>
 

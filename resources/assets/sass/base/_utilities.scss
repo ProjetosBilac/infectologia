@@ -138,12 +138,20 @@ $directions: top, right, bottom, left;
 }
 
 // outline
-%u-outline-none { outline: none; }
+%u-outline-none {
+  outline: none;
+  outline-color: transparent;
+}
+
+// cursor
+%u-cursor-pointer { cursor: pointer; }
 
 // ::before and ::after
 %u-content-empty { content: ''; }
 
 // depth
+%u-depth-0 { box-shadow: none; }
+
 %u-depth-1 {
   $shadow-color-1: rgba(0, 0, 0, .12);
   $shadow-color-2: rgba(0, 0, 0, .24);
