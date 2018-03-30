@@ -1,9 +1,9 @@
 .btn {
   @extend
-  %u-padding-vertical-1,
   %u-padding-horizontal-2,
   %u-depth-1,
   %u-no-border,
+  %u-no-border-radius,
   %u-cursor-pointer;
   transition-duration: 150ms;
   transition-property: box-shadow, background-color, transform;
@@ -18,7 +18,6 @@
 
   &.is-primary {
     background-color: $primary-color;
-    border-radius: 3px;
     color: $color-white;
 
     &:hover {
@@ -27,8 +26,6 @@
   }
 
   &.is-secondary {
-    @extend
-    %u-no-border-radius;
     background-color: $color-gray-100;
     border: 1px solid $primary-color;
     color: $primary-color;

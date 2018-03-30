@@ -7,34 +7,33 @@
   &__group {
     @extend
     %u-display-flex,
-    %u-width-100,
-    %u-flex-align-items-center;
+    %u-width-100;
     border: 1px solid $color-gray-400;
-    height: $spacing * 4;
+    overflow: hidden;
   }
 
   &__icon {
     @extend
-    %u-height-100,
     %u-display-flex,
     %u-flex-align-items-center,
-    %u-padding-vertical-0,
     %u-padding-horizontal-1;
     background-color: $secondary-color;
     border-right: 1px solid $color-gray-400;
     color: $primary-color;
+    font-size: .8em;
+    font-weight: lighter;
   }
 
   &__field {
     @extend
     %u-width-100,
-    %u-height-100,
     %u-font-size-normal,
     %u-padding-left-1,
     %u-display-block,
     %u-no-border,
     %u-outline-none;
     color: $color-gray-700;
+    line-height: 1.7;
   }
 
   &__alert {
