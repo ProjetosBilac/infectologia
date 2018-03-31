@@ -40,8 +40,10 @@
     </custom-input>
 
     <div class="c-box__item">
-      <custom-checkbox></custom-checkbox>
-      <p>Declaro que li e concordo com os termos de uso.</p>
+      <custom-checkbox
+        identifier="vitebo"
+        label="Declaro que li e concordo com os termos de uso.">
+      </custom-checkbox>
     </div>
 
     <button class="btn is-primary c-box__item" type="submit">

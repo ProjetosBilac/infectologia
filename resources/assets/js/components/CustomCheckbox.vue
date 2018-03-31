@@ -4,7 +4,7 @@
       class="c-custom-checkbox__input"
       :id="identifier"
       type="checkbox"
-      :checked="state">
+      v-model="state">
     <font-awesome-icon
       class="c-custom-checkbox__icon"
       :icon="icon"
@@ -24,15 +24,10 @@
 
   export default {
     name: 'CustomCheckbox',
-    data () {
-      return {
-        state: this.oldValue
-      }
-    },
     props: [
       'identifier',
       'label',
-      'old-value'
+      'state'
     ],
     methods: {
       stateToggle() {
