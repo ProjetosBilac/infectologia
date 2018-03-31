@@ -40,7 +40,7 @@
     </custom-input>
 
     <div class="c-box__item">
-      <input type="checkbox">
+      <custom-checkbox></custom-checkbox>
       <p>Declaro que li e concordo com os termos de uso.</p>
     </div>
 
