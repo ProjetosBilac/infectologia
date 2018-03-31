@@ -1,22 +1,16 @@
 <template>
-  <fieldset class="c-custom-checkbox">
-    <input
-      class="c-custom-checkbox__input"
-      :id="identifier"
-      type="checkbox"
-      v-model="state">
-    <font-awesome-icon
-      class="c-custom-checkbox__icon"
-      :icon="icon"
-      @click="stateToggle()">
-    </font-awesome-icon>
-    <label
-      class="c-custom-checkbox__phrase"
-      :for="identifier"
-      v-if="label">
-        {{ label }}
+  <div class="c-custom-checkbox" @click="stateToggle()">
+    <input class="c-custom-checkbox__input" :id="identifier" type="checkbox"
+           v-model="state" :name="identifier" :value="state">
+    <i class="c-custom-checkbox__square">
+      <font-awesome-icon :class="['c-custom-checkbox__check', {'is-active': state}]"
+                         icon="check">
+      </font-awesome-icon>
+    </i>
+    <label class="c-custom-checkbox__label" :for="identifier" v-if="label">
+      {{ label }}
     </label>
-  </fieldset>
+  </div>
 </template>
 
 <script>
@@ -27,16 +21,16 @@
     props: [
       'identifier',
       'label',
-      'state'
+      'old-value'
     ],
+    data () {
+      return {
+        state: this.oldValue
+      }
+    },
     methods: {
       stateToggle() {
         this.state = !this.state;
-      }
-    },
-    computed:  {
-      icon () {
-        return this.state ? 'check-square' : 'square'
       }
     },
     components: {

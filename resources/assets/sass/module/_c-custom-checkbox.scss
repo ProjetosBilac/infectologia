@@ -1,0 +1,52 @@
+.c-custom-checkbox {
+  @extend
+  %u-display-flex,
+  %u-flex-align-items-center,
+  %u-width-100;
+
+  &__input {
+    @extend
+    %u-display-none;
+  }
+
+  &__square {
+    @extend
+    %u-display-flex,
+    %u-flex-align-items-center;
+    border: 1.5px solid $primary-color;
+    height: $spacing * 2;
+    width: $spacing * 2;
+
+    &:hover {
+      @extend
+      %u-cursor-pointer;
+    }
+  }
+
+  &__check {
+    @extend
+    %u-display-block;
+    color: $detail-color;
+    transform: translateX(0) translateY(0) scale(0);
+    transition: transform 300ms ease;
+
+    &.is-active {
+      transform: translateX(5%) translateY(-5%) scale(1);
+    }
+  }
+
+  &__label {
+    @extend
+    %u-display-block,
+    %u-margin-left-1;
+    color: $color-gray-700;
+    font-size: .9em;
+
+    &:hover {
+      @extend
+      %u-cursor-pointer;
+      color: lighten($color-gray-700, 10%);
+      transition: color 150ms ease-in;
+    }
+  }
+}

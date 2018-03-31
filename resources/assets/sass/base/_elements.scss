@@ -3,10 +3,9 @@ body {
   min-height: 100vh;
 }
 
-body {
-  margin: 0;
-}
-
-p {
-  margin: 0;
+body,
+p,
+label {
+  @extend
+  %u-margin-0;
 }
