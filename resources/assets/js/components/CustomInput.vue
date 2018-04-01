@@ -1,8 +1,7 @@
 <template>
   <div class="c-custom-input">
     <label class="c-custom-input__label" :for="identifier">{{ label }}</label>
-    <div :class="['c-custom-input__group', {'is-invalid': warning}]"
-         :data-toggle="tooltip" :title="warning">
+    <div :class="['c-custom-input__group', {'is-invalid': warning}]">
       <i :class="['c-custom-input__icon', {'is-invalid': warning}]" v-if="icon">
         <font-awesome-icon :icon="icon"></font-awesome-icon>
       </i>
@@ -15,13 +14,14 @@
         @blur="checkState"
         type="text">
     </div>
+    <span class="c-custom-input__warning" v-if="warning">{{ warning }}</span>
   </div>
 </template>
 
 <script>
   import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
-  const customInput = {
+  export default {
     name: 'custom-input',
     props: [
       'icon',
@@ -32,8 +32,7 @@
     ],
     data () {
       return {
-        value: this.oldValue,
-        tooltip: 'tooltip'
+        value: this.oldValue
       }
     },
     methods: {
@@ -48,6 +47,4 @@
       FontAwesomeIcon
     }
   }
-
-  export default customInput
 </script>

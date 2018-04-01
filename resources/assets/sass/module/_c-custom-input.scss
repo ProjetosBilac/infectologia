@@ -54,21 +54,11 @@
     }
   }
 
-  &__alert {
+  &__warning {
     @extend
-    %u-font-size-normal,
-    %u-padding-vertical-1,
-    %u-padding-horizontal-2,
-    %u-display-block,
-    %u-margin-top-1,
-    %u-margin-bottom-0,
-    %u-width-100;
-    background-color: $secondary-color;
-    border-radius: 3px;
-  }
-
-  &__alert-icon {
-    @extend
-    %u-margin-right-1;
+    %u-width-100,
+    %u-text-align-right;
+    color: $warning;
+    font-size: .9em;
   }
 }
