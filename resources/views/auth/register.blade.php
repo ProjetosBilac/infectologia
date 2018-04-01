@@ -11,7 +11,8 @@
       label="{{ __('Name') }}"
       identifier="name"
       warning="{{ $errors->first('name') }}"
-      old-value="{{ old('name') }}">
+      old-value="{{ old('name') }}"
+      required="true">
     </custom-input>
 
     <custom-input
@@ -20,7 +21,9 @@
       label="{{ __('E-Mail Address') }}"
       identifier="email"
       warning="{{ $errors->first('email') }}"
-      old-value="{{ old('email') }}">
+      old-value="{{ old('email') }}"
+      field-type="email"
+      required="true">
     </custom-input>
 
     <custom-input
@@ -29,14 +32,18 @@
       label="{{ __('Password') }}"
       identifier="password"
       warning="{{ $errors->first('password') }}"
-      old-value="{{ old('password') }}">
+      old-value="{{ old('password') }}"
+      field-type="password"
+      required="true">
     </custom-input>
 
     <custom-input
       class="c-box__item"
       icon="lock"
       label="{{ __('Confirm Password') }}"
-      identifier="password-confirm">
+      identifier="password-confirm"
+      field-type="password"
+      required="true">
     </custom-input>
 
     <div class="c-box__item">

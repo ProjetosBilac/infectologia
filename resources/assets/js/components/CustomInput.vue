@@ -12,7 +12,8 @@
         :placeholder="label"
         v-model="value"
         @blur="checkState"
-        type="text">
+        :type="type"
+        :required="required">
     </div>
     <span class="c-custom-input__warning" v-if="warning">{{ warning }}</span>
   </div>
@@ -28,7 +29,9 @@
       'label',
       'identifier',
       'warning',
-      'old-value'
+      'old-value',
+      'field-type',
+      'required'
     ],
     data () {
       return {
@@ -37,10 +40,13 @@
     },
     methods: {
       checkState () {
-        if(this.value.length) {
+        if(this.value.length)
           this.warning = false
-          this.tooltip = false
-        }
+      }
+    },
+    computed: {
+      type () {
+        return this.fieldType ? this.fieldType : 'text'
       }
     },
     components: {
