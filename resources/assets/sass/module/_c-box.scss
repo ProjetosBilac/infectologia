@@ -37,4 +37,9 @@
     %u-flex-justify-content-space-between,
     %u-margin-vertical-1;
   }
+
+  &__text {
+    color: $color-gray-900;
+    font-size: 1em;
+  }
 }

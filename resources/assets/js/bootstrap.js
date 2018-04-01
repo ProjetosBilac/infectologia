@@ -9,8 +9,10 @@ window.Popper = require('popper.js').default
 
 try {
   window.$ = window.jQuery = require('jquery')
-
   require('bootstrap')
+  window.$(function () {
+    window.$('[data-toggle="tooltip"]').tooltip()
+  })
 } catch (e) {}
 
 /**

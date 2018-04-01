@@ -30,6 +30,12 @@
     %u-depth-2;
     max-width: $spacing * 55;
     top: 10%;
+    transition: box-shadow 800ms ease;
     width: 100%;
+
+    &:hover {
+      @extend
+      %u-depth-3;
+    }
   }
 }

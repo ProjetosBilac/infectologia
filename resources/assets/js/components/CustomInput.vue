@@ -1,32 +1,26 @@
 <template>
   <div class="c-custom-input">
     <label class="c-custom-input__label" :for="identifier">{{ label }}</label>
-    <div class="c-custom-input__group">
-      <i class="c-custom-input__icon" v-if="icon">
+    <div :class="['c-custom-input__group', {'is-invalid': warning}]"
+         data-toggle="tooltip" :title="warning">
+      <i :class="['c-custom-input__icon', {'is-invalid': warning}]" v-if="icon">
         <font-awesome-icon :icon="icon"></font-awesome-icon>
       </i>
       <input
-        class="c-custom-input__field"
-        :class="{ 'is-invalid': warning }"
+        :class="['c-custom-input__field', {'is-invalid': warning}]"
         :id="identifier"
         :name="identifier"
         :placeholder="label"
         :value="oldValue"
         type="text">
     </div>
-    <span class="c-custom-input__alert" v-if="warning">
-      <i>
-        <font-awesome-icon icon="exclamation-circle"></font-awesome-icon>
-      </i>
-      {{ warning }}
-    </span>
   </div>
 </template>
 
 <script>
   import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
-  export default {
+  const customInput = {
     name: 'custom-input',
     props: [
       'icon',
@@ -39,4 +33,6 @@
       FontAwesomeIcon
     }
   }
+
+  export default customInput
 </script>
