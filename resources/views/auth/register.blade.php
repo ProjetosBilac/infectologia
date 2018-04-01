@@ -41,7 +41,6 @@
 
     <div class="c-box__item">
       <custom-checkbox
-        identifier="vitebo"
         label="Declaro que li e concordo com os termos de uso.">
       </custom-checkbox>
     </div>
@@ -51,7 +50,7 @@
     </button>
 
     <div class="c-box__group">
-      <p>Ja possui conta?</p>
+      <p class="c-box__text">Ja possui conta?</p>
       <button class="btn is-secondary" type="button">Efetuar Login</button>
     </div>
 

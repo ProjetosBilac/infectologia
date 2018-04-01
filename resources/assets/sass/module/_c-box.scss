@@ -42,4 +42,17 @@
     color: $color-gray-900;
     font-size: 1em;
   }
+
+  &__link {
+    @extend
+    %u-margin-vertical-1;
+    color: $detail-color;
+    font-size: 1em;
+    transition: color 250ms ease-in;
+
+    &:hover {
+      color: lighten($detail-color, 10%);
+      text-decoration: none;
+    }
+  }
 }

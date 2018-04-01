@@ -2,7 +2,7 @@
   <div class="c-custom-input">
     <label class="c-custom-input__label" :for="identifier">{{ label }}</label>
     <div :class="['c-custom-input__group', {'is-invalid': warning}]"
-         data-toggle="tooltip" :title="warning">
+         :data-toggle="tooltip" :title="warning">
       <i :class="['c-custom-input__icon', {'is-invalid': warning}]" v-if="icon">
         <font-awesome-icon :icon="icon"></font-awesome-icon>
       </i>
@@ -11,7 +11,8 @@
         :id="identifier"
         :name="identifier"
         :placeholder="label"
-        :value="oldValue"
+        v-model="value"
+        @blur="checkState"
         type="text">
     </div>
   </div>
@@ -29,6 +30,20 @@
       'warning',
       'old-value'
     ],
+    data () {
+      return {
+        value: this.oldValue,
+        tooltip: 'tooltip'
+      }
+    },
+    methods: {
+      checkState () {
+        if(this.value.length) {
+          this.warning = false
+          this.tooltip = false
+        }
+      }
+    },
     components: {
       FontAwesomeIcon
     }
