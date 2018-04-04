@@ -1,47 +1,36 @@
 @extends('layouts.auth')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Reset Password') }}</div>
+<section class="c-box">
+  <form class="c-box__body" method="POST" action="{{ route('password.email') }}">
+    @if (session('status'))
+      <div class="c-box__alert alert alert-success">
+        {{ session('status') }}
+      </div>
+    @endif
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+    <h3 class="c-box__title">{{ __('Reset Password') }}</h3>
 
-                    <form method="POST" action="{{ route('password.email') }}">
-                        @csrf
+    @csrf
+    <custom-input
+      class="c-box__item"
+      icon="at"
+      label="{{ __('E-Mail Address') }}"
+      identifier="email"
+      warning="{{ $errors->first('email') }}"
+      old-value="{{ old('email') }}"
+      field-type="email"
+      required="true">
+    </custom-input>
 
-                        <div class="form-group row">
-                            <label for="email" class="col-md-4 col-form-label text-md-right">{{ __('E-Mail Address') }}</label>
+    <button class="btn is-primary c-box__item" type="submit">
+      {{ __('Send Password Reset Link') }}
+    </button>
 
-                            <div class="col-md-6">
-                                <input id="email" type="email" class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" value="{{ old('email') }}" required>
-
-                                @if ($errors->has('email'))
-                                    <span class="invalid-feedback">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                @endif
-                            </div>
-                        </div>
-
-                        <div class="form-group row mb-0">
-                            <div class="col-md-6 offset-md-4">
-                                <button type="submit" class="btn btn-primary">
-                                    {{ __('Send Password Reset Link') }}
-                                </button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
+    <div class="c-box__group">
+      <p class="c-box__text">Lembrou sua senha?</p>
+      <a class="btn is-secondary" href="{{ route('login') }}">Efetuar Login</a>
     </div>
-</div>
+  </form>
+</section>
 @endsection

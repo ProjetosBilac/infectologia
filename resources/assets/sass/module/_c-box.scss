@@ -22,6 +22,23 @@
     %u-flex-direction-column;
   }
 
+  &__alert {
+    @extend
+    %u-depth-1,
+    %u-position-absolute,
+    %u-width-100;
+    left: 0;
+    top: 0;
+    transform: translatey(calc(-100% - #{$spacing}));
+  }
+
+  &__title {
+    @extend
+    %u-text-align-center;
+    color: $color-gray-800;
+    font-size: 1.8em;
+  }
+
   &__item {
     @extend
     %u-display-flex,
