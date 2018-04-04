@@ -11,7 +11,7 @@
     %u-width-100,
     %u-depth-1;
     background-color: $color-gray-50;
-    flex: 1 1 55vh;
+    flex: 1 1 65vh;
   }
 
   &::after {
@@ -20,22 +20,22 @@
     %u-display-block,
     %u-width-100;
     background-color: $primary-color;
-    flex: 1 1 45vh;
+    flex: 1 1 35vh;
   }
 
   &__box {
     @extend
     %u-display-block,
     %u-position-absolute,
-    %u-depth-2;
+    %u-depth-1,
+    %u-width-100;
     max-width: $spacing * 55;
-    top: 10%;
-    transition: box-shadow 800ms ease;
-    width: 100%;
+    top: 20%;
+    transition: box-shadow 250ms ease-in;
 
     &:hover {
       @extend
-      %u-depth-3;
+      %u-depth-2;
     }
   }
 }
