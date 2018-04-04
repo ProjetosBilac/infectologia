@@ -1,7 +1,7 @@
 @extends('layouts.auth')
 
 @section('content')
-<div class="c-box">
+<section class="c-box">
   <form class="c-box__body" method="POST" action="{{ route('register') }}">
     @csrf
 
@@ -58,9 +58,9 @@
 
     <div class="c-box__group">
       <p class="c-box__text">Ja possui conta?</p>
-      <button class="btn is-secondary" type="button">Efetuar Login</button>
+      <a class="btn is-secondary" href="{{ route('login') }}">Efetuar Login</a>
     </div>
 
   </form>
-</div>
+</section>
 @endsection
