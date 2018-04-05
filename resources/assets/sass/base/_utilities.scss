@@ -1,4 +1,5 @@
-$spacing-large: 8px;
+$spacing-short: 1px;
+$spacing-large: $spacing-short * 8;
 $grid-scale: 10;
 $directions: top, right, bottom, left;
 
@@ -159,29 +160,34 @@ $directions: top, right, bottom, left;
 %u-depth-1 {
   $shadow-color-1: rgba(0, 0, 0, .12);
   $shadow-color-2: rgba(0, 0, 0, .24);
-  box-shadow: 0 1px 3px $shadow-color-1, 0 1px 2px $shadow-color-2;
+  box-shadow: 0 $spacing-short ($spacing-short * 3) $shadow-color-1,
+    0 ($spacing-short) ($spacing-short * 2) $shadow-color-2;
 }
 
 %u-depth-2 {
   $shadow-color-1: rgba(0, 0, 0, .16);
   $shadow-color-2: rgba(0, 0, 0, .23);
-  box-shadow: 0 3px 6px $shadow-color-1, 0 3px 6px $shadow-color-2;
+  box-shadow: 0 ($spacing-short * 3) ($spacing-short * 6) $shadow-color-1,
+      0 ($spacing-short * 3) ($spacing-short * 6) $shadow-color-2;
 }
 
 %u-depth-3 {
   $shadow-color-1: rgba(0, 0, 0, .19);
   $shadow-color-2: rgba(0, 0, 0, .23);
-  box-shadow: 0 10px 20px $shadow-color-1, 0 6px 6px $shadow-color-2;
+  box-shadow: 0 ($spacing-short * 10) ($spacing-short * 20) $shadow-color-1,
+      0 ($spacing-short * 6) ($spacing-short * 6) $shadow-color-2;
 }
 
 %u-depth-4 {
   $shadow-color-1: rgba(0, 0, 0, .25);
   $shadow-color-2: rgba(0, 0, 0, .22);
-  box-shadow: 0 14px 28px $shadow-color-1, 0 10px 10px $shadow-color-2;
+  box-shadow: 0 ($spacing-short * 14) ($spacing-short * 28) $shadow-color-1,
+      0 ($spacing-short * 10) ($spacing-short * 10) $shadow-color-2;
 }
 
 %u-depth-5 {
   $shadow-color-1: rgba(0, 0, 0, .3);
   $shadow-color-2: rgba(0, 0, 0, .22);
-  box-shadow: 0 19px 38px $shadow-color-1, 0 15px 12px $shadow-color-2;
+  box-shadow: 0 ($spacing-short * 19) ($spacing-short * 38) $shadow-color-1,
+      0 ($spacing-short * 15) ($spacing-short * 12) $shadow-color-2;
 }

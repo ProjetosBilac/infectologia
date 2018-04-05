@@ -13,7 +13,7 @@
     @extend
     %u-display-flex,
     %u-flex-align-items-center;
-    border: 1.5px solid $primary-color;
+    border: ($spacing-short * 2) solid $primary-color;
     height: $spacing-large * 2;
     width: $spacing-large * 2;
 

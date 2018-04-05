@@ -13,7 +13,7 @@
   &:active {
     @extend
     %u-depth-0;
-    transform: translatey(2px);
+    transform: translatey($spacing-short * 2);
   }
 
   &.is-primary {
@@ -27,7 +27,7 @@
 
   &.is-secondary {
     background-color: $color-gray-100;
-    border: 1px solid $primary-color;
+    border: $spacing-short solid $primary-color;
     color: $primary-color;
   }
 }
