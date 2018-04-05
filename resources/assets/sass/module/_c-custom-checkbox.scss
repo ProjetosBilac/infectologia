@@ -14,8 +14,8 @@
     %u-display-flex,
     %u-flex-align-items-center;
     border: 1.5px solid $primary-color;
-    height: $spacing * 2;
-    width: $spacing * 2;
+    height: $spacing-large * 2;
+    width: $spacing-large * 2;
 
     &:hover {
       @extend

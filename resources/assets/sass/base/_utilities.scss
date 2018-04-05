@@ -1,4 +1,4 @@
-$spacing: 8px;
+$spacing-large: 8px;
 $grid-scale: 10;
 $directions: top, right, bottom, left;
 
@@ -59,36 +59,36 @@ $directions: top, right, bottom, left;
 %u-no-margin { margin: 0; }
 
 @for $index from 0 through $grid-scale {
-  %u-padding-#{ $index } { padding: ( $spacing * $index ); }
-  %u-margin-#{ $index } { margin: ( $spacing * $index ); }
+  %u-padding-#{ $index } { padding: ( $spacing-large * $index ); }
+  %u-margin-#{ $index } { margin: ( $spacing-large * $index ); }
 
   %u-padding-vertical-#{ $index } {
-    padding-bottom: $spacing * $index;
-    padding-top: $spacing * $index;
+    padding-bottom: $spacing-large * $index;
+    padding-top: $spacing-large * $index;
   }
 
   %u-padding-horizontal-#{ $index } {
-    padding-left: $spacing * $index;
-    padding-right: $spacing * $index;
+    padding-left: $spacing-large * $index;
+    padding-right: $spacing-large * $index;
   }
 
   %u-margin-vertical-#{ $index } {
-    margin-bottom: $spacing * $index;
-    margin-top: $spacing * $index;
+    margin-bottom: $spacing-large * $index;
+    margin-top: $spacing-large * $index;
   }
 
   %u-margin-horizontal-#{ $index } {
-    margin-left: $spacing * $index;
-    margin-right: $spacing * $index;
+    margin-left: $spacing-large * $index;
+    margin-right: $spacing-large * $index;
   }
 
   @each $direction in $directions {
     %u-padding-#{ $direction }-#{ $index } {
-      padding-#{ $direction }: ( $spacing * $index );
+      padding-#{ $direction }: ( $spacing-large * $index );
     }
 
     %u-margin-#{ $direction }-#{ $index } {
-      margin-#{ $direction }: ( $spacing * $index );
+      margin-#{ $direction }: ( $spacing-large * $index );
     }
   }
 }

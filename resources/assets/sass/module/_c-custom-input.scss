@@ -30,7 +30,7 @@
     color: $primary-color;
     font-size: .8em;
     font-weight: lighter;
-    width: $spacing * 4;
+    width: $spacing-large * 4;
 
     &.is-invalid {
       background-color: $secondary-color;
