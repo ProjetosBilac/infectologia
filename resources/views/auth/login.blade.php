@@ -2,7 +2,13 @@
 
 @section('content')
 <section class="c-box">
-  <form class="c-box__body" method="POST" action="{{ route('login') }}">
+  <form
+    class="c-box__body"
+    :id="formId"
+    method="POST"
+    @submit="getOut"
+    action="{{ route('login') }}">
+
     @csrf
 
     <custom-svg
@@ -18,7 +24,9 @@
       label="{{ __('E-Mail Address') }}"
       identifier="email"
       warning="{{ $errors->has('email') }}"
-      old-value="{{ old('email') }}">
+      old-value="{{ old('email') }}"
+      field-type="email"
+      required="true">
     </custom-input>
 
     <custom-input
@@ -27,7 +35,9 @@
       label="{{ __('Password') }}"
       identifier="password"
       warning="{{ $errors->has('password') }}"
-      old-value="{{ old('password') }}">
+      old-value="{{ old('password') }}"
+      field-type="password"
+      required="true">
     </custom-input>
 
     <div class="c-box__item">
