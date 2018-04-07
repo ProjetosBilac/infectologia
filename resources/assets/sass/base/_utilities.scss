@@ -59,6 +59,11 @@ $directions: top, right, bottom, left;
 %u-margin-0-auto { margin: 0 auto; }
 %u-no-margin { margin: 0; }
 
+%u-margin-horizontal-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
 @for $index from 0 through $grid-scale {
   %u-padding-#{ $index } { padding: ( $spacing-large * $index ); }
   %u-margin-#{ $index } { margin: ( $spacing-large * $index ); }
