@@ -5,6 +5,13 @@
   <form class="c-box__body" method="POST" action="{{ route('login') }}">
     @csrf
 
+    <custom-svg
+      css-class="c-logo is-animated"
+      filepath="{{ asset('svgs/logo.svg') }}">
+    </custom-svg>
+
+    <h3 class="c-box__title">Faça seu login</h3>
+
     <custom-input
       class="c-box__item"
       icon="at"

@@ -2,8 +2,16 @@
 
 @section('content')
 <section class="c-box">
+
   <form class="c-box__body" method="POST" action="{{ route('register') }}">
     @csrf
+
+    <custom-svg
+      css-class="c-logo is-animated"
+      filepath="{{ asset('svgs/logo.svg') }}">
+    </custom-svg>
+
+    <h3 class="c-box__title">Cadastre-se</h3>
 
     <custom-input
       class="c-box__item"

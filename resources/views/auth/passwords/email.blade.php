@@ -8,10 +8,15 @@
         {{ session('status') }}
       </div>
     @endif
+    @csrf
+
+    <custom-svg
+      css-class="c-logo is-animated"
+      filepath="{{ asset('svgs/logo.svg') }}">
+    </custom-svg>
 
     <h3 class="c-box__title">{{ __('Reset Password') }}</h3>
 
-    @csrf
     <custom-input
       class="c-box__item"
       icon="at"

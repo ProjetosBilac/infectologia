@@ -1,0 +1,35 @@
+.c-logo {
+  @extend
+  %u-margin-horizontal-auto,
+  %u-display-block;
+
+  $path-total-length: 4154;
+
+  width: $spacing-large * 10;
+
+  &.is-animated {
+    path {
+      animation-duration: 8s;
+      animation-name: draw;
+    }
+
+    @keyframes draw {
+      from {
+        fill: lighten($detail-color, 100%);
+        stroke-dashoffset: $path-total-length;
+      }
+
+      to {
+        fill: $detail-color;
+        stroke-dashoffset: 0;
+      }
+    }
+  }
+
+  path {
+    fill: $detail-color;
+    stroke: darken($detail-color, 10%);
+    stroke-dasharray: $path-total-length;
+    stroke-width: $spacing-large;
+  }
+}
