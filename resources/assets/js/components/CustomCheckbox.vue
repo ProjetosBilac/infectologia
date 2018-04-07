@@ -17,7 +17,7 @@
   import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
   export default {
-    name: 'CustomCheckbox',
+    name: 'custom-checkbox',
     props: [
       'identifier',
       'label',
