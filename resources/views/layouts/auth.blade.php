@@ -7,13 +7,15 @@
   <meta name="csrf-token" content="{{ csrf_token() }}">
   <title>{{ config('app.name', 'Laravel') }}</title>
   <link href="{{ asset(mix('css/app.css')) }}" rel="stylesheet">
-  <script src="{{ asset(mix('js/app.js')) }}" defer></script>
+  <script src="{{ asset(mix('js/app.js')) }}"></script>
 </head>
 <body>
-  <div class="l-auth" id="app">
-    <main class="l-auth__box">
-      @yield('content')
-    </main>
+  <div id="app" style="display: none">
+    <div :class="['l-auth', { 'is-outing': goingOut }]">
+      <main :class="['l-auth__box', { 'is-outing': goingOut }]">
+        @yield('content')
+      </main>
+    </div>
   </div>
 </body>
 </html>

@@ -42,13 +42,17 @@
       {{ __('Login') }}
     </button>
 
-    <a class="c-box__link" href="{{ route('password.request') }}">
+    <a class="c-box__link"
+       href="{{ route('password.request') }}"
+       @click="getOut($event, '{{ route('password.request') }}')">
       {{ __('Forgot Your Password?') }}
     </a>
 
     <div class="c-box__group">
       <p class="c-box__text">Não possui conta?</p>
-      <a class="btn is-secondary" href="{{ route('register') }}">Cadastre-se</a>
+      <a class="btn is-secondary"
+         href="{{ route('register') }}"
+         @click="getOut($event, '{{ route('register') }}')">Cadastre-se</a>
     </div>
   </form>
 </section>

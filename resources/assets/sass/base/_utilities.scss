@@ -196,3 +196,6 @@ $directions: top, right, bottom, left;
   box-shadow: 0 ($spacing-short * 19) ($spacing-short * 38) $shadow-color-1,
       0 ($spacing-short * 15) ($spacing-short * 12) $shadow-color-2;
 }
+
+// animations
+%u-animation-forwards { animation-fill-mode: forwards; }

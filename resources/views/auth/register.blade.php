@@ -3,7 +3,11 @@
 @section('content')
 <section class="c-box">
 
-  <form class="c-box__body" method="POST" action="{{ route('register') }}">
+  <form class="c-box__body"
+        :id="formId"
+        method="POST"
+        @submit="getOut"
+        action="{{ route('register') }}">
     @csrf
 
     <custom-svg
@@ -66,7 +70,9 @@
 
     <div class="c-box__group">
       <p class="c-box__text">Ja possui conta?</p>
-      <a class="btn is-secondary" href="{{ route('login') }}">Efetuar Login</a>
+      <a class="btn is-secondary"
+         href="{{ route('login') }}"
+         @click="getOut($event, '{{ route('login') }}')">Efetuar Login</a>
     </div>
 
   </form>

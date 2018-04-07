@@ -4,23 +4,79 @@
   %u-display-flex,
   %u-flex-column-between-centered;
 
-  &::before {
-    @extend
-    %u-content-empty,
-    %u-display-block,
-    %u-width-100,
-    %u-depth-1;
-    background-color: $color-gray-50;
-    flex: 1 1 65vh;
-  }
+  $light-background-height: 65vh;
+  $dark-background-height: 100vh - $light-background-height;
+  $input-animation-time: 800ms;
+  $exit-animation-time: 500ms;
 
+  &::before,
   &::after {
     @extend
     %u-content-empty,
+    %u-animation-forwards,
     %u-display-block,
     %u-width-100;
+
+    animation-duration: $input-animation-time;
+  }
+
+  &::before {
+    @extend
+    %u-depth-1;
+
+    animation-name: light-background-input;
+    background-color: $color-gray-50;
+    flex: 1 1 100vh;
+
+    @keyframes light-background-input {
+      to {
+        flex: 1 1 $light-background-height;
+      }
+    }
+  }
+
+  &::after {
+    animation-name: dark-background-input;
     background-color: $primary-color;
-    flex: 1 1 35vh;
+    flex: 0 0 0;
+
+    @keyframes dark-background-input {
+      to {
+        flex: 1 1 $dark-background-height;
+      }
+    }
+  }
+
+  &.is-outing {
+    &::before,
+    &::after {
+      @extend
+      %u-animation-forwards;
+
+      animation-duration: $exit-animation-time;
+    }
+
+    &::before {
+      animation-name: light-background-output;
+      flex: 1 1 $light-background-height;
+
+      @keyframes light-background-output {
+        to {
+          flex: 1 1 100vh;
+        }
+      }
+    }
+
+    &::after {
+      animation-name: dark-background-output;
+      flex: 1 1 $dark-background-height;
+
+      @keyframes dark-background-output {
+        to {
+          flex: 0 0 0;
+        }
+      }
+    }
   }
 
   &__box {
@@ -28,14 +84,49 @@
     %u-display-block,
     %u-position-absolute,
     %u-depth-1,
+    %u-animation-forwards,
     %u-width-100;
+
+    $box-position: 10%;
+
+    animation-duration: $input-animation-time;
+    animation-name: box-input;
     max-width: $spacing-large * 55;
-    top: 10%;
+    top: 0;
+    transform: translateY(calc(-100% - #{$spacing-short * 2}));
     transition: box-shadow 250ms ease-in;
 
     &:hover {
       @extend
       %u-depth-2;
+    }
+
+    @keyframes box-input {
+      75% {
+        top: $box-position + 10%;
+      }
+
+      to {
+        top: $box-position;
+        transform: translateY(0);
+      }
+    }
+
+    &.is-outing {
+      @extend
+      %u-animation-forwards;
+
+      animation-duration: $exit-animation-time;
+      animation-name: box-output;
+      top: $box-position;
+      transform: translateY(0);
+
+      @keyframes box-output {
+        to {
+          top: 0;
+          transform: translateY(calc(-100% - #{$spacing-short * 2}));
+        }
+      }
     }
   }
 }

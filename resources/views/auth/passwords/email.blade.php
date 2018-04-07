@@ -34,7 +34,9 @@
 
     <div class="c-box__group">
       <p class="c-box__text">Lembrou sua senha?</p>
-      <a class="btn is-secondary" href="{{ route('login') }}">Efetuar Login</a>
+      <a class="btn is-secondary"
+         href="{{ route('login') }}"
+         @click="getOut($event, '{{ route('login') }}')">Efetuar Login</a>
     </div>
   </form>
 </section>
