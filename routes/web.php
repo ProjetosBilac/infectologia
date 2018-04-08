@@ -23,8 +23,11 @@ Auth::routes();
     });
 
 // --------- P A G I N A  A D M I N -------------
-    Route::group(['middleware' => ['auth']],function (){
+    Route::group(['prefix' => 'portal','middleware' => 'auth'],function (){
         //Rotas daqui só poderam ser acessadas com usuário logado.
+        Route::get('/', function () {
+            return view('admin.home',[]);
+        })->name('admin.home');
     });
 // ---------  M A G O  A C E S S  A D M I N--
     Route::group(['prefix' => 'mago','middleware' => ['auth']],function (){
