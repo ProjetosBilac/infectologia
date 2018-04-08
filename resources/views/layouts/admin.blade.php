@@ -11,9 +11,12 @@
 </head>
 <body>
   <div id="app" style="display: none">
-    <main class="l-admin">
-      @yield('content')
-    </main>
+    <div class="l-admin">
+      <toolbar class="l-admin__nav"></toolbar>
+      <main class="l-admin__main">
+        @yield('content')
+      </main>
+    </div>
   </div>
 </body>
 </html>

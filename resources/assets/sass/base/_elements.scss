@@ -5,7 +5,15 @@ body {
 
 body,
 p,
+h3,
+ul,
 label {
   @extend
   %u-margin-0;
+}
+
+ul {
+  @extend %u-padding-0;
+
+  list-style: none;
 }

@@ -1,3 +1,13 @@
 .l-admin {
-  box-sizing: border-box;
+  background-color: $color-gray-50;
+
+  &__nav {
+    @extend
+    %u-depth-2;
+    height: 50px;
+  }
+
+  &__main {
+    box-sizing: border-box;
+  }
 }
