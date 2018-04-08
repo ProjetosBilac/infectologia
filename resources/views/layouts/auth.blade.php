@@ -23,7 +23,7 @@
   <meta name="msapplication-TileImage" content="{{ asset('images/favicon/ms-icon-144x144.png') }}">
   <meta name="theme-color" content="#ffffff">
   <title>{{ config('app.name', 'Laravel') }}</title>
-  <link href="{{ asset(mix('css/app.css')) }}" rel="stylesheet">
+  <link href="{{ asset(mix('css/auth.css')) }}" rel="stylesheet">
   <script src="{{ asset(mix('js/auth.js')) }}"></script>
 </head>
 <body>
