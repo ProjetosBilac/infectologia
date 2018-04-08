@@ -1,0 +1,59 @@
+.c-toolbar {
+  background-color: $secondary-color;
+
+  &__wrapper {
+    @extend
+    %u-display-flex,
+    %u-flex-align-items-center,
+    %u-flex-justify-content-space-between,
+    %u-height-100,
+    %u-margin-0-auto,
+    %u-padding-horizontal-3;
+
+    max-width: $spacing-large * 150;
+  }
+
+  &__group {
+    @extend
+    %u-display-flex,
+    %u-flex-align-items-center;
+  }
+
+  &__item {
+    &:not(:first-child) {
+      @extend
+      %u-margin-left-2;
+    }
+
+    &:not(:last-child) {
+      @extend
+      %u-margin-right-2;
+    }
+  }
+
+  &__icon {
+    color: $primary-color;
+
+    &.is-the-close-icon {
+      cursor: pointer;
+      transition: color 250ms ease-in;
+
+      &:hover {
+        color: lighten($primary-color, 10%);
+      }
+    }
+  }
+
+  &__title {
+    color: $primary-color;
+    font-size: 1.3em;
+  }
+
+  &__user {
+    @extend
+    %u-font-size-normal,
+    %u-font-weight-normal;
+
+    color: $primary-color;
+  }
+}

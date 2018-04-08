@@ -3,6 +3,7 @@ import ExampleComponent from './components/ExampleComponent'
 import CustomInput from './components/CustomInput'
 import CustomCheckbox from './components/CustomCheckbox'
 import CustomSvg from './components/CustomSvg'
+import Toolbar from './components/Toolbar'
 import VueSimpleSVG from 'vue-simple-svg'
 
 require('./config/bootstrap')
@@ -22,7 +23,8 @@ window.addEventListener('load', () => {
       CustomInput,
       ExampleComponent,
       CustomCheckbox,
-      CustomSvg
+      CustomSvg,
+      Toolbar
     }
   })
 })
