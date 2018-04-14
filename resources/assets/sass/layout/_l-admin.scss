@@ -8,6 +8,11 @@
   }
 
   &__main {
+    @extend
+    %u-margin-horizontal-auto,
+    %u-margin-top-3,
+    %u-depth-1;
     box-sizing: border-box;
+    max-width: 800px;
   }
 }
