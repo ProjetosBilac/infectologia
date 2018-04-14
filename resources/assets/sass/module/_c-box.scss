@@ -3,15 +3,17 @@
   border-radius: $spacing-short * 3;
   overflow: hidden;
 
-  &::before {
-    @extend
-    %u-content-empty,
-    %u-display-block;
-    background-color: $primary-color;
-    border-top-left-radius: $spacing-short * 3;
-    border-top-right-radius: $spacing-short * 3;
-    height: $spacing-large / 2;
-    width: 100%;
+  &.has-strip {
+    &::before {
+      @extend
+      %u-content-empty,
+      %u-display-block;
+      background-color: $primary-color;
+      border-top-left-radius: $spacing-short * 3;
+      border-top-right-radius: $spacing-short * 3;
+      height: $spacing-large / 2;
+      width: 100%;
+    }
   }
 
   &__body {
@@ -41,18 +43,35 @@
 
   &__item {
     @extend
+    %u-margin-vertical-1,
     %u-display-flex,
-    %u-flex-align-items-center,
-    %u-flex-justify-content-center,
-    %u-margin-vertical-1;
-  }
+    %u-flex-align-items-center;
 
-  &__group {
-    @extend
-    %u-display-flex,
-    %u-flex-align-items-center,
-    %u-flex-justify-content-space-between,
-    %u-margin-vertical-1;
+    &.is-with-content-to-left {
+      @extend
+      %u-flex-justify-content-flex-start;
+    }
+
+    &.is-with-centralized-content {
+      @extend
+      %u-flex-justify-content-center;
+    }
+
+    &.is-with-content-to-right {
+      @extend
+      %u-flex-justify-content-flex-end;
+    }
+
+    &.is-with-the-content-justified {
+      @extend
+      %u-flex-justify-content-space-between;
+    }
+
+    &.is-column {
+      @extend
+      %u-flex-align-items-flex-start,
+      %u-flex-direction-column;
+    }
   }
 
   &__text {
@@ -61,8 +80,6 @@
   }
 
   &__link {
-    @extend
-    %u-margin-vertical-1;
     color: $detail-color;
     font-size: 1em;
     transition: color 250ms ease-in;
