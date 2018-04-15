@@ -4,18 +4,15 @@
 <section class="c-box">
   <form
     class="c-box__body"
-    :id="formId"
     method="POST"
-    @submit="getOut"
     action="{{ route('login') }}">
 
-    <div class="c-box__item is-with-content-to-left">
-      <label>Tipo da questão:</label>
-      <select>
-        <option>Multipla escolha</option>
-        <option>Verdadeiro ou falso</option>
-      </select>
-    </div>
+    <custom-select
+      label="Tipo da questão:"
+      identifier="select_tipo"
+      empty-case="Escolha um item"
+      old-value="">
+    </custom-select>
 
     <div class="c-box__item is-column">
       <label>Enunciado</label>

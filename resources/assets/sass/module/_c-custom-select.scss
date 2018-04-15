@@ -1,0 +1,96 @@
+.c-custom-select {
+  @extend
+  %u-display-block;
+
+  max-height: 26px;
+
+  &__original {
+    @extend
+    %u-display-none;
+  }
+
+  &__label {
+    @extend
+    %u-margin-right-1;
+
+    vertical-align: top;
+  }
+
+  &__wrapper {
+    @extend
+    %u-display-inline-block,
+    %u-position-relative,
+    %u-width-100;
+
+    font-size: 1em;
+    max-width: 160px;
+  }
+
+  &__selected {
+    @extend
+    %u-padding-horizontal-1,
+    %u-display-flex,
+    %u-flex-justify-content-space-between;
+
+    border: 1px solid $primary-color;
+    box-sizing: border-box;
+    cursor: pointer;
+  }
+
+  &__text {
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  &__list {
+    max-height: 0;
+    transform: scaleY(0);
+    transform-origin: top;
+    transition: transform 250ms ease;
+
+    &.is-expand {
+      height: auto;
+      transform: scaleY(1);
+    }
+  }
+
+  &__item {
+    @extend
+    %u-display-flex,
+    %u-flex-align-items-center,
+    %u-padding-horizontal-1;
+
+    background-color: $color-white;
+    border-left: 1px solid $primary-color;
+    border-right: 1px solid $primary-color;
+    transition: background-color 250ms ease-out;
+
+    &:last-child {
+      border-bottom: 1px solid $primary-color;
+    }
+
+    &:hover {
+      &:not(.is-disabled) {
+        background-color: $secondary-color;
+        cursor: pointer;
+      }
+    }
+
+    &.is-disabled {
+      color: $color-gray-500;
+    }
+
+    &.is-active {
+      background-color: $secondary-color;
+    }
+  }
+
+  &__icon {
+    @extend
+    %u-margin-right-1;
+
+    color: $primary-color;
+  }
+}

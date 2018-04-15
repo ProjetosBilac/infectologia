@@ -4,6 +4,7 @@ import CustomInput from './components/CustomInput'
 import CustomCheckbox from './components/CustomCheckbox'
 import CustomSvg from './components/CustomSvg'
 import Toolbar from './components/Toolbar'
+import CustomSelect from './components/CustomSelect'
 import VueSimpleSVG from 'vue-simple-svg'
 
 require('./config/bootstrap')
@@ -24,7 +25,8 @@ window.addEventListener('load', () => {
       ExampleComponent,
       CustomCheckbox,
       CustomSvg,
-      Toolbar
+      Toolbar,
+      CustomSelect
     }
   })
 })
