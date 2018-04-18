@@ -1,5 +1,5 @@
 <template>
-  <div class="c-custom-select">
+  <div class="c-custom-select" v-click-outside="hideExpand">
     <select
       class="c-custom-select__original"
       v-model="selected.value"
@@ -51,6 +51,7 @@
 
 <script>
   import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+  import ClickOutside from 'vue-click-outside'
 
   export default {
     name: "custom-select",
@@ -80,6 +81,9 @@
       },
       toggleExpand () {
         this.expand = !this.expand
+      },
+      hideExpand () {
+        this.expand = false
       }
     },
     computed: {
@@ -89,6 +93,9 @@
     },
     components: {
       FontAwesomeIcon
+    },
+    directives: {
+      ClickOutside
     }
   }
 </script>
