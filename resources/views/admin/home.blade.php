@@ -19,27 +19,47 @@
       <textarea></textarea>
     </div>
 
-    <custom-checkbox
-      class="c-box__item is-with-content-to-left"
-      identifier="remember"
-      old-value="{{ old('remember') ? 'checked' : '' }}"
-      label="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua.">
-    </custom-checkbox>
+    <div>
+      <custom-checkbox
+        class="c-box__item is-with-content-to-left"
+        label="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolor"
+        identifier="remember1">
+      </custom-checkbox>
 
-    <custom-checkbox
-      class="c-box__item is-with-content-to-left"
-      identifier="remember"
-      old-value="{{ old('remember') ? 'checked' : '' }}"
-      label="Lorem ipsum dolor sit amet.">
-    </custom-checkbox>
+      <custom-checkbox
+        class="c-box__item is-with-content-to-left"
+        label="Lorem ipsum dolor sit amet."
+        identifier="remember2">
+      </custom-checkbox>
 
-    <custom-checkbox
-      class="c-box__item is-with-content-to-left"
-      identifier="remember"
-      old-value="{{ old('remember') ? 'checked' : '' }}"
-      label="Lorem ipsum dolor sit amet, consectetur adipisicing elit.">
-    </custom-checkbox>
+      <custom-checkbox
+        class="c-box__item is-with-content-to-left"
+        label="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+        identifier="remember3">
+      </custom-checkbox>
+    </div>
+    <div>
+      <custom-radio
+        class="c-box__item is-with-content-to-left"
+        label="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolor"
+        identifier="radio1"
+        family="alternativa">
+      </custom-radio>
+
+      <custom-radio
+        class="c-box__item is-with-content-to-left"
+        label="Lorem ipsum dolor sit amet."
+        identifier="radio2"
+        family="alternativa">
+      </custom-radio>
+
+      <custom-radio
+        class="c-box__item is-with-content-to-left"
+        label="Lorem ipsum dolor sit amet, consectetur adipisicing elit."
+        identifier="radio3"
+        family="alternativa">
+      </custom-radio>
+    </div>
 
     <div class="c-box__item is-with-content-to-right">
       <a href class="c-box__link">Adicionar alternativa</a>
