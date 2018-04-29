@@ -2,6 +2,7 @@ import Vue from 'vue'
 import ExampleComponent from './components/ExampleComponent'
 import CustomInput from './components/CustomInput'
 import CustomCheckbox from './components/CustomCheckbox'
+import CustomRadio from './components/CustomRadio'
 import CustomSvg from './components/CustomSvg'
 import Toolbar from './components/Toolbar'
 import CustomSelect from './components/CustomSelect'
@@ -26,7 +27,8 @@ window.addEventListener('load', () => {
       CustomCheckbox,
       CustomSvg,
       Toolbar,
-      CustomSelect
+      CustomSelect,
+      CustomRadio
     }
   })
 })

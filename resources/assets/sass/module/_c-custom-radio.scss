@@ -1,0 +1,52 @@
+.c-custom-radio {
+
+  &__input {
+    @extend
+    %u-display-none;
+  }
+
+  &__circle {
+    @extend
+    %u-margin-right-1,
+    %u-display-flex,
+    %u-flex-align-items-center,
+    %u-flex-justify-content-center;
+
+    $circle-size: $spacing-large * 2;
+
+    border: ($spacing-short * 2) solid $primary-color;
+    border-radius: 50%;
+    height: $circle-size;
+    width: $circle-size;
+  }
+
+  &__icon {
+    $icon-size: $spacing-large;
+
+    color: $detail-color;
+    height: $icon-size;
+    transform: scale(0);
+    transition: transform 250ms ease-in;
+    width: $icon-size;
+
+    &.is-active {
+      transform: scale(1);
+    }
+  }
+
+  &__label {
+    @extend
+    %u-display-flex,
+    %u-flex-align-items-center;
+
+    color: $color-gray-700;
+    font-size: 1em;
+
+    &:hover {
+      @extend
+      %u-cursor-pointer;
+      color: lighten($color-gray-700, 10%);
+      transition: color 150ms ease-in;
+    }
+  }
+}
