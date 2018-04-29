@@ -60,7 +60,7 @@
 
     <custom-checkbox
       class="c-box__item is-with-content-to-left"
-      label="Declaro que li e concordo com os termos de uso.">
+      label="Concordo com os termos de uso.">
     </custom-checkbox>
 
     <button class="btn is-primary c-box__group align-center" type="submit">
