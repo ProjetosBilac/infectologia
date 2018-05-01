@@ -78,6 +78,7 @@
       setSelected (option) {
         this.selected = option
         this.expand = false
+        this.$emit('update-selected', this.selected)
       },
       toggleExpand () {
         this.expand = !this.expand

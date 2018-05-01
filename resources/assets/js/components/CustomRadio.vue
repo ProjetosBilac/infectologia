@@ -2,14 +2,15 @@
   <div class="c-custom-radio" @click="updateState" v-click-outside="updateState">
     <input class="c-custom-radio__input" :id="identifier" type="radio"
            :name="family" :checked="state">
-    <label class="c-custom-radio__label" :for="identifier" v-if="label">
-      <i class="c-custom-radio__circle" :for="identifier">
+    <label class="c-custom-radio__label" :for="identifier">
+      <i class="c-custom-radio__circle">
         <font-awesome-icon
          :class="['c-custom-radio__icon', {'is-active': state}]"
          icon="circle">
         </font-awesome-icon>
       </i>
-      {{ label }}
+      <span v-if="!edit && label">{{ label }}</span>
+      <textarea @blur="updateLabel" v-model="text" v-if="edit"></textarea>
     </label>
   </div>
 </template>
@@ -24,16 +25,21 @@
       'old-state',
       'label',
       'identifier',
-      'family'
+      'family',
+      'edit'
     ],
     data () {
       return {
-        state: this.oldState
+        state: this.oldState,
+        text: this.label
       }
     },
     methods: {
       updateState() {
         this.state = document.getElementById(this.identifier).checked
+      },
+      updateLabel () {
+        this.$emit('update-label', this.text, this.identifier)
       }
     },
     components: {

@@ -7,6 +7,7 @@ import CustomSvg from './components/CustomSvg'
 import Toolbar from './components/Toolbar'
 import CustomSelect from './components/CustomSelect'
 import VueSimpleSVG from 'vue-simple-svg'
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
 require('./config/bootstrap')
 require('./config/icons')
@@ -21,6 +22,32 @@ window.addEventListener('load', () => {
   /* eslint-disable no-new */
   new Vue({
     el: '#app',
+    data () {
+      return {
+        selected: undefined,
+        alternatives: []
+      }
+    },
+    methods: {
+      setSelected (option) {
+        this.selected = option.value
+      },
+      createAlternative (e) {
+        e.preventDefault()
+        if (!this.selected) return
+        this.alternatives.push({
+          label: '',
+          identifier: this.alternatives.length
+        })
+      },
+      updateLabel (text, pos) {
+        this.alternatives[pos].label = text
+      },
+      removeAlternative (e) {
+        e.preventDefault()
+        this.alternatives.splice(-1, 1)
+      }
+    },
     components: {
       CustomInput,
       ExampleComponent,
@@ -28,7 +55,8 @@ window.addEventListener('load', () => {
       CustomSvg,
       Toolbar,
       CustomSelect,
-      CustomRadio
+      CustomRadio,
+      FontAwesomeIcon
     }
   })
 })

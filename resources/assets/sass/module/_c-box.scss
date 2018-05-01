@@ -88,5 +88,10 @@
       color: lighten($detail-color, 10%);
       text-decoration: none;
     }
+
+    &.is-inactive {
+      color: $color-gray-300;
+      cursor: not-allowed;
+    }
   }
 }
