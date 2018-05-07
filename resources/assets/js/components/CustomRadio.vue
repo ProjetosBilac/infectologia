@@ -1,11 +1,12 @@
 <template>
-  <div class="c-custom-checkbox" @click="stateToggle()">
-    <input class="c-custom-checkbox__input" :id="identifier" type="checkbox"
-           v-model="state" :name="identifier" :value="state">
-    <label class="c-custom-checkbox__label" :for="identifier">
-      <i class="c-custom-checkbox__square">
-        <font-awesome-icon :class="['c-custom-checkbox__check', {'is-active': state}]"
-         icon="check">
+  <div class="c-custom-radio" @click="updateState" v-click-outside="updateState">
+    <input class="c-custom-radio__input" :id="identifier" type="radio"
+           :name="family" :checked="state">
+    <label class="c-custom-radio__label" :for="identifier">
+      <i class="c-custom-radio__circle">
+        <font-awesome-icon
+         :class="['c-custom-radio__icon', {'is-active': state}]"
+         icon="circle">
         </font-awesome-icon>
       </i>
       <span v-if="!edit && label">{{ label }}</span>
@@ -16,23 +17,25 @@
 
 <script>
   import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+  import ClickOutside from 'vue-click-outside'
 
   export default {
-    name: 'custom-checkbox',
+    name: 'custom-radio',
     props: [
+      'old-state',
       'label',
       'identifier',
-      'old-value',
+      'family',
       'edit'
     ],
     data () {
       return {
-        state: this.oldValue,
+        state: this.oldState,
         text: this.label
       }
     },
     methods: {
-      stateToggle () {
+      updateState() {
         this.state = document.getElementById(this.identifier).checked
       },
       updateLabel () {
@@ -41,6 +44,9 @@
     },
     components: {
       FontAwesomeIcon
+    },
+    directives: {
+      ClickOutside
     }
   }
 </script>
