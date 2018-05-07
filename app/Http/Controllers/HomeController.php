@@ -11,8 +11,7 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
-    {
+    public function __construct(){
         $this->middleware('auth');
     }
 
@@ -21,8 +20,21 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        return view('home');
+    public function index(){
+        $menu = [
+            [
+                'name'=> 'Home',
+                'url' => route('home'),
+            ],
+            [
+                'name'=> 'Admin',
+                'url' => route('admin'),
+            ],
+            [
+                'name'=> 'Avaliação',
+                'url' => route('evaluation'),
+            ],
+        ];
+        return view('home',['menu' => json_encode($menu)]);
     }
 }

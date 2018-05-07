@@ -20,7 +20,7 @@
     <custom-input
       class="c-box__item is-with-centralized-content"
       icon="user"
-      label="{{ __('Name') }}"
+      label="Nome"
       identifier="name"
       warning="{{ $errors->first('name') }}"
       old-value="{{ old('name') }}"
@@ -30,7 +30,7 @@
     <custom-input
       class="c-box__item is-with-centralized-content"
       icon="at"
-      label="{{ __('E-Mail Address') }}"
+      label="Email"
       identifier="email"
       warning="{{ $errors->first('email') }}"
       old-value="{{ old('email') }}"
@@ -41,7 +41,7 @@
     <custom-input
       class="c-box__item is-with-centralized-content"
       icon="lock"
-      label="{{ __('Password') }}"
+      label="Senha"
       identifier="password"
       warning="{{ $errors->first('password') }}"
       old-value="{{ old('password') }}"
@@ -52,16 +52,11 @@
     <custom-input
       class="c-box__item is-with-centralized-content"
       icon="lock"
-      label="{{ __('Confirm Password') }}"
-      identifier="password-confirm"
+      label="Confirmação de Senha"
+      identifier="password_confirmation"
       field-type="password"
       required="true">
     </custom-input>
-
-    <custom-checkbox
-      class="c-box__item is-with-content-to-left"
-      label="Declaro que li e concordo com os termos de uso.">
-    </custom-checkbox>
 
     <button class="btn is-primary c-box__group align-center" type="submit">
       {{ __('Register') }}

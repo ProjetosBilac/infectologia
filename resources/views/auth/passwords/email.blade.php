@@ -19,12 +19,12 @@
       filepath="{{ asset('svgs/logo.svg') }}">
     </custom-svg>
 
-    <h3 class="c-box__title">{{ __('Reset Password') }}</h3>
+    <h3 class="c-box__title">Mudança de Senha</h3>
 
     <custom-input
       class="c-box__item is-with-centralized-content"
       icon="at"
-      label="{{ __('E-Mail Address') }}"
+      label="E-Mail"
       identifier="email"
       warning="{{ $errors->first('email') }}"
       old-value="{{ old('email') }}"
@@ -33,7 +33,7 @@
     </custom-input>
 
     <button class="btn is-primary c-box__item is-with-centralized-content" type="submit">
-      {{ __('Send Password Reset Link') }}
+      Enviar Link de Mudança de Senha
     </button>
 
     <div class="c-box__item is-with-the-content-justified">

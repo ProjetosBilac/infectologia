@@ -12,6 +12,7 @@
 <body>
   <div id="app" style="display: none">
     <div class="l-admin">
+    <!-- Adiciona o atributo para o nome do usuario, {{ Auth::user()->name }} -->
       <toolbar class="l-admin__nav"></toolbar>
       <main class="l-admin__main">
         @yield('content')

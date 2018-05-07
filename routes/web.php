@@ -2,35 +2,20 @@
 
 Auth::routes();
 
-//Route::get('/home', 'HomeController@index')->name('home');
-
-
-// --------- G E R A L ---
-    //Modelo de Rota -> 
-    //Caso a VIEW encontra-se dentro de pasta, utilize o . (ponto) em vez de / (barra).
-    Route::get('/', function () {
-        $menu = [
-            [
-                'name'=> 'Home',
-                'url' => route('home'),
-            ],
-        ];
-        return view('home',['menu' => json_encode($menu)]);
-    })->name('home');
-// --------- M A G O ---
-    Route::group(['prefix' => 'mago'],function (){
-        //Rotas daqui começaram com "mago/"
-    });
-
-// --------- P A G I N A  A D M I N -------------
-    Route::group(['prefix' => 'admin','middleware' => 'auth'],function (){
+//Todas as Rotas terão o Middleware Auth, no qual só permite usuarios autenticados.
+Route::group(['middleware' => ['auth']],function (){
+// --------- G E R A L --------
+        Route::get('/home', 'HomeController@index')->name('home');
+        Route::get('/', 'HomeController@index')->name('home');
+// --------- P A G I N A   A D M I N -------------
+    //'role:Admin'
+    Route::group(['prefix' => 'admin'],function (){
         //Rotas daqui só poderam ser acessadas com usuário logado.
-        Route::get('/', function () {
-            return view('admin.home',[]);
-        })->name('admin.home');
+        Route::get('/', 'AdminController@index')->name('admin');
+        Route::get('/evaluation', 'AdminController@evaluation')->name('admin.evaluation');
     });
-// ---------  M A G O  A C E S S  A D M I N--
-    Route::group(['prefix' => 'mago','middleware' => ['auth']],function (){
-        //Rotas daqui começaram com "mago/"
-        //Rotas daqui só poderam ser acessadas com usuário logado.
+// ---------  A V A L I A Ç Ã O   A C E S S --
+    Route::group(['prefix' => 'evaluation'],function (){
+        Route::get('/', 'EvaluationController@index')->name('evaluation');
     });
+});

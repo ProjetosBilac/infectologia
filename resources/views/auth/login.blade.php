@@ -20,9 +20,9 @@
     <custom-input
       class="c-box__item is-with-centralized-content"
       icon="at"
-      label="{{ __('E-Mail Address') }}"
+      label="Email"
       identifier="email"
-      warning="{{ $errors->has('email') }}"
+      warning="{{ $errors->first('email') }}"
       old-value="{{ old('email') }}"
       field-type="email"
       required="true">
@@ -31,9 +31,9 @@
     <custom-input
       class="c-box__item is-with-centralized-content"
       icon="lock"
-      label="{{ __('Password') }}"
+      label="Senha"
       identifier="password"
-      warning="{{ $errors->has('password') }}"
+      warning="{{ $errors->first('password') }}"
       old-value="{{ old('password') }}"
       field-type="password"
       required="true">
@@ -43,7 +43,7 @@
       class="c-box__item is-with-content-to-left"
       identifier="remember"
       old-value="{{ old('remember') ? 'checked' : '' }}"
-      label="{{ __('Remember Me') }}">
+      label="Lembrar-me">
     </custom-checkbox>
 
     <button class="btn is-primary c-box__item is-with-centralized-content" type="submit">
@@ -53,7 +53,7 @@
     <a class="c-box__link c-box__item is-with-content-to-left"
        href="{{ route('password.request') }}"
        @click="getOut($event, '{{ route('password.request') }}')">
-      {{ __('Forgot Your Password?') }}
+      Esqueceu sua senha ?
     </a>
 
     <div class="c-box__item is-with-the-content-justified">
