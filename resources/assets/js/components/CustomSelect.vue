@@ -7,6 +7,7 @@
       :id="identifier">
       <option
         v-for="option in options"
+        :key="option.value"
         :value="option.value">{{ option.beautifulValue }}</option>
     </select>
     <label
@@ -35,11 +36,11 @@
               {{ emptyCase }}
             </span>
         </li>
-        <li
-          :class="['c-custom-select__item', {'is-active': option === selected}]"
-          v-for="option in options"
-          :title="option.beautifulValue || emptyCase"
-          @click="setSelected(option)">
+        <li :class="['c-custom-select__item', {'is-active': option === selected}]"
+            v-for="option in options"
+            :key="option.value"
+            :title="option.beautifulValue || emptyCase"
+            @click="setSelected(option)">
             <span class="c-custom-select__text">
               {{ option.beautifulValue }}
             </span>
