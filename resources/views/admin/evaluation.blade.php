@@ -8,6 +8,7 @@
     action="{{ route('login') }}">
 
     <custom-select
+      @update-selected="setSelected"
       label="Tipo da questão:"
       identifier="select_tipo"
       empty-case="Escolha um item"
@@ -19,36 +20,41 @@
       <textarea></textarea>
     </div>
 
-    <custom-checkbox
-      class="c-box__item is-with-content-to-left"
-      identifier="remember"
-      old-value="{{ old('remember') ? 'checked' : '' }}"
-      label="Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-      tempor incididunt ut labore et dolore magna aliqua.">
-    </custom-checkbox>
-
-    <custom-checkbox
-      class="c-box__item is-with-content-to-left"
-      identifier="remember"
-      old-value="{{ old('remember') ? 'checked' : '' }}"
-      label="Lorem ipsum dolor sit amet.">
-    </custom-checkbox>
-
-    <custom-checkbox
-      class="c-box__item is-with-content-to-left"
-      identifier="remember"
-      old-value="{{ old('remember') ? 'checked' : '' }}"
-      label="Lorem ipsum dolor sit amet, consectetur adipisicing elit.">
-    </custom-checkbox>
-
+    <div v-for="alternative in alternatives">
+      <custom-radio
+        v-if="selected === 'a'"
+        @update-label="updateLabel"
+        @remove="removeItem"
+        class="c-box__item is-with-content-to-left"
+        :label="alternative.label"
+        :identifier="alternative.identifier"
+        family="alternative"
+        edit="true">
+      </custom-radio>
+      <custom-checkbox
+        v-if="selected === 'b'"
+        @update-label="updateLabel"
+        @remove="removeItem"
+        class="c-box__item is-with-content-to-left"
+        :label="alternative.label"
+        :identifier="alternative.identifier"
+        edit="true">
+      </custom-checkbox>
+    </div>
     <div class="c-box__item is-with-content-to-right">
-      <a href class="c-box__link">Adicionar alternativa</a>
+      <div class="c-box__item is-column">
+        <a :class="['c-box__link', {'is-inactive': !selected}]"
+           @click="createAlternative($event)"
+           href>Adicionar alternativa</a>
+        <a :class="['c-box__link', {'is-inactive': !alternatives.length}]"
+            @click="removeAlternative($event)"
+            href>Remover alternativa</a>
+      </div>
     </div>
 
     <div class="c-box__item is-with-centralized-content">
       <button class="btn is-primary">Salvar</button>
     </div>
-
   </form>
 </section>
 @endsection
