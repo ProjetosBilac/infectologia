@@ -1,19 +1,22 @@
 .btn {
   @extend
-  %u-padding-horizontal-2,
   %u-depth-1,
   %u-no-border,
   %u-no-border-radius,
+  %u-margin-1,
   %u-cursor-pointer;
+  font-size: 1em;
   transition-duration: 150ms;
   transition-property: box-shadow, background-color, transform;
   transition-timing-function: ease;
 
-  &:focus,
-  &:active {
-    @extend
-    %u-depth-0;
-    transform: translatey($spacing-short * 2);
+  &:not(.is-inactive) {
+    &:active,
+    &:focus {
+      @extend
+      %u-depth-0;
+      transform: translatey($spacing-short * 2);
+    }
   }
 
   &.is-primary {
@@ -29,5 +32,27 @@
     background-color: $color-gray-100;
     border: $spacing-short solid $primary-color;
     color: $primary-color;
+  }
+
+  &.is-danger {
+    background-color: $color-gray-100;
+    border: 1px solid $color-red-600;
+    color: $color-red-600;
+  }
+
+  &.is-small {
+    font-size: .7em;
+  }
+
+  &.is-inactive {
+    border-color: $color-gray-500;
+    color: $color-gray-500;
+    cursor: not-allowed;
+
+    &:focus,
+    &:active {
+      @extend
+      %u-depth-1;
+    }
   }
 }

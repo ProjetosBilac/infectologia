@@ -1,0 +1,43 @@
+.c-question {
+  @extend
+  %u-flex-align-items-center,
+  %u-position-relative,
+  %u-width-100,
+  %u-padding-vertical-1,
+  %u-flex-justify-content-space-between,
+  %u-display-flex;
+
+  flex: 1;
+  max-width: 100%;
+
+  &__group {
+    @extend
+    %u-flex-align-items-center,
+    %u-display-flex,
+    %u-position-relative;
+
+    flex: 1;
+  }
+
+  &__icon {
+    @extend
+    %u-margin-right-1;
+
+    color: $detail-color;
+  }
+
+  &__statement {
+    margin-right: $spacing-large * 2;
+    max-width: 550px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &::before {
+      @extend
+      %u-margin-right-1;
+
+      content: '-';
+    }
+  }
+}

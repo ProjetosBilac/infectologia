@@ -5,12 +5,13 @@ import CustomCheckbox from './components/CustomCheckbox'
 import CustomRadio from './components/CustomRadio'
 import CustomSvg from './components/CustomSvg'
 import Toolbar from './components/Toolbar'
+import Question from './components/Question'
 import CustomSelect from './components/CustomSelect'
 import VueSimpleSVG from 'vue-simple-svg'
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
-require('./config/bootstrap')
-require('./config/icons')
+import './config/bootstrap'
+import './config/icons'
 
 Vue.use(VueSimpleSVG)
 Vue.config.productionTip = false
@@ -25,7 +26,69 @@ window.addEventListener('load', () => {
     data () {
       return {
         selected: undefined,
-        alternatives: []
+        alternatives: [],
+        questions: [
+          {
+            id: 0,
+            statement: 'dsadasdasdasd',
+            type: 'checkbox'
+          },
+          {
+            id: 1,
+            statement: 'dsadasdasdasd',
+            type: 'checkbox'
+          },
+          {
+            id: 2,
+            statement: 'dsadasdasdasd',
+            type: 'radio'
+          },
+          {
+            id: 3,
+            statement: 'dsadasdasdasd',
+            type: 'checkbox'
+          },
+          {
+            id: 4,
+            statement: 'dsadasdasdasd',
+            type: 'checkbox'
+          },
+          {
+            id: 5,
+            statement: 'dsadasdasdasd',
+            type: 'checkbox'
+          },
+          {
+            id: 6,
+            statement: 'dsadasdasdasd',
+            type: 'radio'
+          },
+          {
+            id: 7,
+            statement: 'dsadasdasdasd',
+            type: 'checkbox'
+          },
+          {
+            id: 8,
+            statement: 'dsadasdasdasd',
+            type: 'checkbox'
+          },
+          {
+            id: 9,
+            statement: 'dsadasdasdasd',
+            type: 'checkbox'
+          },
+          {
+            id: 10,
+            statement: 'dsadasdasdasd',
+            type: 'radio'
+          },
+          {
+            id: 11,
+            statement: 'dsadasdasdasd',
+            type: 'checkbox'
+          }
+        ]
       }
     },
     methods: {
@@ -46,6 +109,9 @@ window.addEventListener('load', () => {
       removeAlternative (e) {
         e.preventDefault()
         this.alternatives.splice(-1, 1)
+      },
+      removeQuestion (id) {
+        this.questions = this.questions.filter(question => question.id !== id)
       }
     },
     components: {
@@ -56,6 +122,7 @@ window.addEventListener('load', () => {
       Toolbar,
       CustomSelect,
       CustomRadio,
+      Question,
       FontAwesomeIcon
     }
   })

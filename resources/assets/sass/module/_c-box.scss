@@ -1,7 +1,12 @@
 .c-box {
   background-color: $color-white;
   border-radius: $spacing-short * 3;
+  display: flex;
+  flex-direction: column;
+  font-size: 1em;
+  max-height: 100%;
   overflow: hidden;
+  position: relative;
 
   &.has-strip {
     &::before {
@@ -16,12 +21,40 @@
     }
   }
 
+  &__header {
+    @extend
+    %u-display-flex,
+    %u-flex-justify-content-space-between,
+    %u-flex-align-items-center,
+    %u-padding-vertical-2,
+    %u-padding-horizontal-6;
+
+    border-bottom: 1px solid $color-gray-200;
+    height: 60px;
+    min-height: 60px;
+  }
+
+  &__title {
+    @extend
+    %u-text-align-center;
+
+    color: $color-gray-800;
+    font-size: 1.8em;
+
+    &.is-small {
+      font-size: 1.2em;
+    }
+  }
+
   &__body {
     @extend
-    %u-padding-vertical-4,
+    %u-padding-vertical-1,
     %u-padding-horizontal-6,
-    %u-display-flex,
-    %u-flex-direction-column;
+    %u-display-flex;
+
+    flex-wrap: wrap;
+    max-height: 100%;
+    overflow-y: auto;
   }
 
   &__alert {
@@ -29,16 +62,10 @@
     %u-depth-1,
     %u-position-absolute,
     %u-width-100;
+
     left: 0;
     top: 0;
     transform: translatey(calc(-100% - #{$spacing-large}));
-  }
-
-  &__title {
-    @extend
-    %u-text-align-center;
-    color: $color-gray-800;
-    font-size: 1.8em;
   }
 
   &__item {
@@ -46,6 +73,8 @@
     %u-margin-vertical-1,
     %u-display-flex,
     %u-flex-align-items-center;
+
+    width: 100%;
 
     &.is-with-content-to-left {
       @extend
@@ -82,6 +111,7 @@
   &__link {
     color: $detail-color;
     font-size: 1em;
+    margin: 0 $spacing-large;
     transition: color 250ms ease-in;
 
     &:hover {

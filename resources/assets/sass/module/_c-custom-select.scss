@@ -1,8 +1,9 @@
 .c-custom-select {
   @extend
-  %u-display-block;
+  %u-display-flex;
 
   max-height: 26px;
+  width: 100%;
 
   &__original {
     @extend

@@ -15,7 +15,9 @@
     <!-- Adiciona o atributo para o nome do usuario, {{ Auth::user()->name }} -->
       <toolbar class="l-admin__nav"></toolbar>
       <main class="l-admin__main">
-        @yield('content')
+        <div class="l-admin__content">
+          @yield('content')
+        </div>
       </main>
     </div>
   </div>
