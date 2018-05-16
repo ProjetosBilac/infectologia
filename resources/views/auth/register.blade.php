@@ -10,12 +10,16 @@
 
     @csrf
 
-    <custom-svg
-      css-class="c-logo is-animated c-box__item is-with-centralized-content"
-      filepath="{{ asset('svgs/logo.svg') }}">
-    </custom-svg>
+    <div class="c-box__item">
+      <custom-svg
+        css-class="c-logo is-animated is-with-centralized-content"
+        filepath="{{ asset('svgs/logo.svg') }}">
+      </custom-svg>
+    </div>
 
-    <h3 class="c-box__title">Cadastre-se</h3>
+    <div class="c-box__item is-with-centralized-content">
+      <h3 class="c-box__title">Cadastre-se</h3>
+    </div>
 
     <custom-input
       class="c-box__item is-with-centralized-content"
