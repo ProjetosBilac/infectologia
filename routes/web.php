@@ -19,3 +19,6 @@ Route::group(['middleware' => ['auth']],function (){
         Route::get('/', 'EvaluationController@index')->name('evaluation');
     });
 });
+
+
+Route::get('/teste', 'HomeController@teste')->name('teste');

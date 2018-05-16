@@ -37,4 +37,7 @@ class HomeController extends Controller
         ];
         return view('home',['menu' => json_encode($menu)]);
     }
+    public function teste(Request $request){
+        dd($request,$request->all());
+    }
 }
