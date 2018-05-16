@@ -9,23 +9,33 @@
       <ul class="c-toolbar__group">
         <li class="c-toolbar__item">
           <font-awesome-icon class="c-toolbar__icon" icon="user" />
-          <strong class="c-toolbar__user">Vitebo</strong>
+          <strong class="c-toolbar__user">{{username}}</strong>
         </li>
         <li class="c-toolbar__item">
-          <font-awesome-icon class="c-toolbar__icon is-the-close-icon" icon="times" />
+          <a @click="logout($event)">
+            <font-awesome-icon class="c-toolbar__icon is-the-close-icon" icon="times" />
+          </a>
         </li>
       </ul>
     </div>
+    <slot></slot>
   </nav>
 </template>
 
 <script>
-  import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 
-  export default {
-    name: "toolbar",
-    components: {
-      FontAwesomeIcon
+export default {
+  name: 'toolbar',
+  props: ['username', 'logout-id'],
+  methods: {
+    logout(e) {
+      e.preventDefault()
+      document.getElementById(this.logoutId).submit()
     }
+  },
+  components: {
+    FontAwesomeIcon
   }
+}
 </script>

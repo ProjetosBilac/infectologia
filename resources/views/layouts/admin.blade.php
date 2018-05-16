@@ -12,8 +12,14 @@
 <body>
   <div id="app" style="display: none">
     <div class="l-admin">
-    <!-- Adiciona o atributo para o nome do usuario, {{ Auth::user()->name }} -->
-      <toolbar class="l-admin__nav"></toolbar>
+      <toolbar
+        class="l-admin__nav"
+        username="{{ Auth::user()->name }}"
+        logout-id="logout-form">
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              @csrf
+          </form>
+      </toolbar>
       <main class="l-admin__main">
         <div class="l-admin__content">
           @yield('content')
