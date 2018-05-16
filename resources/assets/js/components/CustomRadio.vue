@@ -16,37 +16,31 @@
 </template>
 
 <script>
-  import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
-  import ClickOutside from 'vue-click-outside'
+import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import ClickOutside from 'vue-click-outside'
 
-  export default {
-    name: 'custom-radio',
-    props: [
-      'old-state',
-      'label',
-      'identifier',
-      'family',
-      'edit'
-    ],
-    data () {
-      return {
-        state: this.oldState,
-        text: this.label
-      }
-    },
-    methods: {
-      updateState() {
-        this.state = document.getElementById(this.identifier).checked
-      },
-      updateLabel () {
-        this.$emit('update-label', this.text, this.identifier)
-      }
-    },
-    components: {
-      FontAwesomeIcon
-    },
-    directives: {
-      ClickOutside
+export default {
+  name: 'custom-radio',
+  props: ['old-state', 'label', 'identifier', 'family', 'edit'],
+  data() {
+    return {
+      state: this.oldState,
+      text: this.label
     }
+  },
+  methods: {
+    updateState() {
+      this.state = document.getElementById(this.identifier).checked
+    },
+    updateLabel() {
+      this.$emit('update-label', this.text, this.identifier)
+    }
+  },
+  components: {
+    FontAwesomeIcon
+  },
+  directives: {
+    ClickOutside
   }
+}
 </script>

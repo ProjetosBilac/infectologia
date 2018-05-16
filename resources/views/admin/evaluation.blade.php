@@ -19,7 +19,7 @@
 
     <div class="c-box__item is-column">
       <label>Enunciado</label>
-      <textarea></textarea>
+      <textarea name="enunciado"></textarea>
     </div>
 
     <div class="c-box__item" v-for="alternative in alternatives">
