@@ -44,7 +44,7 @@
       </custom-checkbox>
     </div>
     <div class="c-box__item is-with-content-to-right">
-        <a :class="['btn is-danger is-small', {'is-inactive': !alternatives.length}]"
+        <a :class="['btn is-danger is-small p-margin-right-1', {'is-inactive': !alternatives.length}]"
             @click="removeAlternative($event)"
             href>Remover alternativa</a>
         <a :class="['btn is-secondary is-small', {'is-inactive': !selected}]"
