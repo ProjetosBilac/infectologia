@@ -1,7 +1,7 @@
 <template>
   <div class="c-custom-radio" @click="updateState" v-click-outside="updateState">
     <input class="c-custom-radio__input" :id="identifier" type="radio"
-           :name="family" :checked="state">
+           :name="nameEnunciado" :checked="state">
     <label class="c-custom-radio__label" :for="identifier">
       <i class="c-custom-radio__circle">
         <font-awesome-icon
@@ -10,7 +10,7 @@
         </font-awesome-icon>
       </i>
       <span v-if="!edit && label">{{ label }}</span>
-      <textarea @blur="updateLabel" v-model="text" v-if="edit"></textarea>
+      <textarea @blur="updateLabel" v-model="text" v-if="edit" :name="nameValor"></textarea>
     </label>
   </div>
 </template>
@@ -34,6 +34,14 @@ export default {
     },
     updateLabel() {
       this.$emit('update-label', this.text, this.identifier)
+    }
+  },
+  computed: {
+    nameEnunciado() {
+      return `alternativa[${this.identifier}][enunciado]`
+    },
+    nameValor() {
+      return `alternativa[${this.identifier}][value]`
     }
   },
   components: {

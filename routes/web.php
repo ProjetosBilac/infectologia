@@ -21,4 +21,4 @@ Route::group(['middleware' => ['auth']],function (){
 });
 
 
-Route::get('/teste', 'HomeController@teste')->name('teste');
+Route::post('/teste', 'HomeController@teste')->name('teste');

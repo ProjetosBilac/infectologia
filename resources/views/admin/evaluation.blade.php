@@ -5,7 +5,9 @@
   <form
     class="c-box__body"
     method="POST"
-    action="{{ route('login') }}">
+    action="{{ route('teste') }}">
+
+    @csrf
 
     <div class="c-box__item">
       <custom-select
@@ -26,7 +28,6 @@
       <custom-radio
         v-if="selected === 'a'"
         @update-label="updateLabel"
-        @remove="removeItem"
         class="c-box__item is-with-content-to-left"
         :label="alternative.label"
         :identifier="alternative.identifier"
@@ -36,10 +37,10 @@
       <custom-checkbox
         v-if="selected === 'b'"
         @update-label="updateLabel"
-        @remove="removeItem"
         class="c-box__item is-with-content-to-left"
         :label="alternative.label"
         :identifier="alternative.identifier"
+        family="alternative"
         edit="true">
       </custom-checkbox>
     </div>
@@ -51,6 +52,7 @@
            @click="createAlternative($event)"
            href>Adicionar alternativa</a>
     </div>
+
     <div class="c-box__item is-with-centralized-content">
       <button class="btn is-primary">Salvar</button>
     </div>
