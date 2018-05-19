@@ -3,7 +3,8 @@ const MIX = require('laravel-mix')
 const ASSETS_PATH = 'resources/assets/'
 const FILES = [
   `auth`,
-  `admin`
+  `admin`,
+  'home'
 ]
 
 config()

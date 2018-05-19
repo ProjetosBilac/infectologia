@@ -1,4 +1,4 @@
-@extends('layouts.admin')
+@extends('layouts.home')
 
 @section('content')
 <section class="c-box">
@@ -7,9 +7,23 @@
     <a class="btn is-secondary" href="#">Faça uma nova Avalição</a>
   </header>
   <article class="c-box__body">
-    <div class="alert alert-danger">
-    <!-- Aqui ficaria legal, um icone no lado esquerdo, e 2 linhas no lado direito com essas informações... ai tu ve como achar melhor.-->
-        (ICONE) - Avaliação realizada 01/01/2018 as 10:00hrs. - 10/20 (Acertos) (50% (Ou) Nota 5.00)
+    <div class="c-box__item">
+      <evaluation date="01/01/2018 as 10:00hrs" grade="1"></evaluation>
+    </div>
+    <div class="c-box__item">
+      <evaluation date="01/02/2018 as 10:00hrs" grade="4"></evaluation>
+    </div>
+    <div class="c-box__item">
+      <evaluation date="01/01/2018 as 10:00hrs" grade="8"></evaluation>
+    </div>
+    <div class="c-box__item">
+      <evaluation date="01/01/2018 as 10:00hrs" grade="2"></evaluation>
+    </div>
+    <div class="c-box__item">
+      <evaluation date="01/01/2018 as 10:00hrs" grade="6"></evaluation>
+    </div>
+    <div class="c-box__item">
+      <evaluation date="01/01/2018 as 10:00hrs" grade="9"></evaluation>
     </div>
     @if(false)
     <div class="alert alert-danger">
