@@ -4,7 +4,8 @@ const ASSETS_PATH = 'resources/assets/'
 const FILES = [
   `auth`,
   `admin`,
-  'home'
+  `home`,
+  `evaluation`
 ]
 
 config()

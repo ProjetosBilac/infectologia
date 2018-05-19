@@ -1,0 +1,28 @@
+.l-evaluation {
+  background-color: $color-gray-50;
+  height: 100vh;
+  overflow: hidden;
+
+  &__nav {
+    @extend %u-depth-2;
+    height: 50px;
+  }
+
+  &__main {
+    @extend %u-margin-horizontal-auto, %u-margin-top-3, %u-display-flex, %u-flex-justify-content-center;
+    align-items: flex-start;
+    box-sizing: border-box;
+    max-height: calc(100vh - 50px);
+    min-height: calc(100vh - 50px);
+    overflow: hidden;
+    padding: 0 $spacing-large * 2;
+    position: relative;
+  }
+
+  &__content {
+    @extend %u-depth-1;
+    margin-bottom: $spacing-large * 6;
+    max-width: 800px;
+    overflow-y: hidden;
+  }
+}
