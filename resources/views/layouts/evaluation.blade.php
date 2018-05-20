@@ -35,9 +35,7 @@
           </form>
       </toolbar>
       <main class="l-evaluation__main">
-        <div class="l-evaluation__content">
           @yield('content')
-        </div>
       </main>
     </div>
   </div>

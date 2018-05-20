@@ -9,7 +9,11 @@
   }
 
   &__main {
-    @extend %u-margin-horizontal-auto, %u-margin-top-3, %u-display-flex, %u-flex-justify-content-center;
+    @extend
+    %u-margin-horizontal-auto,
+    %u-margin-top-3,
+    %u-display-flex,
+    %u-flex-justify-content-center;
     align-items: flex-start;
     box-sizing: border-box;
     max-height: calc(100vh - 50px);
@@ -17,12 +21,60 @@
     overflow: hidden;
     padding: 0 $spacing-large * 2;
     position: relative;
+
+    & > .c-box {
+      @extend %u-depth-1;
+
+      &:first-child {
+        $size: 800px;
+        margin-right: $spacing-large;
+        max-width: $size;
+        min-width: $size;
+      }
+
+      &:last-child {
+        $size: 280px;
+        max-width: $size;
+        min-width: $size;
+
+        .c-box__body,
+        .c-box__header {
+          padding: $spacing-large;
+        }
+
+      }
+    }
   }
 
-  &__content {
-    @extend %u-depth-1;
-    margin-bottom: $spacing-large * 6;
-    max-width: 800px;
-    overflow-y: hidden;
+  // in layout
+  &__enunciado {
+    border-bottom: 1px solid $color-gray-100;
+  }
+
+  &__enunciado-content {
+    @extend
+    %u-padding-vertical-1,
+    %u-padding-horizontal-6,
+    %u-display-flex;
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  &__enunciado-text {
+    margin-top: $spacing-large;
+  }
+
+  &__aside {
+    display: flex;
+    flex-wrap: wrap;
+    position: relative;
+
+    button {
+      display: block;
+      flex: 1 1 50%;
+      margin: $spacing-large;
+      min-width: 50%;
+      width: 50%;
+    }
   }
 }

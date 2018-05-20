@@ -19,6 +19,13 @@ window.addEventListener('load', () => {
   /* eslint-disable no-new */
   new Vue({
     el: '#app',
+    data () {
+      return {
+        alternatives: [
+
+        ]
+      }
+    },
     components: {
       CustomInput,
       CustomCheckbox,
