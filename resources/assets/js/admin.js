@@ -9,6 +9,7 @@ import Question from './components/Question'
 import CustomSelect from './components/CustomSelect'
 import VueSimpleSVG from 'vue-simple-svg'
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import store from './storage/'
 
 import './config/bootstrap'
 import './config/icons'
@@ -26,7 +27,6 @@ window.addEventListener('load', () => {
     data () {
       return {
         selected: undefined,
-        alternatives: [],
         questions: [
           {
             id: 0,
@@ -98,20 +98,31 @@ window.addEventListener('load', () => {
       createAlternative (e) {
         e.preventDefault()
         if (!this.selected) return
-        this.alternatives.push({
+        this.$store.commit('addAlternativa', {
           label: '',
-          identifier: this.alternatives.length
+          identifier: this.alternativas.length,
+          marcado: false
         })
       },
       updateLabel (text, pos) {
-        this.alternatives[pos].label = text
+        const alternativaAtualizada = {
+          identifier: pos,
+          label: text,
+          marcado: false
+        }
+        this.$store.commit('updateAlternativa', alternativaAtualizada)
       },
       removeAlternative (e) {
         e.preventDefault()
-        this.alternatives.splice(-1, 1)
+        this.$store.commit('removeAlternativa')
       },
       removeQuestion (id) {
         this.questions = this.questions.filter(question => question.id !== id)
+      }
+    },
+    computed: {
+      alternativas () {
+        return this.$store.state.alternativas
       }
     },
     components: {
@@ -124,6 +135,7 @@ window.addEventListener('load', () => {
       CustomRadio,
       Question,
       FontAwesomeIcon
-    }
+    },
+    store
   })
 })

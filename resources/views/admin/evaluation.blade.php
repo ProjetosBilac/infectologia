@@ -24,7 +24,7 @@
       <textarea name="enunciado"></textarea>
     </div>
 
-    <div class="c-box__item" v-for="alternative in alternatives">
+    <div class="c-box__item" v-for="alternative in alternativas">
       <custom-radio
         v-if="selected === 'a'"
         @update-label="updateLabel"
@@ -45,7 +45,7 @@
       </custom-checkbox>
     </div>
     <div class="c-box__item is-with-content-to-right">
-        <a :class="['btn is-danger is-small p-margin-right-1', {'is-inactive': !alternatives.length}]"
+        <a :class="['btn is-danger is-small p-margin-right-1', {'is-inactive': !alternativas.length}]"
             @click="removeAlternative($event)"
             href>Remover alternativa</a>
         <a :class="['btn is-secondary is-small', {'is-inactive': !selected}]"
