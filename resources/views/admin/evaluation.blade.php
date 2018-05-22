@@ -13,7 +13,7 @@
       <custom-select
         @update-selected="setSelected"
         label="Tipo da questão:"
-        identifier="select_tipo"
+        identifier="type_id"
         empty-case="Escolha um item"
         old-value="">
       </custom-select>
