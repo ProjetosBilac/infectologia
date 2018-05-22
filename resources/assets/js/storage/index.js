@@ -16,23 +16,19 @@ export default new Vuex.Store({
     addAlternativa (state, alternativa) {
       state.alternativas.push(alternativa)
     },
-
     updateAlternativa (state, alternativa) {
       let escolhida = state.alternativas.find(a => a.identifier === alternativa.identifier)
-      escolhida = alternativa
+      if (escolhida.identifier === alternativa.identifier) escolhida = alternativa
     },
-
     removeAlternativa (state) {
       state.alternativas.splice(-1, 1)
     },
-
-    setMarcadoRadio(state, identifier) {
+    setMarcadoRadio (state, identifier) {
       state.alternativas.forEach(alternativa => {
         alternativa.marcado = false
-      });
+      })
       let escolhida = state.alternativas.find(a => a.identifier === identifier)
       escolhida.marcado = true
     }
-
   }
 })
