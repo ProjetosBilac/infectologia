@@ -42,7 +42,7 @@ class InputController extends Controller
         foreach($request->input('alternativa') as $value){
             $option = new \App\Option;
             $option->name = $value['enunciado'];
-            $option->correct = (isset($value['value']) and ($value['value'] == true or $value['value'] == on)) ? true : false ;
+            $option->correct = (isset($value['value']) and ($value['value'] == true or $value['value'] == 'on')) ? true : false ;
             $option->input_id = $input->id;
             $option->save();
         }
