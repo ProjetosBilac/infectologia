@@ -16,6 +16,7 @@ class CreateOptionsTable extends Migration
         Schema::create('options', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
+            $table->boolean('correct');
             //Input
             $table->integer('input_id')->unsigned();
             $table->foreign('input_id')->

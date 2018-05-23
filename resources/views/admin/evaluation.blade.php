@@ -5,7 +5,7 @@
   <form
     class="c-box__body"
     method="POST"
-    action="{{ route('teste') }}">
+    action="{{ route('admin.evaluation.post') }}">
 
     @csrf
 
@@ -26,7 +26,7 @@
 
     <div class="c-box__item" v-for="alternative in alternativas">
       <custom-radio
-        v-if="selected === 'a'"
+        v-if="selected === '1'"
         @update-label="updateLabel"
         class="c-box__item is-with-content-to-left"
         :label="alternative.label"
@@ -35,7 +35,7 @@
         edit="true">
       </custom-radio>
       <custom-checkbox
-        v-if="selected === 'b'"
+        v-if="selected === '2'"
         @update-label="updateLabel"
         class="c-box__item is-with-content-to-left"
         :label="alternative.label"

@@ -13,6 +13,7 @@ Route::group(['middleware' => ['auth']],function (){
         //Rotas daqui só poderam ser acessadas com usuário logado.
         Route::get('/', 'AdminController@index')->name('admin');
         Route::get('/evaluation', 'AdminController@evaluation')->name('admin.evaluation');
+        Route::post('/evaluation', 'InputController@store')->name('admin.evaluation.post');
     });
 // ---------  A V A L I A Ç Ã O   A C E S S --
     Route::group(['prefix' => 'evaluation'],function (){
