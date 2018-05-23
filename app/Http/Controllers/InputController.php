@@ -31,7 +31,7 @@ class InputController extends Controller
                 ->withInput();
         }
         $this->create($request);
-        return back();
+        return redirect()->route('admin');
     }
 
     public function create($request){
@@ -52,6 +52,7 @@ class InputController extends Controller
         $input = \App\Input::find($id);
         $input->status = 0;
         $input->save();
-        
+        return redirect()->route('admin');
+
     }
 }
