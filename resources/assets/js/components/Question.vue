@@ -24,8 +24,8 @@ export default {
   },
   computed: {
     icon() {
-      if (this.type === 'checkbox') return 'check-square'
-      if (this.type === 'radio') return faDotCircle
+      if (this.type === '1') return faDotCircle
+      if (this.type === '2') return 'check-square'
     }
   }
 }
