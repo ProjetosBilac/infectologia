@@ -9,7 +9,7 @@ class AdminController extends Controller
     
 
     public function index(){
-        $inputs = \App\Input::all();
+        $inputs = \App\Input::all()->where('status',1);
         return view('admin.home',['inputs' => $inputs]);
     }
     
