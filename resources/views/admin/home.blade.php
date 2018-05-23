@@ -1,20 +1,21 @@
 @extends('layouts.admin')
 
 @section('content')
-<section class="c-box">
+<section class="c-box" style="min-width: 600px">
   <header class="c-box__header">
     <h3 class="c-box__title is-small">Painel de Questões</h3>
     <a class="btn is-secondary" href="{{route('admin.evaluation')}}">Adicionar</a>
   </header>
   <div class="c-box__body">
-    <div class="c-box__item" v-for="question in questions"
-         :key="question.id">
+    @foreach($inputs as $input)
+    <div class="c-box__item">
       <question
         @removeQuestion="removeQuestion()"
-        :id="question.id"
-        :statement="question.statement"
-        :type="question.type"/>
+        id="{{ $input->id }}"
+        statement="{{ $input->question }}"
+        type="{{ $input->type_id }}"/>
     </div>
+    @endforeach
     @if(false)
     <div class="c-box__item">
       Você não tem Questões para visualizar.
