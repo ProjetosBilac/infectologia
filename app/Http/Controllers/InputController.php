@@ -47,4 +47,11 @@ class InputController extends Controller
             $option->save();
         }
     }
+
+    public function remover($id){
+        $input = \App\Input::find($id);
+        $input->status = 0;
+        $input->save();
+        
+    }
 }

@@ -14,6 +14,7 @@ Route::group(['middleware' => ['auth']],function (){
         Route::get('/', 'AdminController@index')->name('admin');
         Route::get('/evaluation', 'AdminController@evaluation')->name('admin.evaluation');
         Route::post('/evaluation', 'InputController@store')->name('admin.evaluation.post');
+        Route::get('/question/remover/{id}', 'InputController@remover')->name('admin.remover');
     });
 // ---------  A V A L I A Ç Ã O   A C E S S --
     Route::group(['prefix' => 'evaluation'],function (){

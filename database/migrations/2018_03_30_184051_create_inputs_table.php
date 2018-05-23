@@ -17,6 +17,7 @@ class CreateInputsTable extends Migration
             $table->increments('id');
             $table->string('question',500);
             //Input
+            $table->integer('status')->default(1);
             $table->integer('type_id')->unsigned();
             $table->foreign('type_id')->
                 references('id')->
