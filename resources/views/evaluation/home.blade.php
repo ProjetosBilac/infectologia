@@ -18,6 +18,12 @@
         :identifier="$index"
         family="resposta">
       </custom-radio>
+      <!-- <custom-checkbox
+        class="c-box__item is-with-content-to-left"
+        :label="alternativa.texto"
+        :identifier="$index"
+        family="resposta">
+      </custom-checkbox> -->
     </div>
   </article>
 </section>

@@ -6,6 +6,7 @@ import CustomSvg from './components/CustomSvg'
 import VueSimpleSVG from 'vue-simple-svg'
 import Evaluation from './components/Evaluation'
 import Toolbar from './components/Toolbar'
+import store from './storage/'
 
 require('./config/bootstrap')
 require('./config/icons')
@@ -166,6 +167,7 @@ window.addEventListener('load', () => {
       Evaluation,
       Toolbar,
       CustomRadio
-    }
+    },
+    store
   })
 })

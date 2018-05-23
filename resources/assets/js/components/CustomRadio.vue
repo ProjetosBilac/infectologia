@@ -1,7 +1,7 @@
 <template>
   <div class="c-custom-radio" v-click-outside="updateState">
     <input class="c-custom-radio__input" :id="identifier" type="radio"
-           :name="nameEnunciado" :checked="isMarcado">
+           :name="nameValor" :checked="isMarcado">
     <label class="c-custom-radio__label" :for="identifier">
       <i class="c-custom-radio__circle" @click="setState">
         <font-awesome-icon
@@ -10,7 +10,7 @@
         </font-awesome-icon>
       </i>
       <span v-if="!edit && label" @click="setState">{{ label }}</span>
-      <textarea @blur="updateLabel" v-model="text" v-if="edit" :name="nameValor"></textarea>
+      <textarea @blur="updateLabel" v-model="text" v-if="edit" :name="nameEnunciado"></textarea>
     </label>
   </div>
 </template>
