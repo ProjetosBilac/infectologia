@@ -26,69 +26,7 @@ window.addEventListener('load', () => {
     el: '#app',
     data () {
       return {
-        selected: undefined,
-        questions: [
-          {
-            id: 0,
-            statement: 'dsadasdasdasd',
-            type: 'checkbox'
-          },
-          {
-            id: 1,
-            statement: 'dsadasdasdasd',
-            type: 'checkbox'
-          },
-          {
-            id: 2,
-            statement: 'dsadasdasdasd',
-            type: 'radio'
-          },
-          {
-            id: 3,
-            statement: 'dsadasdasdasd',
-            type: 'checkbox'
-          },
-          {
-            id: 4,
-            statement: 'dsadasdasdasd',
-            type: 'checkbox'
-          },
-          {
-            id: 5,
-            statement: 'dsadasdasdasd',
-            type: 'checkbox'
-          },
-          {
-            id: 6,
-            statement: 'dsadasdasdasd',
-            type: 'radio'
-          },
-          {
-            id: 7,
-            statement: 'dsadasdasdasd',
-            type: 'checkbox'
-          },
-          {
-            id: 8,
-            statement: 'dsadasdasdasd',
-            type: 'checkbox'
-          },
-          {
-            id: 9,
-            statement: 'dsadasdasdasd',
-            type: 'checkbox'
-          },
-          {
-            id: 10,
-            statement: 'dsadasdasdasd',
-            type: 'radio'
-          },
-          {
-            id: 11,
-            statement: 'dsadasdasdasd',
-            type: 'checkbox'
-          }
-        ]
+        selected: undefined
       }
     },
     methods: {
@@ -115,9 +53,6 @@ window.addEventListener('load', () => {
       removeAlternative (e) {
         e.preventDefault()
         this.$store.commit('removeAlternativa')
-      },
-      removeQuestion (id) {
-        this.questions = this.questions.filter(question => question.id !== id)
       }
     },
     computed: {

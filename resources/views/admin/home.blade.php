@@ -10,7 +10,7 @@
     @foreach($inputs as $input)
     <div class="c-box__item">
       <question
-        @removeQuestion="removeQuestion()"
+        remover="{{ route('admin.remover', ['id' => $input->id]) }}"
         id="{{ $input->id }}"
         statement="{{ $input->question }}"
         type="{{ $input->type_id }}"/>

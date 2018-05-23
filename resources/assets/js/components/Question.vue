@@ -13,10 +13,10 @@ import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
 import { faDotCircle } from '@fortawesome/fontawesome-free-regular'
 
 export default {
-  props: ['type', 'statement', 'id'],
+  props: ['type', 'statement', 'id', 'remover'],
   methods: {
     removeQuestion() {
-      this.$emit('removeQuestion', this.id)
+      window.location.href = this.remover
     }
   },
   components: {
