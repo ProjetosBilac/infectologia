@@ -1,5 +1,5 @@
 <template>
-  <div class="c-custom-radio" v-click-outside="updateState">
+  <div class="c-custom-radio">
     <input class="c-custom-radio__input" :id="identifier" type="radio"
            :name="nameValor" :checked="isMarcado">
     <label class="c-custom-radio__label" :for="identifier">
@@ -28,9 +28,6 @@ export default {
     }
   },
   methods: {
-    updateState() {
-      this.state = document.getElementById(this.identifier).checked
-    },
     setState () {
       this.$store.commit('setMarcadoRadio', this.identifier)
     },
