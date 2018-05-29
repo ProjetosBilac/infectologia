@@ -1,5 +1,5 @@
 <template>
-  <main>
+  <form :action="route" method="POST" @submit="enviaResposta">
     <section class="c-box">
       <header class="l-evaluation__enunciado">
         <div class="l-evaluation__enunciado-content">
@@ -34,7 +34,7 @@
           <button type="button" class="btn" @click="setQuestao(questao)">{{ questao.index }}</button>
         </div>
       </article>
-      <button type="submit" class="btn is-primary">Enviar</button>
+      <button type="submit" :class="['btn', 'is-primary', {'is-inactive': !taTudoRespondido()}]">Enviar</button>
     </aside>
     <!-- Outras questões -->
     <div style="display: none">
@@ -56,7 +56,8 @@
         </div>
       </div>
     </div>
-  </main>
+    <slot></slot>
+  </form>
 </template>
 
 <script>
@@ -64,7 +65,7 @@ import customRadio from './CustomRadio'
 import customCheckbox from './CustomCheckbox'
 
 export default {
-  props: ['json-data'],
+  props: ['json-data', 'route'],
   data () {
     return {
       questaoAtual: {}
@@ -73,6 +74,12 @@ export default {
   methods: {
     setQuestao (questao) {
       this.questaoAtual = questao
+    },
+    enviaResposta (event) {
+      if (!this.taTudoRespondido()) event.preventDefault()
+    },
+    taTudoRespondido () {
+      return this.data.inputs.every(questao => questao.options.some(alternativa => alternativa.marcado))
     }
   },
   computed: {
