@@ -1,9 +1,7 @@
 @extends('layouts.evaluation')
 
 @section('content')
-  <evaluation-page
-    route="{{ route('teste') }}"
-    json-data="{{ $evaluation }}">
+  <form action="{{ route('evaluation.store') }}" method="POST">
     @csrf
   </evaluation-page>
 @endsection

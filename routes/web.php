@@ -19,6 +19,7 @@ Route::group(['middleware' => ['auth']],function (){
 // ---------  A V A L I A Ç Ã O   A C E S S --
     Route::group(['prefix' => 'evaluation'],function (){
         Route::post('/', 'EvaluationController@index')->name('evaluation');
+        Route::post('/store', 'EvaluationController@store')->name('evaluation.store');
     });
 });
 
