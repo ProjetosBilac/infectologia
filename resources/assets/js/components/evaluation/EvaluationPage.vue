@@ -28,7 +28,6 @@
         </div>
       </article>
     </section>
-
     <aside class="c-box">
       <article class="c-box__body">
         <div class="l-evaluation__aside" v-for="questao in data.inputs" :key="questao.id">
@@ -37,7 +36,25 @@
       </article>
       <button type="submit" class="btn is-primary">Enviar</button>
     </aside>
-
+    <!-- Outras questões -->
+    <div style="display: none">
+      <div v-for="input in data.inputs" :key="input.id">
+        <div v-if="input.id !== questaoAtual.id" v-for="alternativa in input.options" :key="alternativa.id">
+          <custom-radio
+            v-if="input.type_id === 1"
+            :questao-id="input.id"
+            :label="alternativa.id"
+            :identifier="alternativa.id">
+          </custom-radio>
+          <custom-checkbox
+            v-if="input.type_id === 2"
+            :questao-id="input.id"
+            :label="alternativa.id"
+            :identifier="alternativa.id">
+          </custom-checkbox>
+        </div>
+      </div>
+    </div>
   </main>
 </template>
 

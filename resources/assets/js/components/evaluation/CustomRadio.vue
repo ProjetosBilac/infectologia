@@ -45,7 +45,9 @@ export default {
       return this.$store.state.alternativas[this.identifier]
     },
     isMarcado () {
-      return this.$store.state.alternativas[this.identifier].marcado
+      if (this.$store.state.alternativas[this.identifier]) {
+        return this.$store.state.alternativas[this.identifier].marcado
+      }
     }
   },
   components: {
