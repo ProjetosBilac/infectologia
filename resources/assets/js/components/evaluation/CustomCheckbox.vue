@@ -8,7 +8,7 @@
          icon="check">
         </font-awesome-icon>
       </i>
-      <span v-if="!edit && label">{{ label }}</span>
+      <span v-if="label">{{ label }}</span>
     </label>
   </div>
 </template>

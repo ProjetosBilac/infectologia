@@ -9,7 +9,7 @@
          icon="circle">
         </font-awesome-icon>
       </i>
-      <span v-if="!edit && label" @click="setState">{{ label }}</span>
+      <span v-if="label" @click="setState">{{ label }}</span>
     </label>
   </div>
 </template>
