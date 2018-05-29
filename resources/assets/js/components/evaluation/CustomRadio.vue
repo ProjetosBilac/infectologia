@@ -1,7 +1,7 @@
 <template>
   <div class="c-custom-radio">
     <input class="c-custom-radio__input" :id="identifier" type="radio"
-           :name="nameValor" :checked="isMarcado">
+           :name="nameValor" :checked="isMarcado" :value="identifier">
     <label class="c-custom-radio__label" :for="identifier">
       <i class="c-custom-radio__circle" @click="setState">
         <font-awesome-icon
@@ -10,7 +10,6 @@
         </font-awesome-icon>
       </i>
       <span v-if="!edit && label" @click="setState">{{ label }}</span>
-      <textarea @blur="updateLabel" v-model="text" v-if="edit" :name="nameEnunciado"></textarea>
     </label>
   </div>
 </template>
@@ -21,7 +20,7 @@ import ClickOutside from 'vue-click-outside'
 
 export default {
   name: 'custom-radio',
-  props: ['label', 'identifier', 'edit'],
+  props: ['label', 'identifier', 'questao-id'],
   data() {
     return {
       text: this.label
@@ -40,7 +39,7 @@ export default {
       return `alternativa[${this.identifier}][enunciado]`
     },
     nameValor() {
-      return `alternativa[${this.identifier}][value]`
+      return `alternativa[${this.questaoId}][value][]`
     },
     alternativa () {
       return this.$store.state.alternativas[this.identifier]

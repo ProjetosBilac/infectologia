@@ -14,11 +14,13 @@
           <custom-radio
             class="c-box__item is-with-content-to-left"
             v-if="questaoAtual.type_id === 1"
+            :questao-id="questaoAtual.id"
             :label="alternativa.id"
             :identifier="alternativa.id">
           </custom-radio>
           <custom-checkbox
             v-if="questaoAtual.type_id === 2"
+            :questao-id="questaoAtual.id"
             class="c-box__item is-with-content-to-left"
             :label="alternativa.id"
             :identifier="alternativa.id">
@@ -30,9 +32,10 @@
     <aside class="c-box">
       <article class="c-box__body">
         <div class="l-evaluation__aside" v-for="questao in data.inputs" :key="questao.id">
-          <button class="btn" @click="setQuestao(questao)">{{ questao.id }}</button>
+          <button type="button" class="btn" @click="setQuestao(questao)">{{ questao.id }}</button>
         </div>
       </article>
+      <button type="submit" class="btn is-primary">Enviar</button>
     </aside>
 
   </main>
