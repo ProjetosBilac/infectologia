@@ -3,7 +3,7 @@
     <section class="c-box">
       <header class="l-evaluation__enunciado">
         <div class="l-evaluation__enunciado-content">
-          <h3 class="c-box__title">Exercício {{ questaoAtual.id }}</h3>
+          <h3 class="c-box__title">Exercício {{ questaoAtual.index }}</h3>
           <p class="l-evaluation__enunciado-text">
             {{ questaoAtual.question }}
           </p>
@@ -32,7 +32,7 @@
     <aside class="c-box">
       <article class="c-box__body">
         <div class="l-evaluation__aside" v-for="questao in data.inputs" :key="questao.id">
-          <button type="button" class="btn" @click="setQuestao(questao)">{{ questao.id }}</button>
+          <button type="button" class="btn" @click="setQuestao(questao)">{{ questao.index }}</button>
         </div>
       </article>
       <button type="submit" class="btn is-primary">Enviar</button>
@@ -63,7 +63,8 @@ export default {
     }
   },
   mounted () {
-    this.data.inputs.forEach(questao => {
+    this.data.inputs.forEach((questao, index) => {
+      questao.index = index + 1
       questao.options.forEach(alternativa => {
         alternativa.identifier = alternativa.id
         alternativa.marcado = false
