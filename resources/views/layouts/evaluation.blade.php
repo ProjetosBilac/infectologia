@@ -34,9 +34,9 @@
                 style="display: none;"> @csrf
           </form>
       </toolbar>
-      <main class="l-evaluation__main">
+      <div class="l-evaluation__main">
           @yield('content')
-      </main>
+      </div>
     </div>
   </div>
 </body>

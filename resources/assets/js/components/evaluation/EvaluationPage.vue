@@ -60,13 +60,13 @@ export default {
     }
   },
   mounted () {
-    this.questaoAtual = this.data.inputs[0];
     this.data.inputs.forEach(questao => {
       questao.options.forEach(alternativa => {
         alternativa.identifier = alternativa.id
         alternativa.marcado = false
         this.$store.commit('addAlternativa', alternativa)
       })
+      this.questaoAtual = this.data.inputs[0];
     })
   },
   components: {
@@ -75,4 +75,3 @@ export default {
   }
 }
 </script>
-
