@@ -54,7 +54,7 @@
       {{ __('Login') }}
     </button>
 
-    <a class="c-box__link c-box__item is-with-content-to-left"
+    <a class="c-box__link c-box__item is-with-content-to-left no-margin-left"
        href="{{ route('password.request') }}"
        @click="getOut($event, '{{ route('password.request') }}')">
       Esqueceu sua senha ?

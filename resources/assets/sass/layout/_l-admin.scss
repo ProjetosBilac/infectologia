@@ -13,16 +13,16 @@
   &__main {
     @extend
     %u-margin-horizontal-auto,
-    %u-margin-top-3,
     %u-display-flex,
     %u-flex-justify-content-center;
 
     align-items: flex-start;
     box-sizing: border-box;
+    margin-top: 1px;
     max-height: calc(100vh - 50px);
     min-height: calc(100vh - 50px);
-    overflow: hidden;
-    padding: 0 $spacing-large * 2;
+    overflow-y: auto;
+    padding: $spacing-large * 3 $spacing-large * 2;
     position: relative;
   }
 

@@ -16,7 +16,7 @@
   },
   "standard": {
     "ignore": [
-      "./public/",
+      "/public/",
       "./node_modules"
     ],
     "parser": "babel-eslint"

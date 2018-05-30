@@ -40,7 +40,7 @@
     },
     methods: {
       checkState () {
-        if(this.value.length)
+        if(this.value && this.value.length)
           this.warning = false
       }
     },

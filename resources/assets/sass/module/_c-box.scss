@@ -4,7 +4,6 @@
   display: flex;
   flex-direction: column;
   font-size: 1em;
-  max-height: 550px;
   overflow: hidden;
   position: relative;
 
@@ -123,5 +122,10 @@
       color: $color-gray-300;
       cursor: not-allowed;
     }
+  }
+
+  .caso-vazio {
+    color: $color-gray-500;
+    padding: $spacing-large * 3 0;
   }
 }

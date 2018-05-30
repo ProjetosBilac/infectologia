@@ -1,10 +1,13 @@
 import Vue from 'vue'
 import Toolbar from './components/Toolbar'
+
 import EvaluationPage from './components/evaluation/EvaluationPage'
 import store from './storage/evaluation-store.js'
+import VueSimpleSVG from 'vue-simple-svg'
+import './config/bootstrap'
+import './config/icons'
 
-require('./config/bootstrap')
-require('./config/icons')
+Vue.use(VueSimpleSVG)
 
 Vue.config.productionTip = false
 

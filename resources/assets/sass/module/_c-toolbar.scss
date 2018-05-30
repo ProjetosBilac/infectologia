@@ -56,4 +56,12 @@
 
     color: $primary-color;
   }
+
+  .c-logo {
+    max-width: $spacing-large * 3;
+
+    svg {
+      vertical-align: middle;
+    }
+  }
 }

@@ -1,6 +1,8 @@
 {
     "/js/admin.js": "/js/admin.js",
     "/js/admin.js.map": "/js/admin.js.map",
+    "/js/evaluation.js": "/js/evaluation.js",
+    "/js/evaluation.js.map": "/js/evaluation.js.map",
     "/js/auth.js": "/js/auth.js",
     "/css/auth.css": "/css/auth.css",
     "/css/admin.css": "/css/admin.css",
@@ -12,7 +14,5 @@
     "/css/home.css.map": "/css/home.css.map",
     "/css/evaluation.css.map": "/css/evaluation.css.map",
     "/js/home.js": "/js/home.js",
-    "/js/home.js.map": "/js/home.js.map",
-    "/js/evaluation.js": "/js/evaluation.js",
-    "/js/evaluation.js.map": "/js/evaluation.js.map"
+    "/js/home.js.map": "/js/home.js.map"
 }

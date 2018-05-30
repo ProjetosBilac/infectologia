@@ -128,5 +128,12 @@
         }
       }
     }
+
+    .btn {
+      &.is-primary {
+        margin-top: $spacing-large;
+        width: 100%;
+      }
+    }
   }
 }

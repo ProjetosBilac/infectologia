@@ -10,39 +10,36 @@
 
   &__main {
     @extend
-    %u-margin-horizontal-auto,
-    %u-margin-top-3,
-    %u-display-flex,
-    %u-flex-justify-content-center;
-    align-items: flex-start;
-    box-sizing: border-box;
+    %u-margin-horizontal-auto;
+    margin-top: 1px;
     max-height: calc(100vh - 50px);
     min-height: calc(100vh - 50px);
-    overflow: hidden;
-    padding: 0 $spacing-large * 2;
-    position: relative;
+    overflow-y: scroll;
+  }
+
+  &__wrapper {
+    display: flex;
+    height: 100%;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: $spacing-large * 2 $spacing-large * 3;
+  }
+
+  &__content {
+    @extend %u-depth-1;
+    flex: 1 1 736px;
+    margin-right: $spacing-large;
+  }
+
+  &__aside {
+    flex: 0 10 400px;
+    margin-left: $spacing-large;
 
     & > .c-box {
-      @extend %u-depth-1;
+      @extend %u-depth-2;
 
-      &:first-child {
-        $size: 800px;
-        margin-right: $spacing-large;
-        max-width: $size;
-        min-width: $size;
-      }
-
-      &:last-child {
-        $size: 280px;
-        max-width: $size;
-        min-width: $size;
-
-        .c-box__body,
-        .c-box__header {
-          padding: $spacing-large;
-        }
-
-      }
+      max-width: 400px;
+      position: fixed;
     }
   }
 
@@ -62,19 +59,5 @@
 
   &__enunciado-text {
     margin-top: $spacing-large;
-  }
-
-  &__aside {
-    display: flex;
-    flex-wrap: wrap;
-    position: relative;
-
-    button {
-      display: block;
-      flex: 1 1 50%;
-      margin: $spacing-large;
-      min-width: 50%;
-      width: 50%;
-    }
   }
 }
