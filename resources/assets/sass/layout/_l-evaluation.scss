@@ -17,33 +17,24 @@
     align-items: flex-start;
     box-sizing: border-box;
     max-height: calc(100vh - 50px);
+    max-width: 1200px;
     min-height: calc(100vh - 50px);
     overflow: hidden;
-    padding: 0 $spacing-large * 2;
+    padding: 0 $spacing-large * 3;
     position: relative;
+  }
 
-    & > .c-box {
-      @extend %u-depth-1;
+  &__content {
+    @extend %u-depth-1;
+    flex: 1 1 800px;
+    margin-right: $spacing-large;
+  }
 
-      &:first-child {
-        $size: 800px;
-        margin-right: $spacing-large;
-        max-width: $size;
-        min-width: $size;
-      }
+  &__aside {
+    @extend %u-depth-1;
 
-      &:last-child {
-        $size: 280px;
-        max-width: $size;
-        min-width: $size;
-
-        .c-box__body,
-        .c-box__header {
-          padding: $spacing-large;
-        }
-
-      }
-    }
+    flex: 1 1 400px;
+    margin-left: $spacing-large;
   }
 
   // in layout
@@ -62,19 +53,5 @@
 
   &__enunciado-text {
     margin-top: $spacing-large;
-  }
-
-  &__aside {
-    display: flex;
-    flex-wrap: wrap;
-    position: relative;
-
-    button {
-      display: block;
-      flex: 1 1 50%;
-      margin: $spacing-large;
-      min-width: 50%;
-      width: 50%;
-    }
   }
 }

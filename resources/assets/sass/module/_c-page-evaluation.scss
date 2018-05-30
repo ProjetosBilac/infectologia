@@ -1,0 +1,110 @@
+.c-page-evaluation {
+  padding: 0;
+
+  &__container {
+    display: flex;
+    flex-wrap: wrap;
+    padding: $spacing-large $spacing-large * 4;
+    width: 100%;
+  }
+
+  &__questoes-restantes {
+    border-bottom: 1px solid $color-gray-100;
+    padding-bottom: $spacing-large;
+    width: 100%;
+
+    .grupo {
+      height: 100%;
+      margin: 0 $spacing-large;
+      padding: $spacing-large $spacing-large * 4
+    }
+
+    .respondidas,
+    .pendentes {
+      align-items: center;
+      display: flex;
+      justify-content: space-between;
+      width: 100%;
+
+      .group {
+        font-size: 16px;
+        margin-right: $spacing-large;
+      }
+    }
+
+    .marcador {
+      border: 1px solid $color-gray-500;
+      border-radius: 50%;
+      display: inline-block;
+      height: $spacing-large * 2;
+      width: $spacing-large * 2;
+    }
+
+    .respondidas {
+      .marcador {
+        background-color: $detail-color;
+      }
+    }
+
+    .pendentes {
+      .marcador {
+        background-color: $color-gray-100;
+      }
+    }
+
+    .barra {
+      background-color: $color-gray-100;
+      border-radius: 5px;
+      display: flex;
+      height: $spacing-large;
+      margin-top: 4px;
+      overflow: hidden;
+      width: 100%;
+
+      .incompleto,
+      .completo {
+        transition: flex 250ms ease-in;
+      }
+
+      .incompleto {
+        background-color: $color-gray-100;
+      }
+
+      .completo {
+        background-color: $detail-color;
+      }
+    }
+  }
+
+  &__button {
+    background-color: $color-gray-100;
+    border: 1px solid $color-gray-100;
+    box-shadow: none;
+    color: $color-gray-700;
+    flex: 0 1 62px;
+    line-height: 40px;
+    margin: $spacing-large;
+    transition: all 250ms ease-in;
+
+    &:focus {
+      outline: none;
+      outline-color: transparent;
+    }
+
+    &.is-active {
+      @extend %u-depth-1;
+      border-color: $primary-color;
+      color: $primary-color;
+    }
+
+    &.is-respondido {
+      background-color: $secondary-color;
+      color: $primary-color;
+    }
+  }
+
+  &__submit {
+    margin: $spacing-large $spacing-large * 5;
+    width: 100%;
+  }
+}

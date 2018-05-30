@@ -72,8 +72,8 @@
     methods: {
       createMockOptions () {
         return [
-          { beautifulValue: 'Multipla escolha', value: '1' },
-          { beautifulValue:'Verdadeiro ou falso', value: '2' }
+          { beautifulValue: 'Escolha única', value: '1' },
+          { beautifulValue:'Escolha múltipla', value: '2' }
         ]
       },
       setSelected (option) {
