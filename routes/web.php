@@ -9,7 +9,7 @@ Route::group(['middleware' => ['auth']],function (){
         Route::get('/', 'HomeController@index')->name('home');
 // --------- P A G I N A   A D M I N -------------
     //'role:Admin'
-    Route::group(['prefix' => 'admin'],function (){
+    Route::group(['prefix' => 'admin','middleware' => ['admin']],function (){
         //Rotas daqui só poderam ser acessadas com usuário logado.
         Route::get('/', 'AdminController@index')->name('admin');
         Route::get('/evaluation', 'AdminController@evaluation')->name('admin.evaluation');

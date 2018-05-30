@@ -35,8 +35,10 @@ class HomeController extends Controller
                 'url' => route('evaluation'),
             ],
         ];
-        return view('home',['menu' => json_encode($menu)]);
+        $exams = \App\Exam::where('user_id',\Auth::User()->id)->where('completed_at','!=',null)->orderBy('completed_at','desc')->get();
+        return view('home',['menu' => json_encode($menu),'exams' => $exams]);
     }
+
     public function teste(Request $request){
         dd($request,$request->all());
     }

@@ -19,6 +19,7 @@ class CreateExamsTable extends Migration
             $table->foreign('user_id')->
                 references('id')->
                 on('users');
+            $table->double('value')->nullable();
             $table->timestamp('completed_at')->nullable();
             $table->timestamps();
         });

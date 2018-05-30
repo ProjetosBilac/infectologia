@@ -15,18 +15,26 @@ class DatabaseSeeder extends Seeder
         DB::table('users')->insert([
             'name' => "Luiz Otávio Rodrigues",
             'email' => 'luiz.otavior18@gmail.com',
+            'admin' => 1,
+            'password' => bcrypt('senha123'),
+        ]);
+        DB::table('users')->insert([
+            'name' => "Geisibel Ramos",
+            'email' => 'geisibel.03@gmail.com',
+            'admin' => 1,
             'password' => bcrypt('senha123'),
         ]);
         DB::table('users')->insert([
             'name' => "André Vitebo",
             'email' => 'vitebo@hotmail.com',
+            'admin' => 1,
             'password' => bcrypt('senha123'),
         ]);
         DB::table('types')->insert([
             'name' => "Escolha Unica",
         ]);
         DB::table('types')->insert([
-            'name' => "Escolha Multiplica",
+            'name' => "Escolha Multipla",
         ]);
     }
 }
