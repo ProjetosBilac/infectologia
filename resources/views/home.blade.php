@@ -17,7 +17,7 @@
       <evaluation date="{{$exam->completed_at->diffForHumans()}}" grade="{{$exam->value}}"></evaluation>
     </div>
     @endforeach
-    @if(false)
+    @if(count($exams) == 0)
     <div class="alert alert-danger">
         Você não tem avaliaçoes para visualizar.
     </div>
