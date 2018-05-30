@@ -12,7 +12,7 @@ class InputController extends Controller
         return Validator::make($data, [
             //Informações Pessoais
             'enunciado' => 'required|string|max:400',
-            'alternativa.*.enunciado' => 'required|string|max:200',
+            'alternativa.*.enunciado' => 'required|string|max:450',
             'type_id' => 'required|exists:types,id',
             //'alternativa.*.value' => [
             //    'required',
