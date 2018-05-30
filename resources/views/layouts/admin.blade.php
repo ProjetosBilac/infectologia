@@ -15,6 +15,7 @@
       <toolbar
         class="l-admin__nav"
         username="{{ Auth::user()->name }}"
+        logo="{{ asset('svgs/logo.svg') }}"
         logout-id="logout-form">
           <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
               @csrf

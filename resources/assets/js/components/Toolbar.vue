@@ -2,6 +2,12 @@
   <nav class="c-toolbar">
     <div class="c-toolbar__wrapper">
       <ul class="c-toolbar__group">
+        <li>
+          <custom-svg
+            css-class="c-logo"
+            :filepath="logo">
+          </custom-svg>
+        </li>
         <li class="c-toolbar__item">
           <h3 class="c-toolbar__title">Infectologia</h3>
         </li>
@@ -24,10 +30,11 @@
 
 <script>
 import FontAwesomeIcon from '@fortawesome/vue-fontawesome'
+import CustomSvg from './CustomSvg'
 
 export default {
   name: 'toolbar',
-  props: ['username', 'logout-id'],
+  props: ['username', 'logout-id', 'logo'],
   methods: {
     logout(e) {
       e.preventDefault()
@@ -35,7 +42,8 @@ export default {
     }
   },
   components: {
-    FontAwesomeIcon
+    FontAwesomeIcon,
+    CustomSvg
   }
 }
 </script>

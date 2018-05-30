@@ -29,7 +29,11 @@
 <body>
   <div id="app" style="display: none">
     <div class="l-evaluation">
-      <toolbar class="l-evaluation__nav" username="{{ Auth::user()->name }}" logout-id="logout-form">
+      <toolbar
+        class="l-evaluation__nav"
+        logo="{{ asset('svgs/logo.svg') }}"
+        username="{{ Auth::user()->name }}"
+        logout-id="logout-form">
           <form id="logout-form" action="{{ route('logout') }}" method="POST"
                 style="display: none;"> @csrf
           </form>

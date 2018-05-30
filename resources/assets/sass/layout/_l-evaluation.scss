@@ -10,31 +10,37 @@
 
   &__main {
     @extend
-    %u-margin-horizontal-auto,
-    %u-margin-top-3,
-    %u-display-flex,
-    %u-flex-justify-content-center;
-    align-items: flex-start;
-    box-sizing: border-box;
+    %u-margin-horizontal-auto;
+    margin-top: 1px;
     max-height: calc(100vh - 50px);
-    max-width: 1200px;
     min-height: calc(100vh - 50px);
-    overflow: hidden;
-    padding: 0 $spacing-large * 3;
-    position: relative;
+    overflow-y: scroll;
+  }
+
+  &__wrapper {
+    display: flex;
+    height: 100%;
+    margin: 0 auto;
+    max-width: 1200px;
+    padding: $spacing-large * 2 $spacing-large * 3;
   }
 
   &__content {
     @extend %u-depth-1;
-    flex: 1 1 800px;
+    flex: 1 1 736px;
     margin-right: $spacing-large;
   }
 
   &__aside {
-    @extend %u-depth-1;
-
-    flex: 1 1 400px;
+    flex: 0 10 400px;
     margin-left: $spacing-large;
+
+    & > .c-box {
+      @extend %u-depth-2;
+
+      max-width: 400px;
+      position: fixed;
+    }
   }
 
   // in layout
