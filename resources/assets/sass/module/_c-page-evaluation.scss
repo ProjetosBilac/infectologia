@@ -16,7 +16,7 @@
     .grupo {
       height: 100%;
       margin: 0 $spacing-large;
-      padding: $spacing-large $spacing-large * 4
+      padding: $spacing-large $spacing-large * 4;
     }
 
     .respondidas,
@@ -84,7 +84,9 @@
     flex: 0 1 62px;
     line-height: 40px;
     margin: $spacing-large;
-    transition: all 250ms ease-in;
+    transition-duration: 250ms;
+    transition-property: background-color, color, border-color;
+    transition-timing-function: ease-in;
 
     &:focus {
       outline: none;
