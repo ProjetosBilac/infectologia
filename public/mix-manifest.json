@@ -1,0 +1,18 @@
+{
+    "/js/admin.js": "/js/admin.js",
+    "/js/admin.js.map": "/js/admin.js.map",
+    "/js/auth.js": "/js/auth.js",
+    "/css/auth.css": "/css/auth.css",
+    "/css/admin.css": "/css/admin.css",
+    "/css/home.css": "/css/home.css",
+    "/css/evaluation.css": "/css/evaluation.css",
+    "/js/auth.js.map": "/js/auth.js.map",
+    "/css/auth.css.map": "/css/auth.css.map",
+    "/css/admin.css.map": "/css/admin.css.map",
+    "/css/home.css.map": "/css/home.css.map",
+    "/css/evaluation.css.map": "/css/evaluation.css.map",
+    "/js/home.js": "/js/home.js",
+    "/js/home.js.map": "/js/home.js.map",
+    "/js/evaluation.js": "/js/evaluation.js",
+    "/js/evaluation.js.map": "/js/evaluation.js.map"
+}
