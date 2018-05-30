@@ -11,8 +11,8 @@ class InputController extends Controller
     protected function validator(array $data){
         return Validator::make($data, [
             //Informações Pessoais
-            'enunciado' => 'required|string|max:400',
-            'alternativa.*.enunciado' => 'required|string|max:450',
+            'enunciado' => 'required|string|max:490',
+            'alternativa.*.enunciado' => 'required|string|max:490',
             'type_id' => 'required|exists:types,id',
             //'alternativa.*.value' => [
             //    'required',
