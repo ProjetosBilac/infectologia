@@ -1,6 +1,6 @@
 <template>
-  <form :action="route" method="POST" @submit="enviaResposta">
-    <section class="c-box">
+  <form class="l-evaluation__main" :action="route" method="POST" @submit="enviaResposta">
+    <section class="l-evaluation__content c-box">
       <header class="l-evaluation__enunciado">
         <div class="l-evaluation__enunciado-content">
           <h3 class="c-box__title">Exercício {{ questaoAtual.index }}</h3>
@@ -15,26 +15,63 @@
             class="c-box__item is-with-content-to-left"
             v-if="questaoAtual.type_id === 1"
             :questao-id="questaoAtual.id"
-            :label="alternativa.id"
+            :label="alternativa.name"
             :identifier="alternativa.id">
           </custom-radio>
           <custom-checkbox
             v-if="questaoAtual.type_id === 2"
             :questao-id="questaoAtual.id"
             class="c-box__item is-with-content-to-left"
-            :label="alternativa.id"
+            :label="alternativa.name"
             :identifier="alternativa.id">
           </custom-checkbox>
         </div>
       </article>
     </section>
-    <aside class="c-box">
-      <article class="c-box__body">
-        <div class="l-evaluation__aside" v-for="questao in data.inputs" :key="questao.id">
-          <button type="button" class="btn" @click="setQuestao(questao)">{{ questao.index }}</button>
+    <aside class="l-evaluation__aside c-box">
+      <article class="c-page-evaluation c-box__body">
+        <div class="c-page-evaluation__questoes-restantes">
+          <div class="grupo">
+            <p class="respondidas">
+              <span>
+                <span class="group">
+                  <span v-if="getQtdRespondido() < 10">0</span>{{ getQtdRespondido() }}
+                </span>
+                respondida<span v-if="getQtdRespondido() !== 1">s</span>
+              </span>
+              <i class="marcador"></i>
+            </p>
+            <p class="pendentes">
+              <span>
+                <span class="group">
+                  <span v-if="getQtdPendente() < 10">0</span>{{ getQtdPendente() }}
+                </span>
+                pendente<span v-if="getQtdPendente() !== 1">s</span>
+              </span>
+              <i class="marcador"></i>
+            </p>
+            <div class="barra">
+              <span :style="{'flex': getQtdRespondido()}" class="completo"></span>
+              <span :style="{'flex': getQtdPendente()}" class="incompleto"></span>
+            </div>
+          </div>
         </div>
+        <div class="c-page-evaluation__container">
+          <button :class="[
+                    'c-page-evaluation__button',
+                    {
+                      'is-active': questao.id === questaoAtual.id,
+                      'is-respondido': taRespondido(questao)
+                    }
+                  ]"
+                  type="button" v-for="questao in data.inputs"
+                  :key="questao.id" @click="setQuestao(questao)">{{ questao.index }}</button>
+        </div>
+        <button type="submit" :class="['c-page-evaluation__submit', 'btn', 'is-secondary',
+                                       {'is-inactive': !taTudoRespondido()}]">
+          Enviar
+        </button>
       </article>
-      <button type="submit" :class="['btn', 'is-primary', {'is-inactive': !taTudoRespondido()}]">Enviar</button>
     </aside>
     <!-- Outras questões -->
     <div style="display: none">
@@ -79,7 +116,16 @@ export default {
       if (!this.taTudoRespondido()) event.preventDefault()
     },
     taTudoRespondido () {
-      return this.data.inputs.every(questao => questao.options.some(alternativa => alternativa.marcado))
+      return this.data.inputs.every(this.taRespondido)
+    },
+    taRespondido (questao) {
+      return questao.options.some(alternativa => alternativa.marcado)
+    },
+    getQtdRespondido () {
+      return this.data.inputs.filter(this.taRespondido).length
+    },
+    getQtdPendente () {
+      return this.data.inputs.length - this.getQtdRespondido()
     }
   },
   computed: {
@@ -104,3 +150,5 @@ export default {
   }
 }
 </script>
+<style>
+</style>
