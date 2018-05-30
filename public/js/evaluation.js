@@ -70,8 +70,8 @@
 "use strict";
 
 
-var bind = __webpack_require__(16);
-var isBuffer = __webpack_require__(35);
+var bind = __webpack_require__(20);
+var isBuffer = __webpack_require__(47);
 
 /*global toString:true*/
 
@@ -451,115 +451,6 @@ module.exports = g;
 
 /***/ }),
 /* 3 */
-/***/ (function(module, exports) {
-
-/* globals __VUE_SSR_CONTEXT__ */
-
-// IMPORTANT: Do NOT use ES2015 features in this file.
-// This module is a runtime utility for cleaner component module output and will
-// be included in the final webpack user bundle.
-
-module.exports = function normalizeComponent (
-  rawScriptExports,
-  compiledTemplate,
-  functionalTemplate,
-  injectStyles,
-  scopeId,
-  moduleIdentifier /* server only */
-) {
-  var esModule
-  var scriptExports = rawScriptExports = rawScriptExports || {}
-
-  // ES6 modules interop
-  var type = typeof rawScriptExports.default
-  if (type === 'object' || type === 'function') {
-    esModule = rawScriptExports
-    scriptExports = rawScriptExports.default
-  }
-
-  // Vue.extend constructor export interop
-  var options = typeof scriptExports === 'function'
-    ? scriptExports.options
-    : scriptExports
-
-  // render functions
-  if (compiledTemplate) {
-    options.render = compiledTemplate.render
-    options.staticRenderFns = compiledTemplate.staticRenderFns
-    options._compiled = true
-  }
-
-  // functional template
-  if (functionalTemplate) {
-    options.functional = true
-  }
-
-  // scopedId
-  if (scopeId) {
-    options._scopeId = scopeId
-  }
-
-  var hook
-  if (moduleIdentifier) { // server build
-    hook = function (context) {
-      // 2.3 injection
-      context =
-        context || // cached call
-        (this.$vnode && this.$vnode.ssrContext) || // stateful
-        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
-      // 2.2 with runInNewContext: true
-      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
-        context = __VUE_SSR_CONTEXT__
-      }
-      // inject component styles
-      if (injectStyles) {
-        injectStyles.call(this, context)
-      }
-      // register component module identifier for async chunk inferrence
-      if (context && context._registeredComponents) {
-        context._registeredComponents.add(moduleIdentifier)
-      }
-    }
-    // used by ssr in case component is cached and beforeCreate
-    // never gets called
-    options._ssrRegister = hook
-  } else if (injectStyles) {
-    hook = injectStyles
-  }
-
-  if (hook) {
-    var functional = options.functional
-    var existing = functional
-      ? options.render
-      : options.beforeCreate
-
-    if (!functional) {
-      // inject component registration as beforeCreate hook
-      options.beforeCreate = existing
-        ? [].concat(existing, hook)
-        : [hook]
-    } else {
-      // for template-only hot-reload because in that case the render fn doesn't
-      // go through the normalizer
-      options._injectStyles = hook
-      // register for functioal component in vue file
-      options.render = function renderWithStyleInjection (h, context) {
-        hook.call(context)
-        return existing(h, context)
-      }
-    }
-  }
-
-  return {
-    esModule: esModule,
-    exports: scriptExports,
-    options: options
-  }
-}
-
-
-/***/ }),
-/* 4 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //.CommonJS
@@ -708,8 +599,117 @@ CSSOM.CSSStyleDeclaration.prototype = {
 
 //.CommonJS
 exports.CSSStyleDeclaration = CSSOM.CSSStyleDeclaration;
-CSSOM.parse = __webpack_require__(11).parse; // Cannot be included sooner due to the mutual dependency between parse.js and CSSStyleDeclaration.js
+CSSOM.parse = __webpack_require__(8).parse; // Cannot be included sooner due to the mutual dependency between parse.js and CSSStyleDeclaration.js
 ///CommonJS
+
+
+/***/ }),
+/* 4 */
+/***/ (function(module, exports) {
+
+/* globals __VUE_SSR_CONTEXT__ */
+
+// IMPORTANT: Do NOT use ES2015 features in this file.
+// This module is a runtime utility for cleaner component module output and will
+// be included in the final webpack user bundle.
+
+module.exports = function normalizeComponent (
+  rawScriptExports,
+  compiledTemplate,
+  functionalTemplate,
+  injectStyles,
+  scopeId,
+  moduleIdentifier /* server only */
+) {
+  var esModule
+  var scriptExports = rawScriptExports = rawScriptExports || {}
+
+  // ES6 modules interop
+  var type = typeof rawScriptExports.default
+  if (type === 'object' || type === 'function') {
+    esModule = rawScriptExports
+    scriptExports = rawScriptExports.default
+  }
+
+  // Vue.extend constructor export interop
+  var options = typeof scriptExports === 'function'
+    ? scriptExports.options
+    : scriptExports
+
+  // render functions
+  if (compiledTemplate) {
+    options.render = compiledTemplate.render
+    options.staticRenderFns = compiledTemplate.staticRenderFns
+    options._compiled = true
+  }
+
+  // functional template
+  if (functionalTemplate) {
+    options.functional = true
+  }
+
+  // scopedId
+  if (scopeId) {
+    options._scopeId = scopeId
+  }
+
+  var hook
+  if (moduleIdentifier) { // server build
+    hook = function (context) {
+      // 2.3 injection
+      context =
+        context || // cached call
+        (this.$vnode && this.$vnode.ssrContext) || // stateful
+        (this.parent && this.parent.$vnode && this.parent.$vnode.ssrContext) // functional
+      // 2.2 with runInNewContext: true
+      if (!context && typeof __VUE_SSR_CONTEXT__ !== 'undefined') {
+        context = __VUE_SSR_CONTEXT__
+      }
+      // inject component styles
+      if (injectStyles) {
+        injectStyles.call(this, context)
+      }
+      // register component module identifier for async chunk inferrence
+      if (context && context._registeredComponents) {
+        context._registeredComponents.add(moduleIdentifier)
+      }
+    }
+    // used by ssr in case component is cached and beforeCreate
+    // never gets called
+    options._ssrRegister = hook
+  } else if (injectStyles) {
+    hook = injectStyles
+  }
+
+  if (hook) {
+    var functional = options.functional
+    var existing = functional
+      ? options.render
+      : options.beforeCreate
+
+    if (!functional) {
+      // inject component registration as beforeCreate hook
+      options.beforeCreate = existing
+        ? [].concat(existing, hook)
+        : [hook]
+    } else {
+      // for template-only hot-reload because in that case the render fn doesn't
+      // go through the normalizer
+      options._injectStyles = hook
+      // register for functioal component in vue file
+      options.render = function renderWithStyleInjection (h, context) {
+        hook.call(context)
+        return existing(h, context)
+      }
+    }
+  }
+
+  return {
+    esModule: esModule,
+    exports: scriptExports,
+    options: options
+  }
+}
 
 
 /***/ }),
@@ -717,7 +717,7 @@ CSSOM.parse = __webpack_require__(11).parse; // Cannot be included sooner due to
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {(function (global, factory) {
-	 true ? factory(exports, __webpack_require__(10)) :
+	 true ? factory(exports, __webpack_require__(13)) :
 	typeof define === 'function' && define.amd ? define(['exports', '@fortawesome/fontawesome'], factory) :
 	(factory((global['vue-fontawesome'] = {}),global.FontAwesome));
 }(this, (function (exports,fontawesome) { 'use strict';
@@ -1414,114 +1414,10 @@ Object.defineProperty(exports, '__esModule', { value: true });
 /* 6 */
 /***/ (function(module, exports, __webpack_require__) {
 
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {
-
-var utils = __webpack_require__(0);
-var normalizeHeaderName = __webpack_require__(37);
-
-var DEFAULT_CONTENT_TYPE = {
-  'Content-Type': 'application/x-www-form-urlencoded'
-};
-
-function setContentTypeIfUnset(headers, value) {
-  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
-    headers['Content-Type'] = value;
-  }
-}
-
-function getDefaultAdapter() {
-  var adapter;
-  if (typeof XMLHttpRequest !== 'undefined') {
-    // For browsers use XHR adapter
-    adapter = __webpack_require__(17);
-  } else if (typeof process !== 'undefined') {
-    // For node use HTTP adapter
-    adapter = __webpack_require__(17);
-  }
-  return adapter;
-}
-
-var defaults = {
-  adapter: getDefaultAdapter(),
-
-  transformRequest: [function transformRequest(data, headers) {
-    normalizeHeaderName(headers, 'Content-Type');
-    if (utils.isFormData(data) ||
-      utils.isArrayBuffer(data) ||
-      utils.isBuffer(data) ||
-      utils.isStream(data) ||
-      utils.isFile(data) ||
-      utils.isBlob(data)
-    ) {
-      return data;
-    }
-    if (utils.isArrayBufferView(data)) {
-      return data.buffer;
-    }
-    if (utils.isURLSearchParams(data)) {
-      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
-      return data.toString();
-    }
-    if (utils.isObject(data)) {
-      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
-      return JSON.stringify(data);
-    }
-    return data;
-  }],
-
-  transformResponse: [function transformResponse(data) {
-    /*eslint no-param-reassign:0*/
-    if (typeof data === 'string') {
-      try {
-        data = JSON.parse(data);
-      } catch (e) { /* Ignore */ }
-    }
-    return data;
-  }],
-
-  /**
-   * A timeout in milliseconds to abort a request. If set to 0 (default) a
-   * timeout is not created.
-   */
-  timeout: 0,
-
-  xsrfCookieName: 'XSRF-TOKEN',
-  xsrfHeaderName: 'X-XSRF-TOKEN',
-
-  maxContentLength: -1,
-
-  validateStatus: function validateStatus(status) {
-    return status >= 200 && status < 300;
-  }
-};
-
-defaults.headers = {
-  common: {
-    'Accept': 'application/json, text/plain, */*'
-  }
-};
-
-utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
-  defaults.headers[method] = {};
-});
-
-utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
-  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
-});
-
-module.exports = defaults;
-
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9)))
-
-/***/ }),
-/* 7 */
-/***/ (function(module, exports, __webpack_require__) {
-
 //.CommonJS
 var CSSOM = {
-	StyleSheet: __webpack_require__(23).StyleSheet,
-	CSSStyleRule: __webpack_require__(8).CSSStyleRule
+	StyleSheet: __webpack_require__(14).StyleSheet,
+	CSSStyleRule: __webpack_require__(7).CSSStyleRule
 };
 ///CommonJS
 
@@ -1604,17 +1500,17 @@ CSSOM.CSSStyleSheet.prototype.toString = function() {
 
 //.CommonJS
 exports.CSSStyleSheet = CSSOM.CSSStyleSheet;
-CSSOM.parse = __webpack_require__(11).parse; // Cannot be included sooner due to the mutual dependency between parse.js and CSSStyleSheet.js
+CSSOM.parse = __webpack_require__(8).parse; // Cannot be included sooner due to the mutual dependency between parse.js and CSSStyleSheet.js
 ///CommonJS
 
 
 /***/ }),
-/* 8 */
+/* 7 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //.CommonJS
 var CSSOM = {
-	CSSStyleDeclaration: __webpack_require__(4).CSSStyleDeclaration,
+	CSSStyleDeclaration: __webpack_require__(3).CSSStyleDeclaration,
 	CSSRule: __webpack_require__(1).CSSRule
 };
 ///CommonJS
@@ -1805,7 +1701,634 @@ exports.CSSStyleRule = CSSOM.CSSStyleRule;
 
 
 /***/ }),
+/* 8 */
+/***/ (function(module, exports, __webpack_require__) {
+
+//.CommonJS
+var CSSOM = {};
+///CommonJS
+
+
+/**
+ * @param {string} token
+ */
+CSSOM.parse = function parse(token) {
+
+	var i = 0;
+
+	/**
+		"before-selector" or
+		"selector" or
+		"atRule" or
+		"atBlock" or
+		"before-name" or
+		"name" or
+		"before-value" or
+		"value"
+	*/
+	var state = "before-selector";
+
+	var index;
+	var buffer = "";
+	var valueParenthesisDepth = 0;
+
+	var SIGNIFICANT_WHITESPACE = {
+		"selector": true,
+		"value": true,
+		"value-parenthesis": true,
+		"atRule": true,
+		"importRule-begin": true,
+		"importRule": true,
+		"atBlock": true,
+		'documentRule-begin': true
+	};
+
+	var styleSheet = new CSSOM.CSSStyleSheet();
+
+	// @type CSSStyleSheet|CSSMediaRule|CSSFontFaceRule|CSSKeyframesRule|CSSDocumentRule
+	var currentScope = styleSheet;
+
+	// @type CSSMediaRule|CSSKeyframesRule|CSSDocumentRule
+	var parentRule;
+
+	var name, priority="", styleRule, mediaRule, importRule, fontFaceRule, keyframesRule, documentRule, hostRule;
+
+	var atKeyframesRegExp = /@(-(?:\w+-)+)?keyframes/g;
+
+	var parseError = function(message) {
+		var lines = token.substring(0, i).split('\n');
+		var lineCount = lines.length;
+		var charCount = lines.pop().length + 1;
+		var error = new Error(message + ' (line ' + lineCount + ', char ' + charCount + ')');
+		error.line = lineCount;
+		/* jshint sub : true */
+		error['char'] = charCount;
+		error.styleSheet = styleSheet;
+		throw error;
+	};
+
+	for (var character; (character = token.charAt(i)); i++) {
+
+		switch (character) {
+
+		case " ":
+		case "\t":
+		case "\r":
+		case "\n":
+		case "\f":
+			if (SIGNIFICANT_WHITESPACE[state]) {
+				buffer += character;
+			}
+			break;
+
+		// String
+		case '"':
+			index = i + 1;
+			do {
+				index = token.indexOf('"', index) + 1;
+				if (!index) {
+					parseError('Unmatched "');
+				}
+			} while (token[index - 2] === '\\');
+			buffer += token.slice(i, index);
+			i = index - 1;
+			switch (state) {
+				case 'before-value':
+					state = 'value';
+					break;
+				case 'importRule-begin':
+					state = 'importRule';
+					break;
+			}
+			break;
+
+		case "'":
+			index = i + 1;
+			do {
+				index = token.indexOf("'", index) + 1;
+				if (!index) {
+					parseError("Unmatched '");
+				}
+			} while (token[index - 2] === '\\');
+			buffer += token.slice(i, index);
+			i = index - 1;
+			switch (state) {
+				case 'before-value':
+					state = 'value';
+					break;
+				case 'importRule-begin':
+					state = 'importRule';
+					break;
+			}
+			break;
+
+		// Comment
+		case "/":
+			if (token.charAt(i + 1) === "*") {
+				i += 2;
+				index = token.indexOf("*/", i);
+				if (index === -1) {
+					parseError("Missing */");
+				} else {
+					i = index + 1;
+				}
+			} else {
+				buffer += character;
+			}
+			if (state === "importRule-begin") {
+				buffer += " ";
+				state = "importRule";
+			}
+			break;
+
+		// At-rule
+		case "@":
+			if (token.indexOf("@-moz-document", i) === i) {
+				state = "documentRule-begin";
+				documentRule = new CSSOM.CSSDocumentRule();
+				documentRule.__starts = i;
+				i += "-moz-document".length;
+				buffer = "";
+				break;
+			} else if (token.indexOf("@media", i) === i) {
+				state = "atBlock";
+				mediaRule = new CSSOM.CSSMediaRule();
+				mediaRule.__starts = i;
+				i += "media".length;
+				buffer = "";
+				break;
+			} else if (token.indexOf("@host", i) === i) {
+				state = "hostRule-begin";
+				i += "host".length;
+				hostRule = new CSSOM.CSSHostRule();
+				hostRule.__starts = i;
+				buffer = "";
+				break;
+			} else if (token.indexOf("@import", i) === i) {
+				state = "importRule-begin";
+				i += "import".length;
+				buffer += "@import";
+				break;
+			} else if (token.indexOf("@font-face", i) === i) {
+				state = "fontFaceRule-begin";
+				i += "font-face".length;
+				fontFaceRule = new CSSOM.CSSFontFaceRule();
+				fontFaceRule.__starts = i;
+				buffer = "";
+				break;
+			} else {
+				atKeyframesRegExp.lastIndex = i;
+				var matchKeyframes = atKeyframesRegExp.exec(token);
+				if (matchKeyframes && matchKeyframes.index === i) {
+					state = "keyframesRule-begin";
+					keyframesRule = new CSSOM.CSSKeyframesRule();
+					keyframesRule.__starts = i;
+					keyframesRule._vendorPrefix = matchKeyframes[1]; // Will come out as undefined if no prefix was found
+					i += matchKeyframes[0].length - 1;
+					buffer = "";
+					break;
+				} else if (state === "selector") {
+					state = "atRule";
+				}
+			}
+			buffer += character;
+			break;
+
+		case "{":
+			if (state === "selector" || state === "atRule") {
+				styleRule.selectorText = buffer.trim();
+				styleRule.style.__starts = i;
+				buffer = "";
+				state = "before-name";
+			} else if (state === "atBlock") {
+				mediaRule.media.mediaText = buffer.trim();
+				currentScope = parentRule = mediaRule;
+				mediaRule.parentStyleSheet = styleSheet;
+				buffer = "";
+				state = "before-selector";
+			} else if (state === "hostRule-begin") {
+				currentScope = parentRule = hostRule;
+				hostRule.parentStyleSheet = styleSheet;
+				buffer = "";
+				state = "before-selector";
+			} else if (state === "fontFaceRule-begin") {
+				if (parentRule) {
+					fontFaceRule.parentRule = parentRule;
+				}
+				fontFaceRule.parentStyleSheet = styleSheet;
+				styleRule = fontFaceRule;
+				buffer = "";
+				state = "before-name";
+			} else if (state === "keyframesRule-begin") {
+				keyframesRule.name = buffer.trim();
+				if (parentRule) {
+					keyframesRule.parentRule = parentRule;
+				}
+				keyframesRule.parentStyleSheet = styleSheet;
+				currentScope = parentRule = keyframesRule;
+				buffer = "";
+				state = "keyframeRule-begin";
+			} else if (state === "keyframeRule-begin") {
+				styleRule = new CSSOM.CSSKeyframeRule();
+				styleRule.keyText = buffer.trim();
+				styleRule.__starts = i;
+				buffer = "";
+				state = "before-name";
+			} else if (state === "documentRule-begin") {
+				// FIXME: what if this '{' is in the url text of the match function?
+				documentRule.matcher.matcherText = buffer.trim();
+				if (parentRule) {
+					documentRule.parentRule = parentRule;
+				}
+				currentScope = parentRule = documentRule;
+				documentRule.parentStyleSheet = styleSheet;
+				buffer = "";
+				state = "before-selector";
+			}
+			break;
+
+		case ":":
+			if (state === "name") {
+				name = buffer.trim();
+				buffer = "";
+				state = "before-value";
+			} else {
+				buffer += character;
+			}
+			break;
+
+		case "(":
+			if (state === 'value') {
+				// ie css expression mode
+				if (buffer.trim() === 'expression') {
+					var info = (new CSSOM.CSSValueExpression(token, i)).parse();
+
+					if (info.error) {
+						parseError(info.error);
+					} else {
+						buffer += info.expression;
+						i = info.idx;
+					}
+				} else {
+					state = 'value-parenthesis';
+					//always ensure this is reset to 1 on transition
+					//from value to value-parenthesis
+					valueParenthesisDepth = 1;
+					buffer += character;
+				}
+			} else if (state === 'value-parenthesis') {
+				valueParenthesisDepth++;
+				buffer += character;
+			} else {
+				buffer += character;
+			}
+			break;
+
+		case ")":
+			if (state === 'value-parenthesis') {
+				valueParenthesisDepth--;
+				if (valueParenthesisDepth === 0) state = 'value';
+			}
+			buffer += character;
+			break;
+
+		case "!":
+			if (state === "value" && token.indexOf("!important", i) === i) {
+				priority = "important";
+				i += "important".length;
+			} else {
+				buffer += character;
+			}
+			break;
+
+		case ";":
+			switch (state) {
+				case "value":
+					styleRule.style.setProperty(name, buffer.trim(), priority);
+					priority = "";
+					buffer = "";
+					state = "before-name";
+					break;
+				case "atRule":
+					buffer = "";
+					state = "before-selector";
+					break;
+				case "importRule":
+					importRule = new CSSOM.CSSImportRule();
+					importRule.parentStyleSheet = importRule.styleSheet.parentStyleSheet = styleSheet;
+					importRule.cssText = buffer + character;
+					styleSheet.cssRules.push(importRule);
+					buffer = "";
+					state = "before-selector";
+					break;
+				default:
+					buffer += character;
+					break;
+			}
+			break;
+
+		case "}":
+			switch (state) {
+				case "value":
+					styleRule.style.setProperty(name, buffer.trim(), priority);
+					priority = "";
+					/* falls through */
+				case "before-name":
+				case "name":
+					styleRule.__ends = i + 1;
+					if (parentRule) {
+						styleRule.parentRule = parentRule;
+					}
+					styleRule.parentStyleSheet = styleSheet;
+					currentScope.cssRules.push(styleRule);
+					buffer = "";
+					if (currentScope.constructor === CSSOM.CSSKeyframesRule) {
+						state = "keyframeRule-begin";
+					} else {
+						state = "before-selector";
+					}
+					break;
+				case "keyframeRule-begin":
+				case "before-selector":
+				case "selector":
+					// End of media/document rule.
+					if (!parentRule) {
+						parseError("Unexpected }");
+					}
+					currentScope.__ends = i + 1;
+					// Nesting rules aren't supported yet
+					styleSheet.cssRules.push(currentScope);
+					currentScope = styleSheet;
+					parentRule = null;
+					buffer = "";
+					state = "before-selector";
+					break;
+			}
+			break;
+
+		default:
+			switch (state) {
+				case "before-selector":
+					state = "selector";
+					styleRule = new CSSOM.CSSStyleRule();
+					styleRule.__starts = i;
+					break;
+				case "before-name":
+					state = "name";
+					break;
+				case "before-value":
+					state = "value";
+					break;
+				case "importRule-begin":
+					state = "importRule";
+					break;
+			}
+			buffer += character;
+			break;
+		}
+	}
+
+	return styleSheet;
+};
+
+
+//.CommonJS
+exports.parse = CSSOM.parse;
+// The following modules cannot be included sooner due to the mutual dependency with parse.js
+CSSOM.CSSStyleSheet = __webpack_require__(6).CSSStyleSheet;
+CSSOM.CSSStyleRule = __webpack_require__(7).CSSStyleRule;
+CSSOM.CSSImportRule = __webpack_require__(15).CSSImportRule;
+CSSOM.CSSMediaRule = __webpack_require__(10).CSSMediaRule;
+CSSOM.CSSFontFaceRule = __webpack_require__(34).CSSFontFaceRule;
+CSSOM.CSSHostRule = __webpack_require__(35).CSSHostRule;
+CSSOM.CSSStyleDeclaration = __webpack_require__(3).CSSStyleDeclaration;
+CSSOM.CSSKeyframeRule = __webpack_require__(16).CSSKeyframeRule;
+CSSOM.CSSKeyframesRule = __webpack_require__(17).CSSKeyframesRule;
+CSSOM.CSSValueExpression = __webpack_require__(36).CSSValueExpression;
+CSSOM.CSSDocumentRule = __webpack_require__(38).CSSDocumentRule;
+///CommonJS
+
+
+/***/ }),
 /* 9 */
+/***/ (function(module, exports) {
+
+//.CommonJS
+var CSSOM = {};
+///CommonJS
+
+
+/**
+ * @constructor
+ * @see http://dev.w3.org/csswg/cssom/#the-medialist-interface
+ */
+CSSOM.MediaList = function MediaList(){
+	this.length = 0;
+};
+
+CSSOM.MediaList.prototype = {
+
+	constructor: CSSOM.MediaList,
+
+	/**
+	 * @return {string}
+	 */
+	get mediaText() {
+		return Array.prototype.join.call(this, ", ");
+	},
+
+	/**
+	 * @param {string} value
+	 */
+	set mediaText(value) {
+		var values = value.split(",");
+		var length = this.length = values.length;
+		for (var i=0; i<length; i++) {
+			this[i] = values[i].trim();
+		}
+	},
+
+	/**
+	 * @param {string} medium
+	 */
+	appendMedium: function(medium) {
+		if (Array.prototype.indexOf.call(this, medium) === -1) {
+			this[this.length] = medium;
+			this.length++;
+		}
+	},
+
+	/**
+	 * @param {string} medium
+	 */
+	deleteMedium: function(medium) {
+		var index = Array.prototype.indexOf.call(this, medium);
+		if (index !== -1) {
+			Array.prototype.splice.call(this, index, 1);
+		}
+	}
+
+};
+
+
+//.CommonJS
+exports.MediaList = CSSOM.MediaList;
+///CommonJS
+
+
+/***/ }),
+/* 10 */
+/***/ (function(module, exports, __webpack_require__) {
+
+//.CommonJS
+var CSSOM = {
+	CSSRule: __webpack_require__(1).CSSRule,
+	MediaList: __webpack_require__(9).MediaList
+};
+///CommonJS
+
+
+/**
+ * @constructor
+ * @see http://dev.w3.org/csswg/cssom/#cssmediarule
+ * @see http://www.w3.org/TR/DOM-Level-2-Style/css.html#CSS-CSSMediaRule
+ */
+CSSOM.CSSMediaRule = function CSSMediaRule() {
+	CSSOM.CSSRule.call(this);
+	this.media = new CSSOM.MediaList();
+	this.cssRules = [];
+};
+
+CSSOM.CSSMediaRule.prototype = new CSSOM.CSSRule();
+CSSOM.CSSMediaRule.prototype.constructor = CSSOM.CSSMediaRule;
+CSSOM.CSSMediaRule.prototype.type = 4;
+//FIXME
+//CSSOM.CSSMediaRule.prototype.insertRule = CSSStyleSheet.prototype.insertRule;
+//CSSOM.CSSMediaRule.prototype.deleteRule = CSSStyleSheet.prototype.deleteRule;
+
+// http://opensource.apple.com/source/WebCore/WebCore-658.28/css/CSSMediaRule.cpp
+Object.defineProperty(CSSOM.CSSMediaRule.prototype, "cssText", {
+  get: function() {
+    var cssTexts = [];
+    for (var i=0, length=this.cssRules.length; i < length; i++) {
+      cssTexts.push(this.cssRules[i].cssText);
+    }
+    return "@media " + this.media.mediaText + " {" + cssTexts.join("") + "}";
+  }
+});
+
+
+//.CommonJS
+exports.CSSMediaRule = CSSOM.CSSMediaRule;
+///CommonJS
+
+
+/***/ }),
+/* 11 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function(process) {
+
+var utils = __webpack_require__(0);
+var normalizeHeaderName = __webpack_require__(49);
+
+var DEFAULT_CONTENT_TYPE = {
+  'Content-Type': 'application/x-www-form-urlencoded'
+};
+
+function setContentTypeIfUnset(headers, value) {
+  if (!utils.isUndefined(headers) && utils.isUndefined(headers['Content-Type'])) {
+    headers['Content-Type'] = value;
+  }
+}
+
+function getDefaultAdapter() {
+  var adapter;
+  if (typeof XMLHttpRequest !== 'undefined') {
+    // For browsers use XHR adapter
+    adapter = __webpack_require__(21);
+  } else if (typeof process !== 'undefined') {
+    // For node use HTTP adapter
+    adapter = __webpack_require__(21);
+  }
+  return adapter;
+}
+
+var defaults = {
+  adapter: getDefaultAdapter(),
+
+  transformRequest: [function transformRequest(data, headers) {
+    normalizeHeaderName(headers, 'Content-Type');
+    if (utils.isFormData(data) ||
+      utils.isArrayBuffer(data) ||
+      utils.isBuffer(data) ||
+      utils.isStream(data) ||
+      utils.isFile(data) ||
+      utils.isBlob(data)
+    ) {
+      return data;
+    }
+    if (utils.isArrayBufferView(data)) {
+      return data.buffer;
+    }
+    if (utils.isURLSearchParams(data)) {
+      setContentTypeIfUnset(headers, 'application/x-www-form-urlencoded;charset=utf-8');
+      return data.toString();
+    }
+    if (utils.isObject(data)) {
+      setContentTypeIfUnset(headers, 'application/json;charset=utf-8');
+      return JSON.stringify(data);
+    }
+    return data;
+  }],
+
+  transformResponse: [function transformResponse(data) {
+    /*eslint no-param-reassign:0*/
+    if (typeof data === 'string') {
+      try {
+        data = JSON.parse(data);
+      } catch (e) { /* Ignore */ }
+    }
+    return data;
+  }],
+
+  /**
+   * A timeout in milliseconds to abort a request. If set to 0 (default) a
+   * timeout is not created.
+   */
+  timeout: 0,
+
+  xsrfCookieName: 'XSRF-TOKEN',
+  xsrfHeaderName: 'X-XSRF-TOKEN',
+
+  maxContentLength: -1,
+
+  validateStatus: function validateStatus(status) {
+    return status >= 200 && status < 300;
+  }
+};
+
+defaults.headers = {
+  common: {
+    'Accept': 'application/json, text/plain, */*'
+  }
+};
+
+utils.forEach(['delete', 'get', 'head'], function forEachMethodNoData(method) {
+  defaults.headers[method] = {};
+});
+
+utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
+  defaults.headers[method] = utils.merge(DEFAULT_CONTENT_TYPE);
+});
+
+module.exports = defaults;
+
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(12)))
+
+/***/ }),
+/* 12 */
 /***/ (function(module, exports) {
 
 // shim for using process in browser
@@ -1995,7 +2518,7 @@ process.umask = function() { return 0; };
 
 
 /***/ }),
-/* 10 */
+/* 13 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -3817,416 +4340,7 @@ var config = api$1.config;
 
 
 /***/ }),
-/* 11 */
-/***/ (function(module, exports, __webpack_require__) {
-
-//.CommonJS
-var CSSOM = {};
-///CommonJS
-
-
-/**
- * @param {string} token
- */
-CSSOM.parse = function parse(token) {
-
-	var i = 0;
-
-	/**
-		"before-selector" or
-		"selector" or
-		"atRule" or
-		"atBlock" or
-		"before-name" or
-		"name" or
-		"before-value" or
-		"value"
-	*/
-	var state = "before-selector";
-
-	var index;
-	var buffer = "";
-	var valueParenthesisDepth = 0;
-
-	var SIGNIFICANT_WHITESPACE = {
-		"selector": true,
-		"value": true,
-		"value-parenthesis": true,
-		"atRule": true,
-		"importRule-begin": true,
-		"importRule": true,
-		"atBlock": true,
-		'documentRule-begin': true
-	};
-
-	var styleSheet = new CSSOM.CSSStyleSheet();
-
-	// @type CSSStyleSheet|CSSMediaRule|CSSFontFaceRule|CSSKeyframesRule|CSSDocumentRule
-	var currentScope = styleSheet;
-
-	// @type CSSMediaRule|CSSKeyframesRule|CSSDocumentRule
-	var parentRule;
-
-	var name, priority="", styleRule, mediaRule, importRule, fontFaceRule, keyframesRule, documentRule, hostRule;
-
-	var atKeyframesRegExp = /@(-(?:\w+-)+)?keyframes/g;
-
-	var parseError = function(message) {
-		var lines = token.substring(0, i).split('\n');
-		var lineCount = lines.length;
-		var charCount = lines.pop().length + 1;
-		var error = new Error(message + ' (line ' + lineCount + ', char ' + charCount + ')');
-		error.line = lineCount;
-		/* jshint sub : true */
-		error['char'] = charCount;
-		error.styleSheet = styleSheet;
-		throw error;
-	};
-
-	for (var character; (character = token.charAt(i)); i++) {
-
-		switch (character) {
-
-		case " ":
-		case "\t":
-		case "\r":
-		case "\n":
-		case "\f":
-			if (SIGNIFICANT_WHITESPACE[state]) {
-				buffer += character;
-			}
-			break;
-
-		// String
-		case '"':
-			index = i + 1;
-			do {
-				index = token.indexOf('"', index) + 1;
-				if (!index) {
-					parseError('Unmatched "');
-				}
-			} while (token[index - 2] === '\\');
-			buffer += token.slice(i, index);
-			i = index - 1;
-			switch (state) {
-				case 'before-value':
-					state = 'value';
-					break;
-				case 'importRule-begin':
-					state = 'importRule';
-					break;
-			}
-			break;
-
-		case "'":
-			index = i + 1;
-			do {
-				index = token.indexOf("'", index) + 1;
-				if (!index) {
-					parseError("Unmatched '");
-				}
-			} while (token[index - 2] === '\\');
-			buffer += token.slice(i, index);
-			i = index - 1;
-			switch (state) {
-				case 'before-value':
-					state = 'value';
-					break;
-				case 'importRule-begin':
-					state = 'importRule';
-					break;
-			}
-			break;
-
-		// Comment
-		case "/":
-			if (token.charAt(i + 1) === "*") {
-				i += 2;
-				index = token.indexOf("*/", i);
-				if (index === -1) {
-					parseError("Missing */");
-				} else {
-					i = index + 1;
-				}
-			} else {
-				buffer += character;
-			}
-			if (state === "importRule-begin") {
-				buffer += " ";
-				state = "importRule";
-			}
-			break;
-
-		// At-rule
-		case "@":
-			if (token.indexOf("@-moz-document", i) === i) {
-				state = "documentRule-begin";
-				documentRule = new CSSOM.CSSDocumentRule();
-				documentRule.__starts = i;
-				i += "-moz-document".length;
-				buffer = "";
-				break;
-			} else if (token.indexOf("@media", i) === i) {
-				state = "atBlock";
-				mediaRule = new CSSOM.CSSMediaRule();
-				mediaRule.__starts = i;
-				i += "media".length;
-				buffer = "";
-				break;
-			} else if (token.indexOf("@host", i) === i) {
-				state = "hostRule-begin";
-				i += "host".length;
-				hostRule = new CSSOM.CSSHostRule();
-				hostRule.__starts = i;
-				buffer = "";
-				break;
-			} else if (token.indexOf("@import", i) === i) {
-				state = "importRule-begin";
-				i += "import".length;
-				buffer += "@import";
-				break;
-			} else if (token.indexOf("@font-face", i) === i) {
-				state = "fontFaceRule-begin";
-				i += "font-face".length;
-				fontFaceRule = new CSSOM.CSSFontFaceRule();
-				fontFaceRule.__starts = i;
-				buffer = "";
-				break;
-			} else {
-				atKeyframesRegExp.lastIndex = i;
-				var matchKeyframes = atKeyframesRegExp.exec(token);
-				if (matchKeyframes && matchKeyframes.index === i) {
-					state = "keyframesRule-begin";
-					keyframesRule = new CSSOM.CSSKeyframesRule();
-					keyframesRule.__starts = i;
-					keyframesRule._vendorPrefix = matchKeyframes[1]; // Will come out as undefined if no prefix was found
-					i += matchKeyframes[0].length - 1;
-					buffer = "";
-					break;
-				} else if (state === "selector") {
-					state = "atRule";
-				}
-			}
-			buffer += character;
-			break;
-
-		case "{":
-			if (state === "selector" || state === "atRule") {
-				styleRule.selectorText = buffer.trim();
-				styleRule.style.__starts = i;
-				buffer = "";
-				state = "before-name";
-			} else if (state === "atBlock") {
-				mediaRule.media.mediaText = buffer.trim();
-				currentScope = parentRule = mediaRule;
-				mediaRule.parentStyleSheet = styleSheet;
-				buffer = "";
-				state = "before-selector";
-			} else if (state === "hostRule-begin") {
-				currentScope = parentRule = hostRule;
-				hostRule.parentStyleSheet = styleSheet;
-				buffer = "";
-				state = "before-selector";
-			} else if (state === "fontFaceRule-begin") {
-				if (parentRule) {
-					fontFaceRule.parentRule = parentRule;
-				}
-				fontFaceRule.parentStyleSheet = styleSheet;
-				styleRule = fontFaceRule;
-				buffer = "";
-				state = "before-name";
-			} else if (state === "keyframesRule-begin") {
-				keyframesRule.name = buffer.trim();
-				if (parentRule) {
-					keyframesRule.parentRule = parentRule;
-				}
-				keyframesRule.parentStyleSheet = styleSheet;
-				currentScope = parentRule = keyframesRule;
-				buffer = "";
-				state = "keyframeRule-begin";
-			} else if (state === "keyframeRule-begin") {
-				styleRule = new CSSOM.CSSKeyframeRule();
-				styleRule.keyText = buffer.trim();
-				styleRule.__starts = i;
-				buffer = "";
-				state = "before-name";
-			} else if (state === "documentRule-begin") {
-				// FIXME: what if this '{' is in the url text of the match function?
-				documentRule.matcher.matcherText = buffer.trim();
-				if (parentRule) {
-					documentRule.parentRule = parentRule;
-				}
-				currentScope = parentRule = documentRule;
-				documentRule.parentStyleSheet = styleSheet;
-				buffer = "";
-				state = "before-selector";
-			}
-			break;
-
-		case ":":
-			if (state === "name") {
-				name = buffer.trim();
-				buffer = "";
-				state = "before-value";
-			} else {
-				buffer += character;
-			}
-			break;
-
-		case "(":
-			if (state === 'value') {
-				// ie css expression mode
-				if (buffer.trim() === 'expression') {
-					var info = (new CSSOM.CSSValueExpression(token, i)).parse();
-
-					if (info.error) {
-						parseError(info.error);
-					} else {
-						buffer += info.expression;
-						i = info.idx;
-					}
-				} else {
-					state = 'value-parenthesis';
-					//always ensure this is reset to 1 on transition
-					//from value to value-parenthesis
-					valueParenthesisDepth = 1;
-					buffer += character;
-				}
-			} else if (state === 'value-parenthesis') {
-				valueParenthesisDepth++;
-				buffer += character;
-			} else {
-				buffer += character;
-			}
-			break;
-
-		case ")":
-			if (state === 'value-parenthesis') {
-				valueParenthesisDepth--;
-				if (valueParenthesisDepth === 0) state = 'value';
-			}
-			buffer += character;
-			break;
-
-		case "!":
-			if (state === "value" && token.indexOf("!important", i) === i) {
-				priority = "important";
-				i += "important".length;
-			} else {
-				buffer += character;
-			}
-			break;
-
-		case ";":
-			switch (state) {
-				case "value":
-					styleRule.style.setProperty(name, buffer.trim(), priority);
-					priority = "";
-					buffer = "";
-					state = "before-name";
-					break;
-				case "atRule":
-					buffer = "";
-					state = "before-selector";
-					break;
-				case "importRule":
-					importRule = new CSSOM.CSSImportRule();
-					importRule.parentStyleSheet = importRule.styleSheet.parentStyleSheet = styleSheet;
-					importRule.cssText = buffer + character;
-					styleSheet.cssRules.push(importRule);
-					buffer = "";
-					state = "before-selector";
-					break;
-				default:
-					buffer += character;
-					break;
-			}
-			break;
-
-		case "}":
-			switch (state) {
-				case "value":
-					styleRule.style.setProperty(name, buffer.trim(), priority);
-					priority = "";
-					/* falls through */
-				case "before-name":
-				case "name":
-					styleRule.__ends = i + 1;
-					if (parentRule) {
-						styleRule.parentRule = parentRule;
-					}
-					styleRule.parentStyleSheet = styleSheet;
-					currentScope.cssRules.push(styleRule);
-					buffer = "";
-					if (currentScope.constructor === CSSOM.CSSKeyframesRule) {
-						state = "keyframeRule-begin";
-					} else {
-						state = "before-selector";
-					}
-					break;
-				case "keyframeRule-begin":
-				case "before-selector":
-				case "selector":
-					// End of media/document rule.
-					if (!parentRule) {
-						parseError("Unexpected }");
-					}
-					currentScope.__ends = i + 1;
-					// Nesting rules aren't supported yet
-					styleSheet.cssRules.push(currentScope);
-					currentScope = styleSheet;
-					parentRule = null;
-					buffer = "";
-					state = "before-selector";
-					break;
-			}
-			break;
-
-		default:
-			switch (state) {
-				case "before-selector":
-					state = "selector";
-					styleRule = new CSSOM.CSSStyleRule();
-					styleRule.__starts = i;
-					break;
-				case "before-name":
-					state = "name";
-					break;
-				case "before-value":
-					state = "value";
-					break;
-				case "importRule-begin":
-					state = "importRule";
-					break;
-			}
-			buffer += character;
-			break;
-		}
-	}
-
-	return styleSheet;
-};
-
-
-//.CommonJS
-exports.parse = CSSOM.parse;
-// The following modules cannot be included sooner due to the mutual dependency with parse.js
-CSSOM.CSSStyleSheet = __webpack_require__(7).CSSStyleSheet;
-CSSOM.CSSStyleRule = __webpack_require__(8).CSSStyleRule;
-CSSOM.CSSImportRule = __webpack_require__(24).CSSImportRule;
-CSSOM.CSSMediaRule = __webpack_require__(13).CSSMediaRule;
-CSSOM.CSSFontFaceRule = __webpack_require__(65).CSSFontFaceRule;
-CSSOM.CSSHostRule = __webpack_require__(66).CSSHostRule;
-CSSOM.CSSStyleDeclaration = __webpack_require__(4).CSSStyleDeclaration;
-CSSOM.CSSKeyframeRule = __webpack_require__(25).CSSKeyframeRule;
-CSSOM.CSSKeyframesRule = __webpack_require__(26).CSSKeyframesRule;
-CSSOM.CSSValueExpression = __webpack_require__(67).CSSValueExpression;
-CSSOM.CSSDocumentRule = __webpack_require__(69).CSSDocumentRule;
-///CommonJS
-
-
-/***/ }),
-/* 12 */
+/* 14 */
 /***/ (function(module, exports) {
 
 //.CommonJS
@@ -4236,111 +4350,246 @@ var CSSOM = {};
 
 /**
  * @constructor
- * @see http://dev.w3.org/csswg/cssom/#the-medialist-interface
+ * @see http://dev.w3.org/csswg/cssom/#the-stylesheet-interface
  */
-CSSOM.MediaList = function MediaList(){
-	this.length = 0;
-};
-
-CSSOM.MediaList.prototype = {
-
-	constructor: CSSOM.MediaList,
-
-	/**
-	 * @return {string}
-	 */
-	get mediaText() {
-		return Array.prototype.join.call(this, ", ");
-	},
-
-	/**
-	 * @param {string} value
-	 */
-	set mediaText(value) {
-		var values = value.split(",");
-		var length = this.length = values.length;
-		for (var i=0; i<length; i++) {
-			this[i] = values[i].trim();
-		}
-	},
-
-	/**
-	 * @param {string} medium
-	 */
-	appendMedium: function(medium) {
-		if (Array.prototype.indexOf.call(this, medium) === -1) {
-			this[this.length] = medium;
-			this.length++;
-		}
-	},
-
-	/**
-	 * @param {string} medium
-	 */
-	deleteMedium: function(medium) {
-		var index = Array.prototype.indexOf.call(this, medium);
-		if (index !== -1) {
-			Array.prototype.splice.call(this, index, 1);
-		}
-	}
-
+CSSOM.StyleSheet = function StyleSheet() {
+	this.parentStyleSheet = null;
 };
 
 
 //.CommonJS
-exports.MediaList = CSSOM.MediaList;
+exports.StyleSheet = CSSOM.StyleSheet;
 ///CommonJS
 
 
 /***/ }),
-/* 13 */
+/* 15 */
 /***/ (function(module, exports, __webpack_require__) {
 
 //.CommonJS
 var CSSOM = {
 	CSSRule: __webpack_require__(1).CSSRule,
-	MediaList: __webpack_require__(12).MediaList
+	CSSStyleSheet: __webpack_require__(6).CSSStyleSheet,
+	MediaList: __webpack_require__(9).MediaList
 };
 ///CommonJS
 
 
 /**
  * @constructor
- * @see http://dev.w3.org/csswg/cssom/#cssmediarule
- * @see http://www.w3.org/TR/DOM-Level-2-Style/css.html#CSS-CSSMediaRule
+ * @see http://dev.w3.org/csswg/cssom/#cssimportrule
+ * @see http://www.w3.org/TR/DOM-Level-2-Style/css.html#CSS-CSSImportRule
  */
-CSSOM.CSSMediaRule = function CSSMediaRule() {
+CSSOM.CSSImportRule = function CSSImportRule() {
 	CSSOM.CSSRule.call(this);
+	this.href = "";
 	this.media = new CSSOM.MediaList();
-	this.cssRules = [];
+	this.styleSheet = new CSSOM.CSSStyleSheet();
 };
 
-CSSOM.CSSMediaRule.prototype = new CSSOM.CSSRule();
-CSSOM.CSSMediaRule.prototype.constructor = CSSOM.CSSMediaRule;
-CSSOM.CSSMediaRule.prototype.type = 4;
-//FIXME
-//CSSOM.CSSMediaRule.prototype.insertRule = CSSStyleSheet.prototype.insertRule;
-//CSSOM.CSSMediaRule.prototype.deleteRule = CSSStyleSheet.prototype.deleteRule;
+CSSOM.CSSImportRule.prototype = new CSSOM.CSSRule();
+CSSOM.CSSImportRule.prototype.constructor = CSSOM.CSSImportRule;
+CSSOM.CSSImportRule.prototype.type = 3;
 
-// http://opensource.apple.com/source/WebCore/WebCore-658.28/css/CSSMediaRule.cpp
-Object.defineProperty(CSSOM.CSSMediaRule.prototype, "cssText", {
+Object.defineProperty(CSSOM.CSSImportRule.prototype, "cssText", {
   get: function() {
-    var cssTexts = [];
-    for (var i=0, length=this.cssRules.length; i < length; i++) {
-      cssTexts.push(this.cssRules[i].cssText);
+    var mediaText = this.media.mediaText;
+    return "@import url(" + this.href + ")" + (mediaText ? " " + mediaText : "") + ";";
+  },
+  set: function(cssText) {
+    var i = 0;
+
+    /**
+     * @import url(partial.css) screen, handheld;
+     *        ||               |
+     *        after-import     media
+     *         |
+     *         url
+     */
+    var state = '';
+
+    var buffer = '';
+    var index;
+    for (var character; (character = cssText.charAt(i)); i++) {
+
+      switch (character) {
+        case ' ':
+        case '\t':
+        case '\r':
+        case '\n':
+        case '\f':
+          if (state === 'after-import') {
+            state = 'url';
+          } else {
+            buffer += character;
+          }
+          break;
+
+        case '@':
+          if (!state && cssText.indexOf('@import', i) === i) {
+            state = 'after-import';
+            i += 'import'.length;
+            buffer = '';
+          }
+          break;
+
+        case 'u':
+          if (state === 'url' && cssText.indexOf('url(', i) === i) {
+            index = cssText.indexOf(')', i + 1);
+            if (index === -1) {
+              throw i + ': ")" not found';
+            }
+            i += 'url('.length;
+            var url = cssText.slice(i, index);
+            if (url[0] === url[url.length - 1]) {
+              if (url[0] === '"' || url[0] === "'") {
+                url = url.slice(1, -1);
+              }
+            }
+            this.href = url;
+            i = index;
+            state = 'media';
+          }
+          break;
+
+        case '"':
+          if (state === 'url') {
+            index = cssText.indexOf('"', i + 1);
+            if (!index) {
+              throw i + ": '\"' not found";
+            }
+            this.href = cssText.slice(i + 1, index);
+            i = index;
+            state = 'media';
+          }
+          break;
+
+        case "'":
+          if (state === 'url') {
+            index = cssText.indexOf("'", i + 1);
+            if (!index) {
+              throw i + ': "\'" not found';
+            }
+            this.href = cssText.slice(i + 1, index);
+            i = index;
+            state = 'media';
+          }
+          break;
+
+        case ';':
+          if (state === 'media') {
+            if (buffer) {
+              this.media.mediaText = buffer.trim();
+            }
+          }
+          break;
+
+        default:
+          if (state === 'media') {
+            buffer += character;
+          }
+          break;
+      }
     }
-    return "@media " + this.media.mediaText + " {" + cssTexts.join("") + "}";
   }
 });
 
 
 //.CommonJS
-exports.CSSMediaRule = CSSOM.CSSMediaRule;
+exports.CSSImportRule = CSSOM.CSSImportRule;
 ///CommonJS
 
 
 /***/ }),
-/* 14 */
+/* 16 */
+/***/ (function(module, exports, __webpack_require__) {
+
+//.CommonJS
+var CSSOM = {
+	CSSRule: __webpack_require__(1).CSSRule,
+	CSSStyleDeclaration: __webpack_require__(3).CSSStyleDeclaration
+};
+///CommonJS
+
+
+/**
+ * @constructor
+ * @see http://www.w3.org/TR/css3-animations/#DOM-CSSKeyframeRule
+ */
+CSSOM.CSSKeyframeRule = function CSSKeyframeRule() {
+	CSSOM.CSSRule.call(this);
+	this.keyText = '';
+	this.style = new CSSOM.CSSStyleDeclaration();
+	this.style.parentRule = this;
+};
+
+CSSOM.CSSKeyframeRule.prototype = new CSSOM.CSSRule();
+CSSOM.CSSKeyframeRule.prototype.constructor = CSSOM.CSSKeyframeRule;
+CSSOM.CSSKeyframeRule.prototype.type = 9;
+//FIXME
+//CSSOM.CSSKeyframeRule.prototype.insertRule = CSSStyleSheet.prototype.insertRule;
+//CSSOM.CSSKeyframeRule.prototype.deleteRule = CSSStyleSheet.prototype.deleteRule;
+
+// http://www.opensource.apple.com/source/WebCore/WebCore-955.66.1/css/WebKitCSSKeyframeRule.cpp
+Object.defineProperty(CSSOM.CSSKeyframeRule.prototype, "cssText", {
+  get: function() {
+    return this.keyText + " {" + this.style.cssText + "} ";
+  }
+});
+
+
+//.CommonJS
+exports.CSSKeyframeRule = CSSOM.CSSKeyframeRule;
+///CommonJS
+
+
+/***/ }),
+/* 17 */
+/***/ (function(module, exports, __webpack_require__) {
+
+//.CommonJS
+var CSSOM = {
+	CSSRule: __webpack_require__(1).CSSRule
+};
+///CommonJS
+
+
+/**
+ * @constructor
+ * @see http://www.w3.org/TR/css3-animations/#DOM-CSSKeyframesRule
+ */
+CSSOM.CSSKeyframesRule = function CSSKeyframesRule() {
+	CSSOM.CSSRule.call(this);
+	this.name = '';
+	this.cssRules = [];
+};
+
+CSSOM.CSSKeyframesRule.prototype = new CSSOM.CSSRule();
+CSSOM.CSSKeyframesRule.prototype.constructor = CSSOM.CSSKeyframesRule;
+CSSOM.CSSKeyframesRule.prototype.type = 8;
+//FIXME
+//CSSOM.CSSKeyframesRule.prototype.insertRule = CSSStyleSheet.prototype.insertRule;
+//CSSOM.CSSKeyframesRule.prototype.deleteRule = CSSStyleSheet.prototype.deleteRule;
+
+// http://www.opensource.apple.com/source/WebCore/WebCore-955.66.1/css/WebKitCSSKeyframesRule.cpp
+Object.defineProperty(CSSOM.CSSKeyframesRule.prototype, "cssText", {
+  get: function() {
+    var cssTexts = [];
+    for (var i=0, length=this.cssRules.length; i < length; i++) {
+      cssTexts.push("  " + this.cssRules[i].cssText);
+    }
+    return "@" + (this._vendorPrefix || '') + "keyframes " + this.name + " { \n" + cssTexts.join("\n") + "\n}";
+  }
+});
+
+
+//.CommonJS
+exports.CSSKeyframesRule = CSSOM.CSSKeyframesRule;
+///CommonJS
+
+
+/***/ }),
+/* 18 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -6860,7 +7109,7 @@ Popper.Defaults = Defaults;
 /* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(2)))
 
 /***/ }),
-/* 15 */
+/* 19 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*!
@@ -17231,7 +17480,7 @@ return jQuery;
 
 
 /***/ }),
-/* 16 */
+/* 20 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17249,19 +17498,19 @@ module.exports = function bind(fn, thisArg) {
 
 
 /***/ }),
-/* 17 */
+/* 21 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var settle = __webpack_require__(38);
-var buildURL = __webpack_require__(40);
-var parseHeaders = __webpack_require__(41);
-var isURLSameOrigin = __webpack_require__(42);
-var createError = __webpack_require__(18);
-var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(43);
+var settle = __webpack_require__(50);
+var buildURL = __webpack_require__(52);
+var parseHeaders = __webpack_require__(53);
+var isURLSameOrigin = __webpack_require__(54);
+var createError = __webpack_require__(22);
+var btoa = (typeof window !== 'undefined' && window.btoa && window.btoa.bind(window)) || __webpack_require__(55);
 
 module.exports = function xhrAdapter(config) {
   return new Promise(function dispatchXhrRequest(resolve, reject) {
@@ -17358,7 +17607,7 @@ module.exports = function xhrAdapter(config) {
     // This is only done if running in a standard browser environment.
     // Specifically not if we're in a web worker, or react-native.
     if (utils.isStandardBrowserEnv()) {
-      var cookies = __webpack_require__(44);
+      var cookies = __webpack_require__(56);
 
       // Add xsrf header
       var xsrfValue = (config.withCredentials || isURLSameOrigin(config.url)) && config.xsrfCookieName ?
@@ -17436,13 +17685,13 @@ module.exports = function xhrAdapter(config) {
 
 
 /***/ }),
-/* 18 */
+/* 22 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var enhanceError = __webpack_require__(39);
+var enhanceError = __webpack_require__(51);
 
 /**
  * Create an Error with the specified message, config, error code, request and response.
@@ -17461,7 +17710,7 @@ module.exports = function createError(message, config, code, request, response) 
 
 
 /***/ }),
-/* 19 */
+/* 23 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17473,7 +17722,7 @@ module.exports = function isCancel(value) {
 
 
 /***/ }),
-/* 20 */
+/* 24 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -17499,7 +17748,7 @@ module.exports = Cancel;
 
 
 /***/ }),
-/* 21 */
+/* 25 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -28462,10 +28711,57 @@ Vue.compile = compileToFunctions;
 
 module.exports = Vue;
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(27).setImmediate))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(28).setImmediate))
 
 /***/ }),
-/* 22 */
+/* 26 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var disposed = false
+var normalizeComponent = __webpack_require__(4)
+/* script */
+var __vue_script__ = __webpack_require__(30)
+/* template */
+var __vue_template__ = __webpack_require__(31)
+/* template functional */
+var __vue_template_functional__ = false
+/* styles */
+var __vue_styles__ = null
+/* scopeId */
+var __vue_scopeId__ = null
+/* moduleIdentifier (server only) */
+var __vue_module_identifier__ = null
+var Component = normalizeComponent(
+  __vue_script__,
+  __vue_template__,
+  __vue_template_functional__,
+  __vue_styles__,
+  __vue_scopeId__,
+  __vue_module_identifier__
+)
+Component.options.__file = "resources/assets/js/components/CustomSvg.vue"
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1852278c", Component.options)
+  } else {
+    hotAPI.reload("data-v-1852278c", Component.options)
+  }
+  module.hot.dispose(function (data) {
+    disposed = true
+  })
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 27 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -28943,256 +29239,7 @@ bunker(function () {
 
 
 /***/ }),
-/* 23 */
-/***/ (function(module, exports) {
-
-//.CommonJS
-var CSSOM = {};
-///CommonJS
-
-
-/**
- * @constructor
- * @see http://dev.w3.org/csswg/cssom/#the-stylesheet-interface
- */
-CSSOM.StyleSheet = function StyleSheet() {
-	this.parentStyleSheet = null;
-};
-
-
-//.CommonJS
-exports.StyleSheet = CSSOM.StyleSheet;
-///CommonJS
-
-
-/***/ }),
-/* 24 */
-/***/ (function(module, exports, __webpack_require__) {
-
-//.CommonJS
-var CSSOM = {
-	CSSRule: __webpack_require__(1).CSSRule,
-	CSSStyleSheet: __webpack_require__(7).CSSStyleSheet,
-	MediaList: __webpack_require__(12).MediaList
-};
-///CommonJS
-
-
-/**
- * @constructor
- * @see http://dev.w3.org/csswg/cssom/#cssimportrule
- * @see http://www.w3.org/TR/DOM-Level-2-Style/css.html#CSS-CSSImportRule
- */
-CSSOM.CSSImportRule = function CSSImportRule() {
-	CSSOM.CSSRule.call(this);
-	this.href = "";
-	this.media = new CSSOM.MediaList();
-	this.styleSheet = new CSSOM.CSSStyleSheet();
-};
-
-CSSOM.CSSImportRule.prototype = new CSSOM.CSSRule();
-CSSOM.CSSImportRule.prototype.constructor = CSSOM.CSSImportRule;
-CSSOM.CSSImportRule.prototype.type = 3;
-
-Object.defineProperty(CSSOM.CSSImportRule.prototype, "cssText", {
-  get: function() {
-    var mediaText = this.media.mediaText;
-    return "@import url(" + this.href + ")" + (mediaText ? " " + mediaText : "") + ";";
-  },
-  set: function(cssText) {
-    var i = 0;
-
-    /**
-     * @import url(partial.css) screen, handheld;
-     *        ||               |
-     *        after-import     media
-     *         |
-     *         url
-     */
-    var state = '';
-
-    var buffer = '';
-    var index;
-    for (var character; (character = cssText.charAt(i)); i++) {
-
-      switch (character) {
-        case ' ':
-        case '\t':
-        case '\r':
-        case '\n':
-        case '\f':
-          if (state === 'after-import') {
-            state = 'url';
-          } else {
-            buffer += character;
-          }
-          break;
-
-        case '@':
-          if (!state && cssText.indexOf('@import', i) === i) {
-            state = 'after-import';
-            i += 'import'.length;
-            buffer = '';
-          }
-          break;
-
-        case 'u':
-          if (state === 'url' && cssText.indexOf('url(', i) === i) {
-            index = cssText.indexOf(')', i + 1);
-            if (index === -1) {
-              throw i + ': ")" not found';
-            }
-            i += 'url('.length;
-            var url = cssText.slice(i, index);
-            if (url[0] === url[url.length - 1]) {
-              if (url[0] === '"' || url[0] === "'") {
-                url = url.slice(1, -1);
-              }
-            }
-            this.href = url;
-            i = index;
-            state = 'media';
-          }
-          break;
-
-        case '"':
-          if (state === 'url') {
-            index = cssText.indexOf('"', i + 1);
-            if (!index) {
-              throw i + ": '\"' not found";
-            }
-            this.href = cssText.slice(i + 1, index);
-            i = index;
-            state = 'media';
-          }
-          break;
-
-        case "'":
-          if (state === 'url') {
-            index = cssText.indexOf("'", i + 1);
-            if (!index) {
-              throw i + ': "\'" not found';
-            }
-            this.href = cssText.slice(i + 1, index);
-            i = index;
-            state = 'media';
-          }
-          break;
-
-        case ';':
-          if (state === 'media') {
-            if (buffer) {
-              this.media.mediaText = buffer.trim();
-            }
-          }
-          break;
-
-        default:
-          if (state === 'media') {
-            buffer += character;
-          }
-          break;
-      }
-    }
-  }
-});
-
-
-//.CommonJS
-exports.CSSImportRule = CSSOM.CSSImportRule;
-///CommonJS
-
-
-/***/ }),
-/* 25 */
-/***/ (function(module, exports, __webpack_require__) {
-
-//.CommonJS
-var CSSOM = {
-	CSSRule: __webpack_require__(1).CSSRule,
-	CSSStyleDeclaration: __webpack_require__(4).CSSStyleDeclaration
-};
-///CommonJS
-
-
-/**
- * @constructor
- * @see http://www.w3.org/TR/css3-animations/#DOM-CSSKeyframeRule
- */
-CSSOM.CSSKeyframeRule = function CSSKeyframeRule() {
-	CSSOM.CSSRule.call(this);
-	this.keyText = '';
-	this.style = new CSSOM.CSSStyleDeclaration();
-	this.style.parentRule = this;
-};
-
-CSSOM.CSSKeyframeRule.prototype = new CSSOM.CSSRule();
-CSSOM.CSSKeyframeRule.prototype.constructor = CSSOM.CSSKeyframeRule;
-CSSOM.CSSKeyframeRule.prototype.type = 9;
-//FIXME
-//CSSOM.CSSKeyframeRule.prototype.insertRule = CSSStyleSheet.prototype.insertRule;
-//CSSOM.CSSKeyframeRule.prototype.deleteRule = CSSStyleSheet.prototype.deleteRule;
-
-// http://www.opensource.apple.com/source/WebCore/WebCore-955.66.1/css/WebKitCSSKeyframeRule.cpp
-Object.defineProperty(CSSOM.CSSKeyframeRule.prototype, "cssText", {
-  get: function() {
-    return this.keyText + " {" + this.style.cssText + "} ";
-  }
-});
-
-
-//.CommonJS
-exports.CSSKeyframeRule = CSSOM.CSSKeyframeRule;
-///CommonJS
-
-
-/***/ }),
-/* 26 */
-/***/ (function(module, exports, __webpack_require__) {
-
-//.CommonJS
-var CSSOM = {
-	CSSRule: __webpack_require__(1).CSSRule
-};
-///CommonJS
-
-
-/**
- * @constructor
- * @see http://www.w3.org/TR/css3-animations/#DOM-CSSKeyframesRule
- */
-CSSOM.CSSKeyframesRule = function CSSKeyframesRule() {
-	CSSOM.CSSRule.call(this);
-	this.name = '';
-	this.cssRules = [];
-};
-
-CSSOM.CSSKeyframesRule.prototype = new CSSOM.CSSRule();
-CSSOM.CSSKeyframesRule.prototype.constructor = CSSOM.CSSKeyframesRule;
-CSSOM.CSSKeyframesRule.prototype.type = 8;
-//FIXME
-//CSSOM.CSSKeyframesRule.prototype.insertRule = CSSStyleSheet.prototype.insertRule;
-//CSSOM.CSSKeyframesRule.prototype.deleteRule = CSSStyleSheet.prototype.deleteRule;
-
-// http://www.opensource.apple.com/source/WebCore/WebCore-955.66.1/css/WebKitCSSKeyframesRule.cpp
-Object.defineProperty(CSSOM.CSSKeyframesRule.prototype, "cssText", {
-  get: function() {
-    var cssTexts = [];
-    for (var i=0, length=this.cssRules.length; i < length; i++) {
-      cssTexts.push("  " + this.cssRules[i].cssText);
-    }
-    return "@" + (this._vendorPrefix || '') + "keyframes " + this.name + " { \n" + cssTexts.join("\n") + "\n}";
-  }
-});
-
-
-//.CommonJS
-exports.CSSKeyframesRule = CSSOM.CSSKeyframesRule;
-///CommonJS
-
-
-/***/ }),
-/* 27 */
+/* 28 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global) {var apply = Function.prototype.apply;
@@ -29245,7 +29292,7 @@ exports._unrefActive = exports.active = function(item) {
 };
 
 // setimmediate attaches itself to the global object
-__webpack_require__(28);
+__webpack_require__(29);
 // On some exotic environments, it's not clear which object `setimmeidate` was
 // able to install onto.  Search each possibility in the same order as the
 // `setimmediate` library.
@@ -29259,7 +29306,7 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2)))
 
 /***/ }),
-/* 28 */
+/* 29 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, process) {(function (global, undefined) {
@@ -29449,14 +29496,793 @@ exports.clearImmediate = (typeof self !== "undefined" && self.clearImmediate) ||
     attachTo.clearImmediate = clearImmediate;
 }(typeof self === "undefined" ? typeof global === "undefined" ? this : global : self));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(9)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(12)))
 
 /***/ }),
-/* 29 */
+/* 30 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = ({
+  name: "custom-svg",
+  props: ['filepath', 'css-class'],
+  data: function data() {
+    return {
+      isReady: false
+    };
+  },
+
+  methods: {
+    onSvgReady: function onSvgReady() {
+      this.isReady = true;
+    }
+  }
+});
+
+/***/ }),
+/* 31 */
 /***/ (function(module, exports, __webpack_require__) {
 
-window._ = __webpack_require__(30);
-window.Popper = __webpack_require__(14).default;
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    {
+      directives: [
+        {
+          name: "show",
+          rawName: "v-show",
+          value: _vm.isReady,
+          expression: "isReady"
+        }
+      ],
+      class: _vm.cssClass
+    },
+    [
+      _c("simple-svg", {
+        attrs: { filepath: _vm.filepath },
+        on: {
+          ready: function($event) {
+            _vm.onSvgReady()
+          }
+        }
+      })
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+module.exports = { render: render, staticRenderFns: staticRenderFns }
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+    require("vue-hot-reload-api")      .rerender("data-v-1852278c", module.exports)
+  }
+}
+
+/***/ }),
+/* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(exports,"__esModule",{value:!0});var CSSOM=__webpack_require__(33),myClassName="simple-svg",SimpleSVG={render:function(e){return e("div",{class:["simple-svg-wrapper"]})},name:"simple-svg",props:{filepath:String,fill:String,stroke:String,width:String,height:String,id:{type:String,defualt:""}},data:function(){return{isSVGReady:!1}},mounted:function(){this.generateInlineSVG()},watch:{filepath:function(e){this.generateInlineSVG()},fill:function(e){this.updateSVGStyle("fill",e)},stroke:function(e){this.updateSVGStyle("stroke",e)},width:function(e){this.updateSVGStyle("width",e)},height:function(e){this.updateSVGStyle("height",e)}},methods:{isClassSelector:function(e){return!!new RegExp(/^\./,"i").test(e)},removeStyleTag:function(e){for(var t=e.getElementsByTagName("style")[0],s=CSSOM.parse(t.textContent).cssRules,r=e.getElementsByTagName("*"),i=0;i<r.length;i++)for(var n=0;n<s.length;n++){var l=s[n].selectorText;if(this.isClassSelector(l)){var o=l.substring(1);if(r[i].classList.contains(o)){r[i].classList.remove(o);for(var a=s[n].style,g=0;g<a.length;g++){var m=a[g],u=a[m];r[i].style[m]=u}}}}return t.parentNode.removeChild(t),e},removeFillStrokeStyles:function(e){for(var t=e.getElementsByTagName("*"),s=0;s<t.length;s++)if(void 0!==t[s].style){var r=t[s].style.fill;r&&"none"!==r&&(t[s].style.fill="");var i=t[s].style.stroke;i&&"none"!==i&&(t[s].style.stroke="")}},generateInlineSVG:function(){var e=this;this.isSVGReady=!1;var t=this.$el.getElementsByTagName("svg")[0];t&&this.$el.removeChild(t);var s=new XMLHttpRequest;s.open("GET",this.filepath,!0),s.onload=function(){if(s.status>=200&&s.status<400){var t=(new DOMParser).parseFromString(s.responseText,"text/xml").getElementsByTagName("svg")[0];if(!t)return void console.error("No svg element found. Did you pass a valid .svg file?");t.getElementsByTagName("style")[0]&&(t=e.removeStyleTag(t)),e.removeFillStrokeStyles(t),t.removeAttribute("xmlns:a"),t.removeAttribute("width"),t.removeAttribute("height"),t.removeAttribute("x"),t.removeAttribute("y"),t.removeAttribute("enable-background"),t.removeAttribute("xmlns:xlink"),t.removeAttribute("xml:space"),t.removeAttribute("version"),e.id&&(t.id=e.id),t.style.width=e.width,t.style.height=e.height,t.style.fill=e.fill,t.style.stroke=e.stroke,t.classList.add(myClassName),e.$el.appendChild(t),this.isSVGReady=!0,e.$emit("ready")}else console.error("There was an error retrieving the source of the SVG.")},s.onerror=function(){console.error("There was an error connecting to the origin server.")},s.send()},updateSVGStyle:function(e,t){var s=this.$el.getElementsByTagName("svg")[0];s?s.style[e]=t:console.error("No svg element found. Did you pass a valid .svg file?")}}},plugin={install:function(e,t){e.component("simple-svg",SimpleSVG)}};exports.default=plugin,exports.SimpleSVG=SimpleSVG;
+
+
+/***/ }),
+/* 33 */
+/***/ (function(module, exports, __webpack_require__) {
+
+exports.CSSStyleDeclaration = __webpack_require__(3).CSSStyleDeclaration;
+exports.CSSRule = __webpack_require__(1).CSSRule;
+exports.CSSStyleRule = __webpack_require__(7).CSSStyleRule;
+exports.CSSImportRule = __webpack_require__(15).CSSImportRule;
+exports.MediaList = __webpack_require__(9).MediaList;
+exports.CSSMediaRule = __webpack_require__(10).CSSMediaRule;
+exports.StyleSheet = __webpack_require__(14).StyleSheet;
+exports.CSSStyleSheet = __webpack_require__(6).CSSStyleSheet;
+exports.parse = __webpack_require__(8).parse;
+exports.clone = __webpack_require__(40).clone;
+
+
+/***/ }),
+/* 34 */
+/***/ (function(module, exports, __webpack_require__) {
+
+//.CommonJS
+var CSSOM = {
+	CSSStyleDeclaration: __webpack_require__(3).CSSStyleDeclaration,
+	CSSRule: __webpack_require__(1).CSSRule
+};
+///CommonJS
+
+
+/**
+ * @constructor
+ * @see http://dev.w3.org/csswg/cssom/#css-font-face-rule
+ */
+CSSOM.CSSFontFaceRule = function CSSFontFaceRule() {
+	CSSOM.CSSRule.call(this);
+	this.style = new CSSOM.CSSStyleDeclaration();
+	this.style.parentRule = this;
+};
+
+CSSOM.CSSFontFaceRule.prototype = new CSSOM.CSSRule();
+CSSOM.CSSFontFaceRule.prototype.constructor = CSSOM.CSSFontFaceRule;
+CSSOM.CSSFontFaceRule.prototype.type = 5;
+//FIXME
+//CSSOM.CSSFontFaceRule.prototype.insertRule = CSSStyleSheet.prototype.insertRule;
+//CSSOM.CSSFontFaceRule.prototype.deleteRule = CSSStyleSheet.prototype.deleteRule;
+
+// http://www.opensource.apple.com/source/WebCore/WebCore-955.66.1/css/WebKitCSSFontFaceRule.cpp
+Object.defineProperty(CSSOM.CSSFontFaceRule.prototype, "cssText", {
+  get: function() {
+    return "@font-face {" + this.style.cssText + "}";
+  }
+});
+
+
+//.CommonJS
+exports.CSSFontFaceRule = CSSOM.CSSFontFaceRule;
+///CommonJS
+
+
+/***/ }),
+/* 35 */
+/***/ (function(module, exports, __webpack_require__) {
+
+//.CommonJS
+var CSSOM = {
+	CSSRule: __webpack_require__(1).CSSRule
+};
+///CommonJS
+
+
+/**
+ * @constructor
+ * @see http://www.w3.org/TR/shadow-dom/#host-at-rule
+ */
+CSSOM.CSSHostRule = function CSSHostRule() {
+	CSSOM.CSSRule.call(this);
+	this.cssRules = [];
+};
+
+CSSOM.CSSHostRule.prototype = new CSSOM.CSSRule();
+CSSOM.CSSHostRule.prototype.constructor = CSSOM.CSSHostRule;
+CSSOM.CSSHostRule.prototype.type = 1001;
+//FIXME
+//CSSOM.CSSHostRule.prototype.insertRule = CSSStyleSheet.prototype.insertRule;
+//CSSOM.CSSHostRule.prototype.deleteRule = CSSStyleSheet.prototype.deleteRule;
+
+Object.defineProperty(CSSOM.CSSHostRule.prototype, "cssText", {
+	get: function() {
+		var cssTexts = [];
+		for (var i=0, length=this.cssRules.length; i < length; i++) {
+			cssTexts.push(this.cssRules[i].cssText);
+		}
+		return "@host {" + cssTexts.join("") + "}";
+	}
+});
+
+
+//.CommonJS
+exports.CSSHostRule = CSSOM.CSSHostRule;
+///CommonJS
+
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports, __webpack_require__) {
+
+//.CommonJS
+var CSSOM = {
+	CSSValue: __webpack_require__(37).CSSValue
+};
+///CommonJS
+
+
+/**
+ * @constructor
+ * @see http://msdn.microsoft.com/en-us/library/ms537634(v=vs.85).aspx
+ *
+ */
+CSSOM.CSSValueExpression = function CSSValueExpression(token, idx) {
+	this._token = token;
+	this._idx = idx;
+};
+
+CSSOM.CSSValueExpression.prototype = new CSSOM.CSSValue();
+CSSOM.CSSValueExpression.prototype.constructor = CSSOM.CSSValueExpression;
+
+/**
+ * parse css expression() value
+ *
+ * @return {Object}
+ *         - error:
+ *         or
+ *         - idx:
+ *         - expression:
+ *
+ * Example:
+ *
+ * .selector {
+ *		zoom: expression(documentElement.clientWidth > 1000 ? '1000px' : 'auto');
+ * }
+ */
+CSSOM.CSSValueExpression.prototype.parse = function() {
+	var token = this._token,
+			idx = this._idx;
+
+	var character = '',
+			expression = '',
+			error = '',
+			info,
+			paren = [];
+
+
+	for (; ; ++idx) {
+		character = token.charAt(idx);
+
+		// end of token
+		if (character === '') {
+			error = 'css expression error: unfinished expression!';
+			break;
+		}
+
+		switch(character) {
+			case '(':
+				paren.push(character);
+				expression += character;
+				break;
+
+			case ')':
+				paren.pop(character);
+				expression += character;
+				break;
+
+			case '/':
+				if ((info = this._parseJSComment(token, idx))) { // comment?
+					if (info.error) {
+						error = 'css expression error: unfinished comment in expression!';
+					} else {
+						idx = info.idx;
+						// ignore the comment
+					}
+				} else if ((info = this._parseJSRexExp(token, idx))) { // regexp
+					idx = info.idx;
+					expression += info.text;
+				} else { // other
+					expression += character;
+				}
+				break;
+
+			case "'":
+			case '"':
+				info = this._parseJSString(token, idx, character);
+				if (info) { // string
+					idx = info.idx;
+					expression += info.text;
+				} else {
+					expression += character;
+				}
+				break;
+
+			default:
+				expression += character;
+				break;
+		}
+
+		if (error) {
+			break;
+		}
+
+		// end of expression
+		if (paren.length === 0) {
+			break;
+		}
+	}
+
+	var ret;
+	if (error) {
+		ret = {
+			error: error
+		};
+	} else {
+		ret = {
+			idx: idx,
+			expression: expression
+		};
+	}
+
+	return ret;
+};
+
+
+/**
+ *
+ * @return {Object|false}
+ *          - idx:
+ *          - text:
+ *          or
+ *          - error:
+ *          or
+ *          false
+ *
+ */
+CSSOM.CSSValueExpression.prototype._parseJSComment = function(token, idx) {
+	var nextChar = token.charAt(idx + 1),
+			text;
+
+	if (nextChar === '/' || nextChar === '*') {
+		var startIdx = idx,
+				endIdx,
+				commentEndChar;
+
+		if (nextChar === '/') { // line comment
+			commentEndChar = '\n';
+		} else if (nextChar === '*') { // block comment
+			commentEndChar = '*/';
+		}
+
+		endIdx = token.indexOf(commentEndChar, startIdx + 1 + 1);
+		if (endIdx !== -1) {
+			endIdx = endIdx + commentEndChar.length - 1;
+			text = token.substring(idx, endIdx + 1);
+			return {
+				idx: endIdx,
+				text: text
+			};
+		} else {
+			var error = 'css expression error: unfinished comment in expression!';
+			return {
+				error: error
+			};
+		}
+	} else {
+		return false;
+	}
+};
+
+
+/**
+ *
+ * @return {Object|false}
+ *					- idx:
+ *					- text:
+ *					or 
+ *					false
+ *
+ */
+CSSOM.CSSValueExpression.prototype._parseJSString = function(token, idx, sep) {
+	var endIdx = this._findMatchedIdx(token, idx, sep),
+			text;
+
+	if (endIdx === -1) {
+		return false;
+	} else {
+		text = token.substring(idx, endIdx + sep.length);
+
+		return {
+			idx: endIdx,
+			text: text
+		};
+	}
+};
+
+
+/**
+ * parse regexp in css expression
+ *
+ * @return {Object|false}
+ *				- idx:
+ *				- regExp:
+ *				or 
+ *				false
+ */
+
+/*
+
+all legal RegExp
+ 
+/a/
+(/a/)
+[/a/]
+[12, /a/]
+
+!/a/
+
++/a/
+-/a/
+* /a/
+/ /a/
+%/a/
+
+===/a/
+!==/a/
+==/a/
+!=/a/
+>/a/
+>=/a/
+</a/
+<=/a/
+
+&/a/
+|/a/
+^/a/
+~/a/
+<</a/
+>>/a/
+>>>/a/
+
+&&/a/
+||/a/
+?/a/
+=/a/
+,/a/
+
+		delete /a/
+				in /a/
+instanceof /a/
+				new /a/
+		typeof /a/
+			void /a/
+
+*/
+CSSOM.CSSValueExpression.prototype._parseJSRexExp = function(token, idx) {
+	var before = token.substring(0, idx).replace(/\s+$/, ""),
+			legalRegx = [
+				/^$/,
+				/\($/,
+				/\[$/,
+				/\!$/,
+				/\+$/,
+				/\-$/,
+				/\*$/,
+				/\/\s+/,
+				/\%$/,
+				/\=$/,
+				/\>$/,
+				/<$/,
+				/\&$/,
+				/\|$/,
+				/\^$/,
+				/\~$/,
+				/\?$/,
+				/\,$/,
+				/delete$/,
+				/in$/,
+				/instanceof$/,
+				/new$/,
+				/typeof$/,
+				/void$/
+			];
+
+	var isLegal = legalRegx.some(function(reg) {
+		return reg.test(before);
+	});
+
+	if (!isLegal) {
+		return false;
+	} else {
+		var sep = '/';
+
+		// same logic as string
+		return this._parseJSString(token, idx, sep);
+	}
+};
+
+
+/**
+ *
+ * find next sep(same line) index in `token`
+ *
+ * @return {Number}
+ *
+ */
+CSSOM.CSSValueExpression.prototype._findMatchedIdx = function(token, idx, sep) {
+	var startIdx = idx,
+			endIdx;
+
+	var NOT_FOUND = -1;
+
+	while(true) {
+		endIdx = token.indexOf(sep, startIdx + 1);
+
+		if (endIdx === -1) { // not found
+			endIdx = NOT_FOUND;
+			break;
+		} else {
+			var text = token.substring(idx + 1, endIdx),
+					matched = text.match(/\\+$/);
+			if (!matched || matched[0] % 2 === 0) { // not escaped
+				break;
+			} else {
+				startIdx = endIdx;
+			}
+		}
+	}
+
+	// boundary must be in the same line(js sting or regexp)
+	var nextNewLineIdx = token.indexOf('\n', idx + 1);
+	if (nextNewLineIdx < endIdx) {
+		endIdx = NOT_FOUND;
+	}
+
+
+	return endIdx;
+};
+
+
+
+
+//.CommonJS
+exports.CSSValueExpression = CSSOM.CSSValueExpression;
+///CommonJS
+
+
+/***/ }),
+/* 37 */
+/***/ (function(module, exports) {
+
+//.CommonJS
+var CSSOM = {};
+///CommonJS
+
+
+/**
+ * @constructor
+ * @see http://www.w3.org/TR/DOM-Level-2-Style/css.html#CSS-CSSValue
+ *
+ * TODO: add if needed
+ */
+CSSOM.CSSValue = function CSSValue() {
+};
+
+CSSOM.CSSValue.prototype = {
+	constructor: CSSOM.CSSValue,
+
+	// @see: http://www.w3.org/TR/DOM-Level-2-Style/css.html#CSS-CSSValue
+	set cssText(text) {
+		var name = this._getConstructorName();
+
+		throw new Error('DOMException: property "cssText" of "' + name + '" is readonly and can not be replaced with "' + text + '"!');
+	},
+
+	get cssText() {
+		var name = this._getConstructorName();
+
+		throw new Error('getter "cssText" of "' + name + '" is not implemented!');
+	},
+
+	_getConstructorName: function() {
+		var s = this.constructor.toString(),
+				c = s.match(/function\s([^\(]+)/),
+				name = c[1];
+
+		return name;
+	}
+};
+
+
+//.CommonJS
+exports.CSSValue = CSSOM.CSSValue;
+///CommonJS
+
+
+/***/ }),
+/* 38 */
+/***/ (function(module, exports, __webpack_require__) {
+
+//.CommonJS
+var CSSOM = {
+    CSSRule: __webpack_require__(1).CSSRule,
+    MatcherList: __webpack_require__(39).MatcherList
+};
+///CommonJS
+
+
+/**
+ * @constructor
+ * @see https://developer.mozilla.org/en/CSS/@-moz-document
+ */
+CSSOM.CSSDocumentRule = function CSSDocumentRule() {
+    CSSOM.CSSRule.call(this);
+    this.matcher = new CSSOM.MatcherList();
+    this.cssRules = [];
+};
+
+CSSOM.CSSDocumentRule.prototype = new CSSOM.CSSRule();
+CSSOM.CSSDocumentRule.prototype.constructor = CSSOM.CSSDocumentRule;
+CSSOM.CSSDocumentRule.prototype.type = 10;
+//FIXME
+//CSSOM.CSSDocumentRule.prototype.insertRule = CSSStyleSheet.prototype.insertRule;
+//CSSOM.CSSDocumentRule.prototype.deleteRule = CSSStyleSheet.prototype.deleteRule;
+
+Object.defineProperty(CSSOM.CSSDocumentRule.prototype, "cssText", {
+  get: function() {
+    var cssTexts = [];
+    for (var i=0, length=this.cssRules.length; i < length; i++) {
+        cssTexts.push(this.cssRules[i].cssText);
+    }
+    return "@-moz-document " + this.matcher.matcherText + " {" + cssTexts.join("") + "}";
+  }
+});
+
+
+//.CommonJS
+exports.CSSDocumentRule = CSSOM.CSSDocumentRule;
+///CommonJS
+
+
+/***/ }),
+/* 39 */
+/***/ (function(module, exports) {
+
+//.CommonJS
+var CSSOM = {};
+///CommonJS
+
+
+/**
+ * @constructor
+ * @see https://developer.mozilla.org/en/CSS/@-moz-document
+ */
+CSSOM.MatcherList = function MatcherList(){
+    this.length = 0;
+};
+
+CSSOM.MatcherList.prototype = {
+
+    constructor: CSSOM.MatcherList,
+
+    /**
+     * @return {string}
+     */
+    get matcherText() {
+        return Array.prototype.join.call(this, ", ");
+    },
+
+    /**
+     * @param {string} value
+     */
+    set matcherText(value) {
+        // just a temporary solution, actually it may be wrong by just split the value with ',', because a url can include ','.
+        var values = value.split(",");
+        var length = this.length = values.length;
+        for (var i=0; i<length; i++) {
+            this[i] = values[i].trim();
+        }
+    },
+
+    /**
+     * @param {string} matcher
+     */
+    appendMatcher: function(matcher) {
+        if (Array.prototype.indexOf.call(this, matcher) === -1) {
+            this[this.length] = matcher;
+            this.length++;
+        }
+    },
+
+    /**
+     * @param {string} matcher
+     */
+    deleteMatcher: function(matcher) {
+        var index = Array.prototype.indexOf.call(this, matcher);
+        if (index !== -1) {
+            Array.prototype.splice.call(this, index, 1);
+        }
+    }
+
+};
+
+
+//.CommonJS
+exports.MatcherList = CSSOM.MatcherList;
+///CommonJS
+
+
+/***/ }),
+/* 40 */
+/***/ (function(module, exports, __webpack_require__) {
+
+//.CommonJS
+var CSSOM = {
+	CSSStyleSheet: __webpack_require__(6).CSSStyleSheet,
+	CSSStyleRule: __webpack_require__(7).CSSStyleRule,
+	CSSMediaRule: __webpack_require__(10).CSSMediaRule,
+	CSSStyleDeclaration: __webpack_require__(3).CSSStyleDeclaration,
+	CSSKeyframeRule: __webpack_require__(16).CSSKeyframeRule,
+	CSSKeyframesRule: __webpack_require__(17).CSSKeyframesRule
+};
+///CommonJS
+
+
+/**
+ * Produces a deep copy of stylesheet — the instance variables of stylesheet are copied recursively.
+ * @param {CSSStyleSheet|CSSOM.CSSStyleSheet} stylesheet
+ * @nosideeffects
+ * @return {CSSOM.CSSStyleSheet}
+ */
+CSSOM.clone = function clone(stylesheet) {
+
+	var cloned = new CSSOM.CSSStyleSheet();
+
+	var rules = stylesheet.cssRules;
+	if (!rules) {
+		return cloned;
+	}
+
+	var RULE_TYPES = {
+		1: CSSOM.CSSStyleRule,
+		4: CSSOM.CSSMediaRule,
+		//3: CSSOM.CSSImportRule,
+		//5: CSSOM.CSSFontFaceRule,
+		//6: CSSOM.CSSPageRule,
+		8: CSSOM.CSSKeyframesRule,
+		9: CSSOM.CSSKeyframeRule
+	};
+
+	for (var i=0, rulesLength=rules.length; i < rulesLength; i++) {
+		var rule = rules[i];
+		var ruleClone = cloned.cssRules[i] = new RULE_TYPES[rule.type]();
+
+		var style = rule.style;
+		if (style) {
+			var styleClone = ruleClone.style = new CSSOM.CSSStyleDeclaration();
+			for (var j=0, styleLength=style.length; j < styleLength; j++) {
+				var name = styleClone[j] = style[j];
+				styleClone[name] = style[name];
+				styleClone._importants[name] = style.getPropertyPriority(name);
+			}
+			styleClone.length = style.length;
+		}
+
+		if (rule.hasOwnProperty('keyText')) {
+			ruleClone.keyText = rule.keyText;
+		}
+
+		if (rule.hasOwnProperty('selectorText')) {
+			ruleClone.selectorText = rule.selectorText;
+		}
+
+		if (rule.hasOwnProperty('mediaText')) {
+			ruleClone.mediaText = rule.mediaText;
+		}
+
+		if (rule.hasOwnProperty('cssRules')) {
+			ruleClone.cssRules = clone(rule).cssRules;
+		}
+	}
+
+	return cloned;
+
+};
+
+//.CommonJS
+exports.clone = CSSOM.clone;
+///CommonJS
+
+
+/***/ }),
+/* 41 */
+/***/ (function(module, exports, __webpack_require__) {
+
+window._ = __webpack_require__(42);
+window.Popper = __webpack_require__(18).default;
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -29465,8 +30291,8 @@ window.Popper = __webpack_require__(14).default;
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(15);
-  __webpack_require__(32);
+  window.$ = window.jQuery = __webpack_require__(19);
+  __webpack_require__(44);
 } catch (e) {}
 
 /**
@@ -29475,7 +30301,7 @@ try {
  * CSRF token as a header based on the value of the "XSRF" token cookie.
  */
 
-window.axios = __webpack_require__(33);
+window.axios = __webpack_require__(45);
 
 window.axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest';
 
@@ -29511,7 +30337,7 @@ if (token) {
 // });
 
 /***/ }),
-/* 30 */
+/* 42 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -46613,10 +47439,10 @@ if (token) {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(31)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(2), __webpack_require__(43)(module)))
 
 /***/ }),
-/* 31 */
+/* 43 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -46644,7 +47470,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 32 */
+/* 44 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /*!
@@ -46653,7 +47479,7 @@ module.exports = function(module) {
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
   */
 (function (global, factory) {
-	 true ? factory(exports, __webpack_require__(15), __webpack_require__(14)) :
+	 true ? factory(exports, __webpack_require__(19), __webpack_require__(18)) :
 	typeof define === 'function' && define.amd ? define(['exports', 'jquery', 'popper.js'], factory) :
 	(factory((global.bootstrap = {}),global.jQuery,global.Popper));
 }(this, (function (exports,$,Popper) { 'use strict';
@@ -50544,22 +51370,22 @@ Object.defineProperty(exports, '__esModule', { value: true });
 
 
 /***/ }),
-/* 33 */
+/* 45 */
 /***/ (function(module, exports, __webpack_require__) {
 
-module.exports = __webpack_require__(34);
+module.exports = __webpack_require__(46);
 
 /***/ }),
-/* 34 */
+/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var bind = __webpack_require__(16);
-var Axios = __webpack_require__(36);
-var defaults = __webpack_require__(6);
+var bind = __webpack_require__(20);
+var Axios = __webpack_require__(48);
+var defaults = __webpack_require__(11);
 
 /**
  * Create an instance of Axios
@@ -50592,15 +51418,15 @@ axios.create = function create(instanceConfig) {
 };
 
 // Expose Cancel & CancelToken
-axios.Cancel = __webpack_require__(20);
-axios.CancelToken = __webpack_require__(50);
-axios.isCancel = __webpack_require__(19);
+axios.Cancel = __webpack_require__(24);
+axios.CancelToken = __webpack_require__(62);
+axios.isCancel = __webpack_require__(23);
 
 // Expose all/spread
 axios.all = function all(promises) {
   return Promise.all(promises);
 };
-axios.spread = __webpack_require__(51);
+axios.spread = __webpack_require__(63);
 
 module.exports = axios;
 
@@ -50609,7 +51435,7 @@ module.exports.default = axios;
 
 
 /***/ }),
-/* 35 */
+/* 47 */
 /***/ (function(module, exports) {
 
 /*!
@@ -50636,16 +51462,16 @@ function isSlowBuffer (obj) {
 
 
 /***/ }),
-/* 36 */
+/* 48 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var defaults = __webpack_require__(6);
+var defaults = __webpack_require__(11);
 var utils = __webpack_require__(0);
-var InterceptorManager = __webpack_require__(45);
-var dispatchRequest = __webpack_require__(46);
+var InterceptorManager = __webpack_require__(57);
+var dispatchRequest = __webpack_require__(58);
 
 /**
  * Create a new instance of Axios
@@ -50722,7 +51548,7 @@ module.exports = Axios;
 
 
 /***/ }),
-/* 37 */
+/* 49 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50741,13 +51567,13 @@ module.exports = function normalizeHeaderName(headers, normalizedName) {
 
 
 /***/ }),
-/* 38 */
+/* 50 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var createError = __webpack_require__(18);
+var createError = __webpack_require__(22);
 
 /**
  * Resolve or reject a Promise based on response status.
@@ -50774,7 +51600,7 @@ module.exports = function settle(resolve, reject, response) {
 
 
 /***/ }),
-/* 39 */
+/* 51 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50802,7 +51628,7 @@ module.exports = function enhanceError(error, config, code, request, response) {
 
 
 /***/ }),
-/* 40 */
+/* 52 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50875,7 +51701,7 @@ module.exports = function buildURL(url, params, paramsSerializer) {
 
 
 /***/ }),
-/* 41 */
+/* 53 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -50935,7 +51761,7 @@ module.exports = function parseHeaders(headers) {
 
 
 /***/ }),
-/* 42 */
+/* 54 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51010,7 +51836,7 @@ module.exports = (
 
 
 /***/ }),
-/* 43 */
+/* 55 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51053,7 +51879,7 @@ module.exports = btoa;
 
 
 /***/ }),
-/* 44 */
+/* 56 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51113,7 +51939,7 @@ module.exports = (
 
 
 /***/ }),
-/* 45 */
+/* 57 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51172,18 +51998,18 @@ module.exports = InterceptorManager;
 
 
 /***/ }),
-/* 46 */
+/* 58 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
 var utils = __webpack_require__(0);
-var transformData = __webpack_require__(47);
-var isCancel = __webpack_require__(19);
-var defaults = __webpack_require__(6);
-var isAbsoluteURL = __webpack_require__(48);
-var combineURLs = __webpack_require__(49);
+var transformData = __webpack_require__(59);
+var isCancel = __webpack_require__(23);
+var defaults = __webpack_require__(11);
+var isAbsoluteURL = __webpack_require__(60);
+var combineURLs = __webpack_require__(61);
 
 /**
  * Throws a `Cancel` if cancellation has been requested.
@@ -51265,7 +52091,7 @@ module.exports = function dispatchRequest(config) {
 
 
 /***/ }),
-/* 47 */
+/* 59 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51292,7 +52118,7 @@ module.exports = function transformData(data, headers, fns) {
 
 
 /***/ }),
-/* 48 */
+/* 60 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51313,7 +52139,7 @@ module.exports = function isAbsoluteURL(url) {
 
 
 /***/ }),
-/* 49 */
+/* 61 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51334,13 +52160,13 @@ module.exports = function combineURLs(baseURL, relativeURL) {
 
 
 /***/ }),
-/* 50 */
+/* 62 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
 
 
-var Cancel = __webpack_require__(20);
+var Cancel = __webpack_require__(24);
 
 /**
  * A `CancelToken` is an object that can be used to request cancellation of an operation.
@@ -51398,7 +52224,7 @@ module.exports = CancelToken;
 
 
 /***/ }),
-/* 51 */
+/* 63 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -51432,14 +52258,14 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 52 */
+/* 64 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__ = __webpack_require__(10);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fortawesome_fontawesome_free_solid__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fortawesome_fontawesome_free_regular__ = __webpack_require__(22);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__ = __webpack_require__(13);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__fortawesome_fontawesome_free_solid__ = __webpack_require__(65);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__fortawesome_fontawesome_free_regular__ = __webpack_require__(27);
 
 
 
@@ -51447,7 +52273,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 __WEBPACK_IMPORTED_MODULE_0__fortawesome_fontawesome__["default"].library.add(__WEBPACK_IMPORTED_MODULE_1__fortawesome_fontawesome_free_solid__["d" /* faUser */], __WEBPACK_IMPORTED_MODULE_1__fortawesome_fontawesome_free_solid__["c" /* faLock */], __WEBPACK_IMPORTED_MODULE_1__fortawesome_fontawesome_free_solid__["a" /* faAt */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_fontawesome_free_regular__["e" /* faSquare */], __WEBPACK_IMPORTED_MODULE_1__fortawesome_fontawesome_free_solid__["b" /* faCheck */], __WEBPACK_IMPORTED_MODULE_2__fortawesome_fontawesome_free_regular__["a" /* faDotCircle */]);
 
 /***/ }),
-/* 53 */
+/* 65 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -53077,843 +53903,17 @@ bunker(function () {
 
 
 /***/ }),
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var disposed = false
-var normalizeComponent = __webpack_require__(3)
-/* script */
-var __vue_script__ = __webpack_require__(61)
-/* template */
-var __vue_template__ = __webpack_require__(62)
-/* template functional */
-var __vue_template_functional__ = false
-/* styles */
-var __vue_styles__ = null
-/* scopeId */
-var __vue_scopeId__ = null
-/* moduleIdentifier (server only) */
-var __vue_module_identifier__ = null
-var Component = normalizeComponent(
-  __vue_script__,
-  __vue_template__,
-  __vue_template_functional__,
-  __vue_styles__,
-  __vue_scopeId__,
-  __vue_module_identifier__
-)
-Component.options.__file = "resources/assets/js/components/CustomSvg.vue"
-
-/* hot reload */
-if (false) {(function () {
-  var hotAPI = require("vue-hot-reload-api")
-  hotAPI.install(require("vue"), false)
-  if (!hotAPI.compatible) return
-  module.hot.accept()
-  if (!module.hot.data) {
-    hotAPI.createRecord("data-v-1852278c", Component.options)
-  } else {
-    hotAPI.reload("data-v-1852278c", Component.options)
-  }
-  module.hot.dispose(function (data) {
-    disposed = true
-  })
-})()}
-
-module.exports = Component.exports
-
-
-/***/ }),
-/* 61 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
-//
-//
-//
-//
-//
-//
-//
-//
-
-/* harmony default export */ __webpack_exports__["default"] = ({
-  name: "custom-svg",
-  props: ['filepath', 'css-class'],
-  data: function data() {
-    return {
-      isReady: false
-    };
-  },
-
-  methods: {
-    onSvgReady: function onSvgReady() {
-      this.isReady = true;
-    }
-  }
-});
-
-/***/ }),
-/* 62 */
-/***/ (function(module, exports, __webpack_require__) {
-
-var render = function() {
-  var _vm = this
-  var _h = _vm.$createElement
-  var _c = _vm._self._c || _h
-  return _c(
-    "div",
-    {
-      directives: [
-        {
-          name: "show",
-          rawName: "v-show",
-          value: _vm.isReady,
-          expression: "isReady"
-        }
-      ],
-      class: _vm.cssClass
-    },
-    [
-      _c("simple-svg", {
-        attrs: { filepath: _vm.filepath },
-        on: {
-          ready: function($event) {
-            _vm.onSvgReady()
-          }
-        }
-      })
-    ],
-    1
-  )
-}
-var staticRenderFns = []
-render._withStripped = true
-module.exports = { render: render, staticRenderFns: staticRenderFns }
-if (false) {
-  module.hot.accept()
-  if (module.hot.data) {
-    require("vue-hot-reload-api")      .rerender("data-v-1852278c", module.exports)
-  }
-}
-
-/***/ }),
-/* 63 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(exports,"__esModule",{value:!0});var CSSOM=__webpack_require__(64),myClassName="simple-svg",SimpleSVG={render:function(e){return e("div",{class:["simple-svg-wrapper"]})},name:"simple-svg",props:{filepath:String,fill:String,stroke:String,width:String,height:String,id:{type:String,defualt:""}},data:function(){return{isSVGReady:!1}},mounted:function(){this.generateInlineSVG()},watch:{filepath:function(e){this.generateInlineSVG()},fill:function(e){this.updateSVGStyle("fill",e)},stroke:function(e){this.updateSVGStyle("stroke",e)},width:function(e){this.updateSVGStyle("width",e)},height:function(e){this.updateSVGStyle("height",e)}},methods:{isClassSelector:function(e){return!!new RegExp(/^\./,"i").test(e)},removeStyleTag:function(e){for(var t=e.getElementsByTagName("style")[0],s=CSSOM.parse(t.textContent).cssRules,r=e.getElementsByTagName("*"),i=0;i<r.length;i++)for(var n=0;n<s.length;n++){var l=s[n].selectorText;if(this.isClassSelector(l)){var o=l.substring(1);if(r[i].classList.contains(o)){r[i].classList.remove(o);for(var a=s[n].style,g=0;g<a.length;g++){var m=a[g],u=a[m];r[i].style[m]=u}}}}return t.parentNode.removeChild(t),e},removeFillStrokeStyles:function(e){for(var t=e.getElementsByTagName("*"),s=0;s<t.length;s++)if(void 0!==t[s].style){var r=t[s].style.fill;r&&"none"!==r&&(t[s].style.fill="");var i=t[s].style.stroke;i&&"none"!==i&&(t[s].style.stroke="")}},generateInlineSVG:function(){var e=this;this.isSVGReady=!1;var t=this.$el.getElementsByTagName("svg")[0];t&&this.$el.removeChild(t);var s=new XMLHttpRequest;s.open("GET",this.filepath,!0),s.onload=function(){if(s.status>=200&&s.status<400){var t=(new DOMParser).parseFromString(s.responseText,"text/xml").getElementsByTagName("svg")[0];if(!t)return void console.error("No svg element found. Did you pass a valid .svg file?");t.getElementsByTagName("style")[0]&&(t=e.removeStyleTag(t)),e.removeFillStrokeStyles(t),t.removeAttribute("xmlns:a"),t.removeAttribute("width"),t.removeAttribute("height"),t.removeAttribute("x"),t.removeAttribute("y"),t.removeAttribute("enable-background"),t.removeAttribute("xmlns:xlink"),t.removeAttribute("xml:space"),t.removeAttribute("version"),e.id&&(t.id=e.id),t.style.width=e.width,t.style.height=e.height,t.style.fill=e.fill,t.style.stroke=e.stroke,t.classList.add(myClassName),e.$el.appendChild(t),this.isSVGReady=!0,e.$emit("ready")}else console.error("There was an error retrieving the source of the SVG.")},s.onerror=function(){console.error("There was an error connecting to the origin server.")},s.send()},updateSVGStyle:function(e,t){var s=this.$el.getElementsByTagName("svg")[0];s?s.style[e]=t:console.error("No svg element found. Did you pass a valid .svg file?")}}},plugin={install:function(e,t){e.component("simple-svg",SimpleSVG)}};exports.default=plugin,exports.SimpleSVG=SimpleSVG;
-
-
-/***/ }),
-/* 64 */
-/***/ (function(module, exports, __webpack_require__) {
-
-exports.CSSStyleDeclaration = __webpack_require__(4).CSSStyleDeclaration;
-exports.CSSRule = __webpack_require__(1).CSSRule;
-exports.CSSStyleRule = __webpack_require__(8).CSSStyleRule;
-exports.CSSImportRule = __webpack_require__(24).CSSImportRule;
-exports.MediaList = __webpack_require__(12).MediaList;
-exports.CSSMediaRule = __webpack_require__(13).CSSMediaRule;
-exports.StyleSheet = __webpack_require__(23).StyleSheet;
-exports.CSSStyleSheet = __webpack_require__(7).CSSStyleSheet;
-exports.parse = __webpack_require__(11).parse;
-exports.clone = __webpack_require__(71).clone;
-
-
-/***/ }),
-/* 65 */
-/***/ (function(module, exports, __webpack_require__) {
-
-//.CommonJS
-var CSSOM = {
-	CSSStyleDeclaration: __webpack_require__(4).CSSStyleDeclaration,
-	CSSRule: __webpack_require__(1).CSSRule
-};
-///CommonJS
-
-
-/**
- * @constructor
- * @see http://dev.w3.org/csswg/cssom/#css-font-face-rule
- */
-CSSOM.CSSFontFaceRule = function CSSFontFaceRule() {
-	CSSOM.CSSRule.call(this);
-	this.style = new CSSOM.CSSStyleDeclaration();
-	this.style.parentRule = this;
-};
-
-CSSOM.CSSFontFaceRule.prototype = new CSSOM.CSSRule();
-CSSOM.CSSFontFaceRule.prototype.constructor = CSSOM.CSSFontFaceRule;
-CSSOM.CSSFontFaceRule.prototype.type = 5;
-//FIXME
-//CSSOM.CSSFontFaceRule.prototype.insertRule = CSSStyleSheet.prototype.insertRule;
-//CSSOM.CSSFontFaceRule.prototype.deleteRule = CSSStyleSheet.prototype.deleteRule;
-
-// http://www.opensource.apple.com/source/WebCore/WebCore-955.66.1/css/WebKitCSSFontFaceRule.cpp
-Object.defineProperty(CSSOM.CSSFontFaceRule.prototype, "cssText", {
-  get: function() {
-    return "@font-face {" + this.style.cssText + "}";
-  }
-});
-
-
-//.CommonJS
-exports.CSSFontFaceRule = CSSOM.CSSFontFaceRule;
-///CommonJS
-
-
-/***/ }),
-/* 66 */
-/***/ (function(module, exports, __webpack_require__) {
-
-//.CommonJS
-var CSSOM = {
-	CSSRule: __webpack_require__(1).CSSRule
-};
-///CommonJS
-
-
-/**
- * @constructor
- * @see http://www.w3.org/TR/shadow-dom/#host-at-rule
- */
-CSSOM.CSSHostRule = function CSSHostRule() {
-	CSSOM.CSSRule.call(this);
-	this.cssRules = [];
-};
-
-CSSOM.CSSHostRule.prototype = new CSSOM.CSSRule();
-CSSOM.CSSHostRule.prototype.constructor = CSSOM.CSSHostRule;
-CSSOM.CSSHostRule.prototype.type = 1001;
-//FIXME
-//CSSOM.CSSHostRule.prototype.insertRule = CSSStyleSheet.prototype.insertRule;
-//CSSOM.CSSHostRule.prototype.deleteRule = CSSStyleSheet.prototype.deleteRule;
-
-Object.defineProperty(CSSOM.CSSHostRule.prototype, "cssText", {
-	get: function() {
-		var cssTexts = [];
-		for (var i=0, length=this.cssRules.length; i < length; i++) {
-			cssTexts.push(this.cssRules[i].cssText);
-		}
-		return "@host {" + cssTexts.join("") + "}";
-	}
-});
-
-
-//.CommonJS
-exports.CSSHostRule = CSSOM.CSSHostRule;
-///CommonJS
-
-
-/***/ }),
-/* 67 */
-/***/ (function(module, exports, __webpack_require__) {
-
-//.CommonJS
-var CSSOM = {
-	CSSValue: __webpack_require__(68).CSSValue
-};
-///CommonJS
-
-
-/**
- * @constructor
- * @see http://msdn.microsoft.com/en-us/library/ms537634(v=vs.85).aspx
- *
- */
-CSSOM.CSSValueExpression = function CSSValueExpression(token, idx) {
-	this._token = token;
-	this._idx = idx;
-};
-
-CSSOM.CSSValueExpression.prototype = new CSSOM.CSSValue();
-CSSOM.CSSValueExpression.prototype.constructor = CSSOM.CSSValueExpression;
-
-/**
- * parse css expression() value
- *
- * @return {Object}
- *         - error:
- *         or
- *         - idx:
- *         - expression:
- *
- * Example:
- *
- * .selector {
- *		zoom: expression(documentElement.clientWidth > 1000 ? '1000px' : 'auto');
- * }
- */
-CSSOM.CSSValueExpression.prototype.parse = function() {
-	var token = this._token,
-			idx = this._idx;
-
-	var character = '',
-			expression = '',
-			error = '',
-			info,
-			paren = [];
-
-
-	for (; ; ++idx) {
-		character = token.charAt(idx);
-
-		// end of token
-		if (character === '') {
-			error = 'css expression error: unfinished expression!';
-			break;
-		}
-
-		switch(character) {
-			case '(':
-				paren.push(character);
-				expression += character;
-				break;
-
-			case ')':
-				paren.pop(character);
-				expression += character;
-				break;
-
-			case '/':
-				if ((info = this._parseJSComment(token, idx))) { // comment?
-					if (info.error) {
-						error = 'css expression error: unfinished comment in expression!';
-					} else {
-						idx = info.idx;
-						// ignore the comment
-					}
-				} else if ((info = this._parseJSRexExp(token, idx))) { // regexp
-					idx = info.idx;
-					expression += info.text;
-				} else { // other
-					expression += character;
-				}
-				break;
-
-			case "'":
-			case '"':
-				info = this._parseJSString(token, idx, character);
-				if (info) { // string
-					idx = info.idx;
-					expression += info.text;
-				} else {
-					expression += character;
-				}
-				break;
-
-			default:
-				expression += character;
-				break;
-		}
-
-		if (error) {
-			break;
-		}
-
-		// end of expression
-		if (paren.length === 0) {
-			break;
-		}
-	}
-
-	var ret;
-	if (error) {
-		ret = {
-			error: error
-		};
-	} else {
-		ret = {
-			idx: idx,
-			expression: expression
-		};
-	}
-
-	return ret;
-};
-
-
-/**
- *
- * @return {Object|false}
- *          - idx:
- *          - text:
- *          or
- *          - error:
- *          or
- *          false
- *
- */
-CSSOM.CSSValueExpression.prototype._parseJSComment = function(token, idx) {
-	var nextChar = token.charAt(idx + 1),
-			text;
-
-	if (nextChar === '/' || nextChar === '*') {
-		var startIdx = idx,
-				endIdx,
-				commentEndChar;
-
-		if (nextChar === '/') { // line comment
-			commentEndChar = '\n';
-		} else if (nextChar === '*') { // block comment
-			commentEndChar = '*/';
-		}
-
-		endIdx = token.indexOf(commentEndChar, startIdx + 1 + 1);
-		if (endIdx !== -1) {
-			endIdx = endIdx + commentEndChar.length - 1;
-			text = token.substring(idx, endIdx + 1);
-			return {
-				idx: endIdx,
-				text: text
-			};
-		} else {
-			var error = 'css expression error: unfinished comment in expression!';
-			return {
-				error: error
-			};
-		}
-	} else {
-		return false;
-	}
-};
-
-
-/**
- *
- * @return {Object|false}
- *					- idx:
- *					- text:
- *					or 
- *					false
- *
- */
-CSSOM.CSSValueExpression.prototype._parseJSString = function(token, idx, sep) {
-	var endIdx = this._findMatchedIdx(token, idx, sep),
-			text;
-
-	if (endIdx === -1) {
-		return false;
-	} else {
-		text = token.substring(idx, endIdx + sep.length);
-
-		return {
-			idx: endIdx,
-			text: text
-		};
-	}
-};
-
-
-/**
- * parse regexp in css expression
- *
- * @return {Object|false}
- *				- idx:
- *				- regExp:
- *				or 
- *				false
- */
-
-/*
-
-all legal RegExp
- 
-/a/
-(/a/)
-[/a/]
-[12, /a/]
-
-!/a/
-
-+/a/
--/a/
-* /a/
-/ /a/
-%/a/
-
-===/a/
-!==/a/
-==/a/
-!=/a/
->/a/
->=/a/
-</a/
-<=/a/
-
-&/a/
-|/a/
-^/a/
-~/a/
-<</a/
->>/a/
->>>/a/
-
-&&/a/
-||/a/
-?/a/
-=/a/
-,/a/
-
-		delete /a/
-				in /a/
-instanceof /a/
-				new /a/
-		typeof /a/
-			void /a/
-
-*/
-CSSOM.CSSValueExpression.prototype._parseJSRexExp = function(token, idx) {
-	var before = token.substring(0, idx).replace(/\s+$/, ""),
-			legalRegx = [
-				/^$/,
-				/\($/,
-				/\[$/,
-				/\!$/,
-				/\+$/,
-				/\-$/,
-				/\*$/,
-				/\/\s+/,
-				/\%$/,
-				/\=$/,
-				/\>$/,
-				/<$/,
-				/\&$/,
-				/\|$/,
-				/\^$/,
-				/\~$/,
-				/\?$/,
-				/\,$/,
-				/delete$/,
-				/in$/,
-				/instanceof$/,
-				/new$/,
-				/typeof$/,
-				/void$/
-			];
-
-	var isLegal = legalRegx.some(function(reg) {
-		return reg.test(before);
-	});
-
-	if (!isLegal) {
-		return false;
-	} else {
-		var sep = '/';
-
-		// same logic as string
-		return this._parseJSString(token, idx, sep);
-	}
-};
-
-
-/**
- *
- * find next sep(same line) index in `token`
- *
- * @return {Number}
- *
- */
-CSSOM.CSSValueExpression.prototype._findMatchedIdx = function(token, idx, sep) {
-	var startIdx = idx,
-			endIdx;
-
-	var NOT_FOUND = -1;
-
-	while(true) {
-		endIdx = token.indexOf(sep, startIdx + 1);
-
-		if (endIdx === -1) { // not found
-			endIdx = NOT_FOUND;
-			break;
-		} else {
-			var text = token.substring(idx + 1, endIdx),
-					matched = text.match(/\\+$/);
-			if (!matched || matched[0] % 2 === 0) { // not escaped
-				break;
-			} else {
-				startIdx = endIdx;
-			}
-		}
-	}
-
-	// boundary must be in the same line(js sting or regexp)
-	var nextNewLineIdx = token.indexOf('\n', idx + 1);
-	if (nextNewLineIdx < endIdx) {
-		endIdx = NOT_FOUND;
-	}
-
-
-	return endIdx;
-};
-
-
-
-
-//.CommonJS
-exports.CSSValueExpression = CSSOM.CSSValueExpression;
-///CommonJS
-
-
-/***/ }),
-/* 68 */
-/***/ (function(module, exports) {
-
-//.CommonJS
-var CSSOM = {};
-///CommonJS
-
-
-/**
- * @constructor
- * @see http://www.w3.org/TR/DOM-Level-2-Style/css.html#CSS-CSSValue
- *
- * TODO: add if needed
- */
-CSSOM.CSSValue = function CSSValue() {
-};
-
-CSSOM.CSSValue.prototype = {
-	constructor: CSSOM.CSSValue,
-
-	// @see: http://www.w3.org/TR/DOM-Level-2-Style/css.html#CSS-CSSValue
-	set cssText(text) {
-		var name = this._getConstructorName();
-
-		throw new Error('DOMException: property "cssText" of "' + name + '" is readonly and can not be replaced with "' + text + '"!');
-	},
-
-	get cssText() {
-		var name = this._getConstructorName();
-
-		throw new Error('getter "cssText" of "' + name + '" is not implemented!');
-	},
-
-	_getConstructorName: function() {
-		var s = this.constructor.toString(),
-				c = s.match(/function\s([^\(]+)/),
-				name = c[1];
-
-		return name;
-	}
-};
-
-
-//.CommonJS
-exports.CSSValue = CSSOM.CSSValue;
-///CommonJS
-
-
-/***/ }),
-/* 69 */
-/***/ (function(module, exports, __webpack_require__) {
-
-//.CommonJS
-var CSSOM = {
-    CSSRule: __webpack_require__(1).CSSRule,
-    MatcherList: __webpack_require__(70).MatcherList
-};
-///CommonJS
-
-
-/**
- * @constructor
- * @see https://developer.mozilla.org/en/CSS/@-moz-document
- */
-CSSOM.CSSDocumentRule = function CSSDocumentRule() {
-    CSSOM.CSSRule.call(this);
-    this.matcher = new CSSOM.MatcherList();
-    this.cssRules = [];
-};
-
-CSSOM.CSSDocumentRule.prototype = new CSSOM.CSSRule();
-CSSOM.CSSDocumentRule.prototype.constructor = CSSOM.CSSDocumentRule;
-CSSOM.CSSDocumentRule.prototype.type = 10;
-//FIXME
-//CSSOM.CSSDocumentRule.prototype.insertRule = CSSStyleSheet.prototype.insertRule;
-//CSSOM.CSSDocumentRule.prototype.deleteRule = CSSStyleSheet.prototype.deleteRule;
-
-Object.defineProperty(CSSOM.CSSDocumentRule.prototype, "cssText", {
-  get: function() {
-    var cssTexts = [];
-    for (var i=0, length=this.cssRules.length; i < length; i++) {
-        cssTexts.push(this.cssRules[i].cssText);
-    }
-    return "@-moz-document " + this.matcher.matcherText + " {" + cssTexts.join("") + "}";
-  }
-});
-
-
-//.CommonJS
-exports.CSSDocumentRule = CSSOM.CSSDocumentRule;
-///CommonJS
-
-
-/***/ }),
-/* 70 */
-/***/ (function(module, exports) {
-
-//.CommonJS
-var CSSOM = {};
-///CommonJS
-
-
-/**
- * @constructor
- * @see https://developer.mozilla.org/en/CSS/@-moz-document
- */
-CSSOM.MatcherList = function MatcherList(){
-    this.length = 0;
-};
-
-CSSOM.MatcherList.prototype = {
-
-    constructor: CSSOM.MatcherList,
-
-    /**
-     * @return {string}
-     */
-    get matcherText() {
-        return Array.prototype.join.call(this, ", ");
-    },
-
-    /**
-     * @param {string} value
-     */
-    set matcherText(value) {
-        // just a temporary solution, actually it may be wrong by just split the value with ',', because a url can include ','.
-        var values = value.split(",");
-        var length = this.length = values.length;
-        for (var i=0; i<length; i++) {
-            this[i] = values[i].trim();
-        }
-    },
-
-    /**
-     * @param {string} matcher
-     */
-    appendMatcher: function(matcher) {
-        if (Array.prototype.indexOf.call(this, matcher) === -1) {
-            this[this.length] = matcher;
-            this.length++;
-        }
-    },
-
-    /**
-     * @param {string} matcher
-     */
-    deleteMatcher: function(matcher) {
-        var index = Array.prototype.indexOf.call(this, matcher);
-        if (index !== -1) {
-            Array.prototype.splice.call(this, index, 1);
-        }
-    }
-
-};
-
-
-//.CommonJS
-exports.MatcherList = CSSOM.MatcherList;
-///CommonJS
-
-
-/***/ }),
-/* 71 */
-/***/ (function(module, exports, __webpack_require__) {
-
-//.CommonJS
-var CSSOM = {
-	CSSStyleSheet: __webpack_require__(7).CSSStyleSheet,
-	CSSStyleRule: __webpack_require__(8).CSSStyleRule,
-	CSSMediaRule: __webpack_require__(13).CSSMediaRule,
-	CSSStyleDeclaration: __webpack_require__(4).CSSStyleDeclaration,
-	CSSKeyframeRule: __webpack_require__(25).CSSKeyframeRule,
-	CSSKeyframesRule: __webpack_require__(26).CSSKeyframesRule
-};
-///CommonJS
-
-
-/**
- * Produces a deep copy of stylesheet — the instance variables of stylesheet are copied recursively.
- * @param {CSSStyleSheet|CSSOM.CSSStyleSheet} stylesheet
- * @nosideeffects
- * @return {CSSOM.CSSStyleSheet}
- */
-CSSOM.clone = function clone(stylesheet) {
-
-	var cloned = new CSSOM.CSSStyleSheet();
-
-	var rules = stylesheet.cssRules;
-	if (!rules) {
-		return cloned;
-	}
-
-	var RULE_TYPES = {
-		1: CSSOM.CSSStyleRule,
-		4: CSSOM.CSSMediaRule,
-		//3: CSSOM.CSSImportRule,
-		//5: CSSOM.CSSFontFaceRule,
-		//6: CSSOM.CSSPageRule,
-		8: CSSOM.CSSKeyframesRule,
-		9: CSSOM.CSSKeyframeRule
-	};
-
-	for (var i=0, rulesLength=rules.length; i < rulesLength; i++) {
-		var rule = rules[i];
-		var ruleClone = cloned.cssRules[i] = new RULE_TYPES[rule.type]();
-
-		var style = rule.style;
-		if (style) {
-			var styleClone = ruleClone.style = new CSSOM.CSSStyleDeclaration();
-			for (var j=0, styleLength=style.length; j < styleLength; j++) {
-				var name = styleClone[j] = style[j];
-				styleClone[name] = style[name];
-				styleClone._importants[name] = style.getPropertyPriority(name);
-			}
-			styleClone.length = style.length;
-		}
-
-		if (rule.hasOwnProperty('keyText')) {
-			ruleClone.keyText = rule.keyText;
-		}
-
-		if (rule.hasOwnProperty('selectorText')) {
-			ruleClone.selectorText = rule.selectorText;
-		}
-
-		if (rule.hasOwnProperty('mediaText')) {
-			ruleClone.mediaText = rule.mediaText;
-		}
-
-		if (rule.hasOwnProperty('cssRules')) {
-			ruleClone.cssRules = clone(rule).cssRules;
-		}
-	}
-
-	return cloned;
-
-};
-
-//.CommonJS
-exports.clone = CSSOM.clone;
-///CommonJS
-
-
-/***/ }),
+/* 66 */,
+/* 67 */,
+/* 68 */,
+/* 69 */,
+/* 70 */,
+/* 71 */,
 /* 72 */
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(73)
 /* template */
@@ -53963,7 +53963,7 @@ module.exports = Component.exports
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fortawesome_vue_fontawesome__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__fortawesome_vue_fontawesome___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0__fortawesome_vue_fontawesome__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CustomSvg__ = __webpack_require__(60);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CustomSvg__ = __webpack_require__(26);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__CustomSvg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__CustomSvg__);
 //
 //
@@ -55244,18 +55244,18 @@ module.exports = __webpack_require__(105);
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Toolbar__ = __webpack_require__(72);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_Toolbar___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_1__components_Toolbar__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_evaluation_EvaluationPage__ = __webpack_require__(106);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_evaluation_EvaluationPage___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_2__components_evaluation_EvaluationPage__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__storage_evaluation_store_js__ = __webpack_require__(119);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_simple_svg__ = __webpack_require__(63);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_simple_svg__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_vue_simple_svg___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_4_vue_simple_svg__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config_bootstrap__ = __webpack_require__(29);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config_bootstrap__ = __webpack_require__(41);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__config_bootstrap___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_5__config_bootstrap__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config_icons__ = __webpack_require__(52);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__config_icons__ = __webpack_require__(64);
 
 
 
@@ -55293,7 +55293,7 @@ function injectStyle (ssrContext) {
   if (disposed) return
   __webpack_require__(107)
 }
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(111)
 /* template */
@@ -55818,7 +55818,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(113)
 /* template */
@@ -55989,7 +55989,7 @@ if (false) {
 /***/ (function(module, exports, __webpack_require__) {
 
 var disposed = false
-var normalizeComponent = __webpack_require__(3)
+var normalizeComponent = __webpack_require__(4)
 /* script */
 var __vue_script__ = __webpack_require__(116)
 /* template */
@@ -56406,7 +56406,7 @@ if (false) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(21);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(25);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_vuex__ = __webpack_require__(79);
 
