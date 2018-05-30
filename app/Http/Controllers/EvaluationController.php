@@ -13,7 +13,6 @@ class EvaluationController extends Controller
         $exam->save();
         $exam->inputs()->sync($inputs->pluck('id')->toArray());
         $evaluation = \App\Exam::where('id',$exam->id)->with('inputs.options')->first();
-        //{{dd($evaluation)}}
         return view('evaluation.home',['evaluation' => $evaluation]);
     }
 
@@ -47,10 +46,10 @@ class EvaluationController extends Controller
         return $options_correct;
     }
     
-    private function questionCorrect($question){
+    private function questionCorrect($question,$id){
         //Pegando o ID da Questão do Array e passando o Primeiro Valor para a Variavel.
         $question_id = array_keys($question);
-        $question_id = $question_id[0];
+        $question_id = $question_id[$id];
         //Pegando a Questão relacionada do Banco de Dados
         $bd_input = \App\Input::with('options')->find($question_id);
         //Armazenando as Opções disponiveis dessa Questão.
@@ -72,9 +71,9 @@ class EvaluationController extends Controller
         //Armazenando as Questões respondidas
         $questions = $this->removerDefaults($questions);
         $acertos = 0;
-        foreach($questions as $question){
+        for($i=0; $i < count($questions['alternativa']);$i++){
             //Verificação se as questoes respondidas batem com as do Banco de Dados.
-            if($this->questionCorrect($question)){
+            if($this->questionCorrect($questions['alternativa'],$i)){
                 $acertos++;
             }
         }
