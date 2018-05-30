@@ -11,24 +11,12 @@
       </form>
   </header>
   <article class="c-box__body">
+    @foreach($exams as $exam)
+
     <div class="c-box__item">
-      <evaluation date="01/01/2018 as 10:00hrs" grade="1"></evaluation>
+      <evaluation date="{{$exam->completed_at->diffForHumans()}}" grade="{{$exam->value}}"></evaluation>
     </div>
-    <div class="c-box__item">
-      <evaluation date="01/02/2018 as 10:00hrs" grade="4"></evaluation>
-    </div>
-    <div class="c-box__item">
-      <evaluation date="01/01/2018 as 10:00hrs" grade="8"></evaluation>
-    </div>
-    <div class="c-box__item">
-      <evaluation date="01/01/2018 as 10:00hrs" grade="2"></evaluation>
-    </div>
-    <div class="c-box__item">
-      <evaluation date="01/01/2018 as 10:00hrs" grade="6"></evaluation>
-    </div>
-    <div class="c-box__item">
-      <evaluation date="01/01/2018 as 10:00hrs" grade="9"></evaluation>
-    </div>
+    @endforeach
     @if(false)
     <div class="alert alert-danger">
         Você não tem avaliaçoes para visualizar.

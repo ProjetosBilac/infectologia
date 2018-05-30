@@ -6,16 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Exam extends Model
 {
+    protected $dates = ['completed_at'];
+
     public function inputs()
     {
         return $this->belongsToMany('App\Input', 'exam_inputs', 'exam_id', 'input_id');
     }
-
-    public function identical_values( $arrayA , $arrayB ) {
-
-        sort( $arrayA );
-        sort( $arrayB );
-    
-        return $arrayA == $arrayB;
-    } 
 }

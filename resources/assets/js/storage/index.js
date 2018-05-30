@@ -14,7 +14,7 @@ export default new Vuex.Store({
   },
   mutations: {
     addAlternativa (state, alternativa) {
-      state.alternativa.push(alternativa)
+      state.alternativas.push(alternativa)
     },
     updateAlternativa (state, alternativa) {
       let escolhida = state.alternativas.find(a => a.identifier === alternativa.identifier)
